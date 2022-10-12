@@ -9,24 +9,24 @@
 6. Catherine Angel Robin - 2106705392
 
 ## ✨ Tautan Aplikasi Heroku ✨
-Nama aplikasi kami : **Sayang-Dibuang**
-Link : https://sayang-dibuang.herokuapp.com/
+- Nama aplikasi kami : **Sayang-Dibuang**
+- Link : https://sayang-dibuang.herokuapp.com/
 
 ## 📜 Cerita Aplikasi dan Manfaat 📜
-# Cerita
-Aplikasi **Sayang-Dibuang** memungkinkan pengguna untuk berbagi makanan dan/atau barang layak berlebih kepada pengguna lain yang membutuhkan secara gratis. Aplikasi ini memiliki fitur request sebagai pendukung user yang membutuhkan suatu barang, serta _search_ dan _filter_ mempermudah user dalam mencari suatu barang atau makanan. Dengan kehadiran **Sayang-Dibuang**, makanan dan barang yang terbuang sia-sia dapat diminimalisasi.
+### Cerita
+Aplikasi **Sayang-Dibuang** memungkinkan _user_ untuk berbagi makanan dan/atau barang layak berlebih kepada pengguna lain yang membutuhkan secara gratis. Aplikasi ini memiliki fitur _request_ sebagai pendukung _user_ yang membutuhkan suatu barang, serta _search_ dan _filter_ mempermudah _user_ dalam mencari suatu barang atau makanan. Dengan kehadiran **Sayang-Dibuang**, makanan dan barang yang terbuang sia-sia dapat diminimalisasi.
 
-# Manfaat
+### Manfaat
     1. Mengurangi sampah makanan dan/atau barang tidak terpakai;
     2. Membantu mengurangi dampak buruk pada ozon dan pemanasan global (makanan bekas yang dibiarkan menyebabkan terbentuknya gas metana);
-    3. Membantu sesama manudia dalam memenuhi kebutuhannya/
+    3. Membantu sesama manudia dalam memenuhi kebutuhannya.
 
 ## 💻 Daftar modul yang akan diimplementasikan 💻
 1. **Registrasi**
     - Nama
     - _Email_
     - _Password_
-    - _Contact Info_ (misal: Nomor telpon, _whatsapp_,     LINE, etc)
+    - _Contact Info_ (misal: Nomor telpon, _whatsapp_,     LINE, dll)
 2. **Login** 
     - _Email_
     - _Password_
