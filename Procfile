@@ -1,0 +1,1 @@
+web: gunicorn sayang_dibuang.wsgi --log-file -
