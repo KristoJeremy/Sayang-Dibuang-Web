@@ -19,7 +19,7 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
 ### Manfaat
     1. Mengurangi sampah makanan dan/atau barang tidak terpakai;
     2. Membantu mengurangi dampak buruk pada ozon dan pemanasan global (makanan bekas yang dibiarkan menyebabkan terbentuknya gas metana);
-    3. Membantu sesama manudia dalam memenuhi kebutuhannya.
+    3. Membantu sesama manusia dalam memenuhi kebutuhannya.
 
 ## 💻 Daftar modul yang akan diimplementasikan 💻
 1. **Registrasi**
