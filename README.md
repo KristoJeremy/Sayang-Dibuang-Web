@@ -22,7 +22,7 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     3. Membantu sesama manusia dalam memenuhi kebutuhannya.
 
 ## 💻 Daftar modul yang akan diimplementasikan 💻
-1. **Authentication (Register, Login, Logout)**
+1. **Authentication (Register, Login, Logout)**<br>
     Fitur ini diperlukan untuk autentikasi user yang hendak menggunakan aplikasi ini. User akan memiliki atribut:
     * Nama
     * Email
@@ -30,12 +30,12 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     * Contact info (no. telp, whatsapp, line)
     * Poin keaktifan di aplikasi (akan dimanfaatkan di fitur Leaderboard)
     
-2. **Information**
+2. **Information**<br>
     Pada bagian ini, akan disajikan landing page, about us page, dan frequently asked questions page sebagai pengantar publik kepada aplikasi kami.
 
     Untuk membuat fitur ini, tidak diperlukan model.
 
-3. **Beranda Barang Bekas**
+3. **Beranda Barang Bekas**<br>
      Fitur ini memampukan user yang sudah register dan login akun untuk melihat semua barang yang sedang diedar di aplikasi.
 
     Selain itu, user juga dapat mempost barang bekas yang ia miliki. Hasil post ini dapat dilihat oleh user lain di Dashboard Barang Bekas.
@@ -47,7 +47,7 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     * Lokasi
     * Kategori
 
-4. **Request Barang Bekas** 
+4. **Request Barang Bekas**<br>
     Pada fitur ini, user yang sudah register dan login akun bisa menyampaikan keinginannya mengenai suatu barang bekas, sehingga bisa dilihat oleh user lain. User yang mempunyai barang tersebut dapat menghubungi user yang me-requestnya.
 
     Untuk mengimplementasikan fitur ini, dibutuhkan model RequestBarang dengan atribut:
@@ -56,7 +56,7 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     * Deskripsi
     * Kategori
 
-5. **_Crowdfunding_** 
+5. **_Crowdfunding_**<br> 
     Pada fitur ini, user yang sudah register dan login akun bisa membuat suatu kampanye mengenai target kebutuhannya dengan barang bekas (misalnya membutuhkan 20 karton telur untuk proyek kelas seni rupa). User yang berkenan menyumbangkan barang bekasnya bisa menghubungi user yang membuat kampanye tersebut untuk diberikan barang.
 
     Jika sudah terjadi progres kampanye, maka user yang membuat kampanye di awal bisa update status kampanye (misalnya telah menerima 20% dari target jumlah barang bekas, 40% dari target jumlah barang bekas, dan seterusnya).
@@ -70,12 +70,12 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     * Penerimaan (jumlah barang bekas yang sudah diterima)
     * Sudah tercapai (apakah target crowdfund sudah tercapai)
 
-6. **Leaderboard, badges (gamifikasi)**
+6. **Leaderboard, badges (gamifikasi)**<br>
     Leaderboard berisikan urutan peringkat user dari achievement point tertinggi. Setiap kali user berbagi barang atau menerima barang, maka poin akan terus bertambah. Setiap kali poin menyentuh tingkat tertentu, maka user akan mendapatkan suatu badge.
 
     Untuk membuat fitur ini, tidak diperlukan model.
 
-## Roles pengguna pada applikasi sayang-dibuang
+## Roles pengguna pada aplikasi `Sayang-Dibuang`<br>
     1. Admin
     2. Public (Orang-orang yang mengakses aplikasi, tetapi belum membuat akun. Public hanya dapat mengakses fitur Information saja)
     3. User (Orang-orang yang sudah login dan dapat mengakses semua fitur pada aplikasi sayang-dibuang)
