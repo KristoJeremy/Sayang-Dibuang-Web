@@ -2,13 +2,15 @@ from django.shortcuts import render
 from barang_bekas.models import Barang
 from django.shortcuts import HttpResponse, render, redirect
 from django.core import serializers
-from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 
 # Create your views here.
-# 1. add barang
+# 1. add barang 
 def create_barang(request):
+    # protect page
+    if not request.user.is_authenticated:
+        return redirect("/login/") 
     form = CreateBarangForm()
     if request.method=="POST":
         form = CreateBarangForm(request.POST)
@@ -25,7 +27,7 @@ def create_barang(request):
     context = {'form':form}
     return render(request, 'upload.html', context)
 
-# 2. get barang
+# 2. get barang (public)
 def get_all_barang_json(request):
     list_barang = Barang.objects.all()
     return HttpResponse(serializers.serialize("json", list_barang), content_type="application/json")
