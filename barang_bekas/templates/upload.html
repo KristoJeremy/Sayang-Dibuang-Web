@@ -4,7 +4,7 @@
 
 <div class="container-fluid justify-content-center m-5">
 
-    <form method="POST" class="">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="d-flex flex-column ">
             <div class="d-flex flex-column">
@@ -14,6 +14,10 @@
             <div class="d-flex flex-column">
                 <p>Deskripsi: </p>
                 <p id="deskripsi" class="">{{ form.deskripsi }}</p>
+            </div>
+            <div class="d-flex flex-column">
+                <p>Foto: </p>
+                <p id="deskripsi" class="">{{ form.foto }}</p>
             </div>
             <div class="d-flex flex-column">
                 <p>Lokasi: </p>

@@ -5,7 +5,7 @@ class CreateBarangForm(forms.ModelForm):
     # Lokasi = forms.ModelChoiceField(queryset=Lokasi.objects.all())
     class Meta:
         model = Barang
-        fields = ('judul', 'deskripsi', 'lokasi', 'kategori')
+        fields = ('judul', 'deskripsi', 'foto','lokasi', 'kategori')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

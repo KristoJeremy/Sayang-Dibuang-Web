@@ -27,5 +27,12 @@ class Barang (models.Model):
     lokasi = models.ForeignKey(Lokasi, on_delete=models.RESTRICT)
     kategori = models.ForeignKey(Kategori, on_delete=models.RESTRICT)
 
+    class Meta:
+        # specify how we want the model to behave
+        ordering=('-uploaded_at',) # order the models from recently created
+
+    def __str__(self):
+        return self.judul
+
 # kalau mw pke combobox bisa baca di sini https://stackoverflow.com/questions/27081815/what-is-the-best-way-to-write-a-combo-box-in-django 
 # https://codepolitan.com/blog/membuat-dropdown-bersyarat-dengan-django-5a71423f2af24

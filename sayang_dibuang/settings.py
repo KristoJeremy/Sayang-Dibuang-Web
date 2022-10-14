@@ -13,10 +13,16 @@ from pathlib import Path
 
 import cloudinary
 
+
+
 cloudinary.config(
-    cloud_name = os.environ.get("CLOUD_NAME"), 
-    api_key = os.environ.get("CLOUD_API_KEY"), 
-    api_secret = os.environ.get("CLOUD_API_SECRET"),
+
+    # dont forget to run : source .env
+
+    cloud_name = os.getenv("CLOUD_NAME"), 
+    api_key = os.getenv("CLOUD_API_KEY"), 
+    api_secret = os.getenv("CLOUD_API_SECRET"),
+
     secure = True
 )
 
@@ -136,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
