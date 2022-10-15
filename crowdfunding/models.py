@@ -7,6 +7,4 @@ class Crowdfund(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     received = models.IntegerField()  # number of items received by the user
     target = models.IntegerField()  # number of items needed by the user
-    is_accomplished = models.BooleanField(
-        default=False
-    )  # is the target of the crowdfund is achieved?
+    is_accomplished = models.BooleanField(default=False)
