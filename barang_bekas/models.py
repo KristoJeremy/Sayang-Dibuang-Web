@@ -28,7 +28,7 @@ class Barang (models.Model):
     uploaded_at = models.DateTimeField(auto_now_add = True)
     lokasi = models.ForeignKey(Lokasi, on_delete=models.RESTRICT, to_field="nama")
     kategori = models.ForeignKey(Kategori, on_delete=models.RESTRICT, to_field="jenis")
-    avalaible = models.BooleanField(default=False) # menandakan masih available atau ga
+    available = models.BooleanField(default=False) # menandakan masih available atau ga
 
     class Meta:
         # specify how we want the model to behave
