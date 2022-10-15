@@ -21,16 +21,10 @@ def create_barang(request):
             new_barang = form.save(commit=False)
             new_barang.user = request.user
             new_barang.save() 
-        # user = request.user
-        # judul = request.POST.get('judul')
-        # deskripsi = request.POST.get('deskripsi')
-        # lokasi = request.POST.get('lokasi')
-        # kategori = request.POST.get('kategori')
-        # item = Barang(user=user, judul=judul, deskripsi=deskripsi, lokasi=lokasi,  kategori=kategori)
-        # item.save()
-            return JsonResponse({
-                "Message": "Item Berhasil Dibuat", 
-            },status=201)
+            # return JsonResponse({
+            #     "Message": "Item Berhasil Dibuat", 
+            # },status=201)
+            return redirect('barang_bekas:show_barang')
 
         return JsonResponse({
             "Message": "Item TIDAK Berhasil Dibuat", 
@@ -39,8 +33,19 @@ def create_barang(request):
     return render(request, 'upload.html', context)
 
 # 2. get barang (public)
+def show_barang(request):
+    currentUser = request.user
+    # data_todolist = Task.objects.filter(user=currentUser)
+
+    context = {
+        # "todolist": data_todolist,
+        "username": currentUser.username,
+        # 'last_login': request.COOKIES['last_login']
+    }
+    return render(request, 'barang-bekas.html', context)
+
 def get_all_barang_json(request):
-    list_barang = Barang.objects.all()
+    list_barang = Barang.objects.all().order_by('-uploaded_at')
     return HttpResponse(serializers.serialize("json", list_barang), content_type="application/json")
 
 def get_one_barang_json(request, id):
