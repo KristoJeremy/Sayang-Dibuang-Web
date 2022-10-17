@@ -22,7 +22,6 @@
           type: "GET",
           dataType: "json",
           success: function(data){
-            console.log(data)
             for (let barang of data){
               let is_available_style = barang.fields.available ? "shadow-slate-500/50 bg-gradient-to-br from-slate-700 to-slate-900 opacity-70 ": "shadow-pink-500/50 hover:scale-105 bg-gradient-to-br from-purple-500 to-pink-500";
               let is_finished_text = barang.fields.available ? "":"Unavailable";
@@ -32,7 +31,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                         </div>
                     </div>
-                    <img src="https://i.imgur.com/8JIWpnw.jpg" class="img-fluid rounded thumbnail-image">
+                    <img src="https://res.cloudinary.com/ddhaqo6xc/${barang.fields.foto}" class="img-fluid rounded thumbnail-image">
                 </div>
                 <div class="product-detail-container p-2">
                     <h5 class="product-name text-center">${barang.fields.judul}</h5>
