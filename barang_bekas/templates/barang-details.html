@@ -1,7 +1,55 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock meta %}
+
 {% block content %}
 
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"> 
+                                <img class="img-fluid " id="main-image" src='{{cloudinary_url}}{{ barang.foto }}' /> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="product p-4">
 
+                            <a href={% url 'barang_bekas:show_barang' %} class="py-3 text-dark text-decoration-none" style="cursor: pointer;"> 
+                                <i class="fa fa-long-arrow-left"></i><span class="mx-2">Back</span> 
+                            </a> 
+
+                            <div class="mt-4 mb-2"> 
+                                <small class="text-uppercase text-muted brand">{{barang.uploaded_at}}</small>
+                                <h5 class="text-uppercase pt-2">{{ barang.judul }}</h5>
+                                <div class="price d-flex flex-row align-items-left">
+                                    <p class="badge bg-secondary">{{ barang.kategori }}</p> 
+                                </div>
+                                <p class="">
+                                    <i class="fa fa-map-marker px-1" style="color:red"></i>{{barang.lokasi}}
+                                </p>
+
+                            </div>
+                            <p class="about px-3">{{ barang.deskripsi }}</p>
+                            <div class="cart mt-4 align-items-center d-flex justify-content-between"> 
+                                <button class="btn btn-dark text-uppercase mr-2 px-4">Contact Person</button> 
+                                <div>
+                                    <i class="fa fa-heart text-muted px-2"></i> 
+                                    <i class="fa fa-share-alt text-muted"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

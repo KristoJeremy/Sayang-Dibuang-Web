@@ -84,6 +84,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sayang_dibuang.context_processors.get_user',
+                'sayang_dibuang.context_processors.get_cloudinary_url',
             ],
         },
     },

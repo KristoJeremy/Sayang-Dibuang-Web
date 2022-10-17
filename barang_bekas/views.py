@@ -6,6 +6,7 @@ from django.core import serializers
 from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 from cloudinary.forms import cl_init_js_callbacks   
+from barang_bekas.models import Barang
 
 # Create your views here.
 # 1. add barang 
@@ -34,15 +35,16 @@ def create_barang(request):
 
 # 2. get barang (public)
 def show_barang(request):
-    currentUser = request.user
-    # data_todolist = Task.objects.filter(user=currentUser)
+    context = {}
+    return render(request, 'barang-bekas.html', context)
+
+def show_barang_detail(request, id):
+    barang = Barang.objects.get(id=id)
 
     context = {
-        # "todolist": data_todolist,
-        "username": currentUser.username,
-        # 'last_login': request.COOKIES['last_login']
+        'barang':barang
     }
-    return render(request, 'barang-bekas.html', context)
+    return render(request, 'barang-details.html', context)
 
 def get_all_barang_json(request):
     list_barang = Barang.objects.all().order_by('-uploaded_at')
