@@ -18,8 +18,10 @@ def register(request):
         profile_form = ProfileForm(request.POST)
 
         if form.is_valid() and profile_form.is_valid() :
-            form.save()
-            profile_form.save(commit=False)
+            new_user = form.save()
+            profile_form = ProfileForm(request.POST, instance=new_user.profile)
+            profile_form.save()
+
             messages.success(request, 'Akun telah berhasil dibuat!')
             return redirect('fitur_autentikasi:login')
     
