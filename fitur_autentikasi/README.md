@@ -65,3 +65,10 @@ Tambahkan baris kode berikut pada template yang dibuat sehingga pengguna dapat *
         user.set_poin(0)
     ```
     > Untuk pengubahan field telephone, whatsapp, dan line dapat dilakukan dengan memanfaatkan `ProfileForm`. Hal ini dikarenakan `ProfileForm` memiliki validator untuk mengecek validitas masukkan user untuk telephone, whatsapp, dan line.
+
+    ***
+
+    ## Sumber referensi
+    1. https://dev.to/earthcomfy/django-user-profile-3hik
+    2. https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
+    3. https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
