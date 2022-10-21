@@ -20,7 +20,7 @@ class ProfileForm(forms.ModelForm):
 
         regex_for_phone_number = r"(0|\+{0,3}[0-9]{2})[0-9]{9,11}"
 
-        if (re.match(regex_for_phone_number, data)):
+        if (re.match(regex_for_phone_number, data) or not data):
             return data 
 
         raise forms.ValidationError("Whatsapp is not valid!")
@@ -30,7 +30,5 @@ class ProfileForm(forms.ModelForm):
         fields = ('telephone', 'whatsapp', 'line')
     
     telephone = forms.CharField(label="telephone", widget=forms.TextInput(attrs={"placeholder": "Start with 0/+XX/XX"}))
-    whatsapp = forms.CharField(label="whatsapp", widget=forms.TextInput(attrs={"placeholder": "Start with 0/+XX/XX"}))
-    line = forms.CharField(label="line")
-
-    
+    whatsapp = forms.CharField(label="whatsapp", widget=forms.TextInput(attrs={"placeholder": "Start with 0/+XX/XX"}), required=False)
+    line = forms.CharField(label="line", required=False)
