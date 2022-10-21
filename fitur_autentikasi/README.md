@@ -36,6 +36,9 @@ Tambahkan baris kode berikut pada template yang dibuat sehingga pengguna dapat *
         user_whatsapp = user.whatsapp
         user_line = user.line
         user_poin = user.poin
+
+        user_email = user.get_email()
+        user_fullname = user.get_fullname()
         
         # Menambahkan poin keaktifan sebesar 10 kepada user
         user.add_poin(10)
@@ -49,6 +52,9 @@ Tambahkan baris kode berikut pada template yang dibuat sehingga pengguna dapat *
         user_line = user.profile.line
         user_poin = user.profile.poin
 
+        user_email = user.profile.get_email() # alt: user.email
+        user_fullname = user.profile.get_fullname()
+        
         # Menambahkan poin keaktifan sebesar 15 kepada user
         user.profile.add_poin(15)
     ```

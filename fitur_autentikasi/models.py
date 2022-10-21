@@ -1,5 +1,7 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from typing import Any
 
 # Create your models here.
 class Profile(models.Model):
@@ -19,3 +21,9 @@ class Profile(models.Model):
         '''
         self.poin += poin
         self.save()
+
+    def get_fullname(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+    
+    def get_email(self):
+        return self.user.email
