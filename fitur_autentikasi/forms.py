@@ -52,8 +52,8 @@ class UserForm(UserCreationForm):
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email',)
 
     username = forms.CharField(label="username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    password1=forms.CharField(label="password1", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', "autocomplete":"new-password"}))
+    password2=forms.CharField(label="password2", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again', "autocomplete":"new-password"}))
     first_name = forms.CharField(label="first_name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}), max_length=32)
     last_name=forms.CharField(label="last_name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}), max_length=32)
     email=forms.EmailField(label="email", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), max_length=64)
-    password1=forms.CharField(label="password1", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
-    password2=forms.CharField(label="password2", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again'}))
