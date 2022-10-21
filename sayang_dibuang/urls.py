@@ -18,7 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("tinymce/", include("tinymce.urls")),
     path("", include("test_app.urls")),
     path("", include("fitur_autentikasi.urls")),
-    path("crowdfunding", include("crowdfunding.urls")),
+    path("crowdfunding/", include("crowdfunding.urls")),
 ]

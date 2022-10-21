@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "fitur_autentikasi",
     "crowdfunding",
+    "tinymce",
     "test_app",
 ]
 
@@ -137,3 +138,16 @@ for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 400,
+    "menubar": False,
+    "plugins": "advlist,autolink,lists,link,charmap,print,preview,anchor,"
+    "searchreplace,code,table,paste,"
+    "code,help,wordcount",
+    "toolbar": "undo redo | formatselect |"
+    "bold italic backcolor | alignleft aligncenter "
+    "alignright alignjustify | bullist numlist outdent indent | "
+    "removeformat | help",
+}
