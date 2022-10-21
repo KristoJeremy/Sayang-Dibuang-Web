@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -9,3 +8,14 @@ class Profile(models.Model):
     whatsapp = models.CharField(max_length=15)
     line = models.CharField(max_length=100)
     poin = models.IntegerField(default=0)
+    
+    def set_poin(self, poin):
+        self.poin = poin
+        self.save()
+
+    def add_poin(self, poin):
+        '''
+        Fungsi untuk menambahkan poin keaktifan
+        '''
+        self.poin += poin
+        self.save()
