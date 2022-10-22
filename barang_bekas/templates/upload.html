@@ -1,6 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+
+    function showModalKategori(){
+        $('#modalKategori').modal('show');
+    }
+
+    function addKategori(){
+        var jenis = $("#jenis").val()
+        if (jenis!=''){
+            $.ajax({
+                url: "/barang/add/kategori/",
+                type: "POST",
+                data: {
+                    "jenis": jenis,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                dataType: "json",
+                success: function () {
+                    $("#modalKategori").modal('hide')
+                    $("#id_kategori").append('<option value="'+jenis+'">'+ jenis +'</option>')
+                },
+                error: function(data){
+                    console.log(data);
+                    alert("error")
+                }
+
+            })
+        }else{
+            alert("Fill in the field")
+        }
+    }
+
+</script>
 
 <div class="container-fluid justify-content-center m-5">
 
@@ -22,19 +59,61 @@
             <div class="d-flex flex-column">
                 <p>Lokasi: </p>
                 <p id="lokasi" class="">{{ form.lokasi }}</p>
+                {% comment %} buat modal untuk tambah lokasi? {% endcomment %}
             </div>
+            <div class="d-flex flex-row align-items-end">
             <div class="d-flex flex-column">
                 <p>Kategori: </p>
                 <p id="kategori" class="">{{ form.kategori }}</p>
             </div>
+            {% comment %} buat modal untuk tambah kategori {% endcomment %}
+            <button type="button" id="kategoriButton" onclick="showModalKategori()" data-toggle="tooltip" data-placement="top" title="Tambah kategori baru" class="btn btn-sm btn-secondary mb-3 mx-3" style="width:26px; height:26px; font-size:11px">
+                +
+            </button>
+        </div>
         </div>
         <button type="submit" class="btn btn-dark mw-25 mx-auto">Upload</button>
-        {% comment %} <input type="text" name="judul" placeholder="Nama Barang" id="judul" />
-        <input type="text" name="deskripsi" placeholder="Deskripsi Barang" id="deskripsi" /> {% endcomment %}
-        {% comment %} combobox buat kategori sm lokasi {% endcomment %}
-        
     </form>
 
+    {% comment %} kategori form {% endcomment %}
+     <!-- overlay -->
+     <div id="modal_overlay" class="hidden absolute inset-0 bg-blur-lg bg-slate-700/50 h-full w-screen flex justify-center items-center pt-10 md:pt-0">
+    <div id="modalKategori" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header
+                            ">
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Add Kategori</h4>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <form role="form" id="taskForm" action="/add/kategori/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="inputTitle">Kategori</label>
+                            <input type="text" class="form-control w-100" id="jenis" name='jenis' placeholder="Nama kategori"/>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default h-25" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick = "addKategori()" class="btn btn-primary submitBtn h-25" id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 {% endblock content %}

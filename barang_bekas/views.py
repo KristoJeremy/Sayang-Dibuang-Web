@@ -9,7 +9,7 @@ from django.core import serializers
 from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 import cloudinary
-from barang_bekas.models import Barang
+from barang_bekas.models import Barang, Kategori, Lokasi
 from django.urls import reverse
 
 # Create your views here.
@@ -96,5 +96,17 @@ def delete_barang(request, id):
 
 # bikin modal buat add category & lokasii?? tapi gabisa edit/delete (masi mikir )
 # 5. add kategori
+def create_kategori(request):
+    if request.method=="POST":
+        jenis = request.POST.get('jenis').capitalize()
+        item = Kategori(jenis=jenis)
+        item.save()
+        response = {
+            "Message": "Kategori Berhasil Dibuat",
+            "id":item.pk,
+            "jenis": item.jenis
+        }
+        return JsonResponse(response,status=200)
+
 
 # 6. add lokasi
