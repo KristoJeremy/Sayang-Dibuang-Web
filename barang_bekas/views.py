@@ -37,12 +37,18 @@ def create_barang(request):
     context = {'form':form}
     return render(request, 'upload.html', context)
 
-# 2. get barang (public)
+# 2. get barang
 def show_barang(request):
+     # protect page
+    if not request.user.is_authenticated:
+        return redirect("/login/") 
     context = {}
     return render(request, 'barang-bekas.html', context)
 
 def show_barang_detail(request, id):
+     # protect page
+    if not request.user.is_authenticated:
+        return redirect("/login/") 
     barang = Barang.objects.get(id=id)
     user = request.user
 
