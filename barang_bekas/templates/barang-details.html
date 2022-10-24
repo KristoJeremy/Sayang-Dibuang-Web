@@ -14,12 +14,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="images p-3">
-                            <div class="text-center p-4"> 
-                                <img class="img-fluid " id="main-image" src='{{cloudinary_url}}{{ barang.foto }}' /> 
+                            <div id="image-container" class="text-center p-4 position-relative"> 
+                                <img class="img-fluid" id="main-image" src='{{cloudinary_url}}{{ barang.foto }}' /> 
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center ">
+                    <div class="col-md-6 d-flex align-items-center">
                         <div class="product p-4">       
                            
                                 <a href={% url 'barang_bekas:show_barang' %} class="py-3 pr-5 text-dark text-decoration-none" style="cursor: pointer;"> 
@@ -62,5 +62,22 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        setGreyscale();
+    })
+    function setGreyscale(){
+        let style = '{{barang.available}}' == 'True'? "grayscale(100%)": "none"
+        $('#main-image').css("filter",  style);
+
+        if ('{{barang.available}}' == 'True'){
+            let text = `<h1 class="text-danger text-center bg-white rounded opacity-75 p-2 position-absolute z-10" style="top:45%; left:28%;  opacity:80;">Unavailable</h1>`
+            $('#image-container').append(text)
+        }
+    }
+
+</script>
 
 {% endblock content %}

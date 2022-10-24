@@ -24,17 +24,15 @@
           success: function(data){
             console.log('{{ username }}')
             for (let barang of data){
-              let is_available_style = barang.fields.available ? "shadow-slate-500/50 bg-gradient-to-br from-slate-700 to-slate-900 opacity-70 ": "shadow-pink-500/50 hover:scale-105 bg-gradient-to-br from-purple-500 to-pink-500";
-              let is_finished_text = barang.fields.available ? "":"Unavailable";
+
               temp += `<div class="card m-3" style="width: 250px; cursor: pointer;"  onclick="location.href = '/barang/${barang.pk}'">
                 <div class="image-container">
-                    <div class="first">
-                        <div class="d-flex justify-content-between align-items-center">
-                        </div>
-                    </div>
+                
+                    <img src="{{ cloudinary_url }}${barang.fields.foto}" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; max-height:250px; filter:${barang.fields.available == true? "grayscale(100%)": "none"} ">
 
-                    <img src="{{ cloudinary_url }}${barang.fields.foto}" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; max-height:250px; ">
-
+                   ${barang.fields.available == true ? 
+                    '<p class="text-danger text-center bg-white rounded opacity-75 p-2 position-absolute z-10" style="top:30%; left:28%;  opacity:80;">Unavailable</p>': ''}
+                    
                 </div>
                 <div class="product-detail-container p-2">
                     <h5 class="product-name text-center">${barang.fields.judul}</h5>
