@@ -1,5 +1,5 @@
 from django.urls import path
-from barang_bekas.views import create_barang, get_all_barang_json, get_one_barang_json, show_barang, show_barang_detail, edit_barang, create_kategori
+from barang_bekas.views import create_barang, get_all_barang_json, get_one_barang_json, show_barang, show_barang_detail, edit_barang, create_kategori, create_lokasi
 
 app_name = 'barang_bekas'
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:id>/', show_barang_detail, name="show_barang_detail"),
     path('<int:id>/edit/', edit_barang, name="edit_barang"),
     path('upload/', create_barang, name="create_barang"),
-    path('add/kategori/', create_kategori, name="create_kategori")
+    path('add/kategori/', create_kategori, name="create_kategori"),
+    path('add/lokasi/', create_lokasi, name="create_lokasi")
 ]

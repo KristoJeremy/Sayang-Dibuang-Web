@@ -36,7 +36,37 @@
             alert("Fill in the field")
         }
     }
+    
+    function showModalLokasi(){
+        $('#modalLokasi').modal('show');
+    }
 
+    function addLokasi(){
+        var nama = $("#nama").val()
+        if (nama!=''){
+            $.ajax({
+                url: "/barang/add/lokasi/",
+                type: "POST",
+                data: {
+                    "nama": nama,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                dataType: "json",
+                success: function () {
+                    $("#modalLokasi").modal('hide')
+                    $("#id_lokasi").append('<option value="'+nama+'">'+ nama +'</option>')
+                },
+                error: function(data){
+                    console.log(data);
+                    alert("error")
+                }
+
+            })
+        }else{
+            alert("Fill in the field")
+        }
+    }
+    
 </script>
 
 <div class="container-fluid justify-content-center m-5">
@@ -56,21 +86,26 @@
                 <p>Foto: </p>
                 <p id="deskripsi" class="">{{ form.foto }}</p>
             </div>
-            <div class="d-flex flex-column">
-                <p>Lokasi: </p>
-                <p id="lokasi" class="">{{ form.lokasi }}</p>
-                {% comment %} buat modal untuk tambah lokasi? {% endcomment %}
+            <div class="d-flex flex-row align-items-end">
+                <div class="d-flex flex-column">
+                    <p>Lokasi: </p>
+                    <p id="lokasi" class="">{{ form.lokasi }}</p>
+                </div>
+                {% comment %} buat modal untuk tambah lokasi {% endcomment %}
+                <button type="button" id="kategoriButton" onclick="showModalLokasi()" data-toggle="tooltip" data-placement="top" title="Tambah lokasi baru" class="btn btn-sm btn-secondary mb-3 mx-3" style="width:26px; height:26px; font-size:11px">
+                    +
+                </button>
             </div>
             <div class="d-flex flex-row align-items-end">
-            <div class="d-flex flex-column">
-                <p>Kategori: </p>
-                <p id="kategori" class="">{{ form.kategori }}</p>
+                <div class="d-flex flex-column">
+                    <p>Kategori: </p>
+                    <p id="kategori" class="">{{ form.kategori }}</p>
+                </div>
+                {% comment %} buat modal untuk tambah kategori {% endcomment %}
+                <button type="button" id="kategoriButton" onclick="showModalKategori()" data-toggle="tooltip" data-placement="top" title="Tambah kategori baru" class="btn btn-sm btn-secondary mb-3 mx-3" style="width:26px; height:26px; font-size:11px">
+                    +
+                </button>
             </div>
-            {% comment %} buat modal untuk tambah kategori {% endcomment %}
-            <button type="button" id="kategoriButton" onclick="showModalKategori()" data-toggle="tooltip" data-placement="top" title="Tambah kategori baru" class="btn btn-sm btn-secondary mb-3 mx-3" style="width:26px; height:26px; font-size:11px">
-                +
-            </button>
-        </div>
         </div>
         <button type="submit" class="btn btn-dark mw-25 mx-auto">Upload</button>
     </form>
@@ -79,7 +114,6 @@
      <!-- overlay -->
      <div id="modal_overlay" class="hidden absolute inset-0 bg-blur-lg bg-slate-700/50 h-full w-screen flex justify-center items-center pt-10 md:pt-0">
     <div id="modalKategori" class="modal fade" role="dialog">
-
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -99,7 +133,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="inputTitle">Kategori</label>
-                            <input type="text" class="form-control w-100" id="jenis" name='jenis' placeholder="Nama kategori"/>
+                            <input type="text" class="form-control w-100" id="jenis" name='jenis' placeholder="Nama kategori" required/>
                         </div>
                     </form>
                 </div>
@@ -108,6 +142,40 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default h-25" data-bs-dismiss="modal">Close</button>
                     <button type="submit" onclick = "addKategori()" class="btn btn-primary submitBtn h-25" id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLokasi" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header
+                            ">
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Add Lokasi</h4>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <form role="form" id="taskForm" action="/add/lokasi/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="inputTitle">Lokasi</label>
+                            <input type="text" class="form-control w-100" id="nama" name='nama' placeholder="Nama Lokasi" required/>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default h-25" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick = "addLokasi()" class="btn btn-primary submitBtn h-25" id="submit">Submit</button>
                 </div>
             </div>
         </div>

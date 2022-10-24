@@ -9,3 +9,4 @@ base route: '/barang/'
 3. '<barang.pk>/' : detail page for barang with its corresponding pk.
 4. '<barang.pk>/edit/' : halaman untuk update barang yang sudah di upload
 5. 'add/kategori/' : menambahkan kategori barang
+6. 'add/lokasi' : menambahkan lokasi

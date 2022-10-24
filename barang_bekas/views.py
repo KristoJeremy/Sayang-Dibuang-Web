@@ -110,3 +110,14 @@ def create_kategori(request):
 
 
 # 6. add lokasi
+def create_lokasi(request):
+    if request.method=="POST":
+        nama = request.POST.get('nama').capitalize()
+        item = Lokasi(nama=nama)
+        item.save()
+        response = {
+            "Message": "Lokasi Berhasil Dibuat",
+            "id":item.pk,
+            "nama": item.nama
+        }
+        return JsonResponse(response,status=200)
