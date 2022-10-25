@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Profil User</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{% url 'fitur_autentikasi:get_user_data' username=user.username %}",
+            type: "GET",
+            success: function(response) {
+                console.log(response)
+                var data = response[0].fields
+
+                var htmlString = `
+                <p>Nomor Telpon: ${data.telephone}</p>
+                <p>Whatsapp: ${data.whatsapp}</p>
+                <p>Line: ${data.line}</p>
+                <p>Poin: ${data.poin}</p>
+                `
+
+                $(".user-profile").append(htmlString)
+            }
+        })
+    })
+</script>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Profile User</h1> 
+    
+    <div class="user-profile">
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Nama Lengkap: {{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}
