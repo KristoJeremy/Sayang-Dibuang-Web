@@ -13,7 +13,7 @@
                 var data = response[0].fields
 
                 var htmlString = `
-                <p>Nomor Telpon: ${data.telephone}</p>
+                <p>Nomor telepon: ${data.telephone}</p>
                 <p>Whatsapp: ${data.whatsapp}</p>
                 <p>Line: ${data.line}</p>
                 <p>Poin: ${data.poin}</p>
@@ -35,7 +35,7 @@
     <div class="user-profile">
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Nama Lengkap: {{ user.first_name }} {{ user.last_name }}</p>
+        <p>Nama lengkap: {{ user.first_name }} {{ user.last_name }}</p>
     </div>
 
     {% if messages %}  

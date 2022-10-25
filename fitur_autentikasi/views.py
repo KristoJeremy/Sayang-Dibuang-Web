@@ -64,8 +64,6 @@ def show_profile(request, username):
 
 def get_user_data(request, username):
     user = request.user
-    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    print(request.headers)
 
     if request.method == "GET" and user.username == username:
 
