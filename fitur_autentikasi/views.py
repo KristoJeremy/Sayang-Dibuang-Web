@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -6,12 +6,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from django.http import HttpResponse
 from django.core import serializers
 
-from fitur_autentikasi.forms import ProfileForm, UserForm
+from fitur_autentikasi.forms import *
 from fitur_autentikasi.models import Profile
 
 # Create your views here.
@@ -54,14 +53,17 @@ def logout_user(request):
 @login_required(login_url='/login/')
 def show_profile(request, username):
     user = request.user
+    user_update_form = UserUpdateForm()
+    profile_form = ProfileForm()
 
     # User hanya dapat mengakses halaman profil user itu sendiri
     if user.username == username:
-        context = {'user': user}
+        context = {'user': user, 'user_update_form': user_update_form,'profile_form': profile_form}
         return render(request, 'profile.html', context)
     else:
         return HttpResponseNotFound()
 
+@login_required(login_url='/login/')
 def get_user_data(request, username):
     user = request.user
 
@@ -71,6 +73,47 @@ def get_user_data(request, username):
         profile_data = Profile.objects.filter(user = user)
         profile_data_json = serializers.serialize('json', profile_data)
 
-        return HttpResponse(profile_data_json, content_type="text/json")
+        return HttpResponse(profile_data_json, content_type="application/json")
 
     return HttpResponseNotFound()
+
+@login_required(login_url='/login/')
+def update_user_data(request, username):
+    user = request.user
+
+    if request.method == "POST" and user.username == username:
+        user_update_form = UserUpdateForm(request.POST, instance=user)
+
+        if user_update_form.is_valid():
+            user_update_form.save()
+
+        profile_form = ProfileForm(UPOST(request.POST,user.profile), instance=user.profile)
+
+        # print("user_update_form " + str(user_update_form.is_valid()))
+        # print("profile_form " + str(profile_form.is_valid()))
+        # print("request.POST " + str(request.POST))
+        # print(UPOST(request.POST,user.profile))
+
+
+        if profile_form.is_valid():
+            profile_form.save()
+        else:
+            errors = profile_form.errors.as_json()
+            return JsonResponse(errors, safe=False, status=400)
+        
+        return HttpResponse("OK")
+
+    return HttpResponseNotFound()
+
+# Source: https://stackoverflow.com/questions/8216353/django-update-one-field-using-modelform
+# by: Roman Semko
+from django.forms.models import model_to_dict
+from copy import copy
+
+def UPOST(post, obj):
+    '''Updates request's POST dictionary with values from object, for update purposes'''
+    post = copy(post)
+    for k,v in model_to_dict(obj).items():
+        if k not in post: 
+            post[k] = v
+    return post
