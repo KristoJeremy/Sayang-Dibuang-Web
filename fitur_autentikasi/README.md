@@ -72,6 +72,35 @@ Tambahkan baris kode berikut pada template yang dibuat sehingga pengguna dapat *
     ```
     > Untuk pengubahan field telephone, whatsapp, dan line dapat dilakukan dengan memanfaatkan `ProfileForm`. Hal ini dikarenakan `ProfileForm` memiliki validator untuk mengecek validitas masukkan user untuk telephone, whatsapp, dan line.
 
+6. Mengakses halaman profil user<br>
+Tambahkan baris kode berikut pada template yang dibuat sehingga pengguna dapat mengakses halaman profil.
+    ```html
+    <button><a href="{% url 'fitur_autentikasi:show_profile' username=<nama_user> %}">Profil</a></button>
+    ```
+    > Perhatikan bahwa `<nama_user>` harus diganti dengan username dari user yang telah terautentikasi. Oleh karena itu, jangan lupa untuk menyimpan `nama_user` pada variabel `context` pada fungsi `views.py` kalian.
+
+    Contoh
+    ```python
+    # Pada views.py di aplikasi kalian
+    def hello_world(request):
+        context = {'user': request.user}
+        return render(request, "test.html")
+    ```
+    ```html
+    <!-- Pada test.html -->
+    {% extends 'base.html' %}
+
+    {% block meta %}
+    <title>Test</title>
+    {% endblock meta %}
+
+    {% block content %}  
+    <h1>Hello world</h1>
+    <button><a href="{% url 'fitur_autentikasi:show_profile' username=user.username %}">Profil</a></button>
+
+    {% endblock content %}
+    ```
+
     ***
 
     ## Sumber referensi
