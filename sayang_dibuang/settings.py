@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'fitur_autentikasi',
     'test_app',
     'barang_bekas',
-    'cloudinary'
+    'cloudinary',
+    'leaderboard'
 ]
 
 MIDDLEWARE = [
