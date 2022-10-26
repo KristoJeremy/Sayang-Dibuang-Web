@@ -21,5 +21,5 @@ urlpatterns = [
     path("tinymce/", include("tinymce.urls")),
     path("", include("test_app.urls")),
     path("", include("fitur_autentikasi.urls")),
-    path("crowdfunding/", include("crowdfunding.urls")),
+    path("crowdfundings/", include("crowdfunding.urls")),
 ]
