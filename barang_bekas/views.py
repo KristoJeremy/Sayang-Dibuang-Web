@@ -63,16 +63,6 @@ def show_barang_detail(request, id):
 
 def get_all_barang_json(request):
     list_barang = Barang.objects.all().select_related('user').order_by('-uploaded_at')
-    # return HttpResponse(serializers.serialize("json", list_barang), content_type="application/json")
-    # list_barang.app
-    listAll= []
-    print([x.profile for x in list_barang])
-    for row in list_barang:
-        # listAll.append(row)
-        listAll.append({'user':row.user, 'profile': row.profile, 'barang':row})
-    print(listAll)
-    # barang_list_json = json.dumps(listAll)
-    # return json.dumps(listAll)
     return HttpResponse(serializers.serialize('json', list_barang)) 
     # return HttpResponse(serializers.serialize('json', [x.user for x in list_barang])) # error
 

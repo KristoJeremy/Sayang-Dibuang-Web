@@ -4,10 +4,68 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="m-5 ">
-    <div id="container-cards" class="d-flex flex-wrap "></div>
-    <button class="btn btn-dark m-4" onclick="location.href = '/barang/upload/'">Upload Barang</button>
+<style>
+    @media only screen and (max-width: 600px) {
+        .image-asset {
+            max-width:200px;
+        }
+        .card-container{
+            width:100%;
+        }
+    }
+    @media only screen and (min-width: 601px) {
+        .image-asset {
+            max-width:500px;
+        }
+        .card-container{
+            width:280px;
+        }
+    }
+
+
+</style>
+
+<div class="bg-sand " style="min-height:100vh;">
+    <section id="about" class="about bg-dark-green text-sand px-2 py-5 p-md-5">
+        <div class="container">
+          <div class="row">
+            <div class="img-fluid col-xl-5 col-lg-6 d-flex justify-content-center ">
+              <img src="/static/asset/sustain.png" class="rounded image-asset" alt="sustainability"  style="object-fit:contain;"/>
+            </div>
+  
+            <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-center justify-content-center py-5 px-lg-5">
+              <h3><i>"One man's trash is another man's treasure."</i></h3>
+              <p>Live sustainably by reducing our waste. Don't throw unused things. Post it here!</p>
+                <button class="btn btn-sand " onclick="location.href = '/barang/upload/'">Upload Item</button>
+              {% comment %} <div class="icon-box">
+                <div class="icon"><i class="bx bx-fingerprint"></i></div>
+                <h4 class="title">Recycle</h4>
+                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              </div>
+  
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-gift"></i></div>
+                <h4 class="title">Reduce Waste</h4>
+                <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              </div>
+  
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-atom"></i></div>
+                <h4 class="title">Fight Climate Change</h4>
+                <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+              </div>
+  
+            </div> {% endcomment %}
+          </div>
+        </div>
+
+      </section><!-- End About Section -->
+      <div class="px-2 py-5 p-md-5">
+        <h1 class="text-center text-dark-green">Beranda Barang Bekas</h1>
+        <div id="container-cards" class="d-flex flex-wrap justify-content-center justify-content-md-start p-md-4"></div>
+      </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -26,21 +84,21 @@
             for (let barang of data){
                 console.log(barang)
 
-              temp += `<div class="card m-3" style="width: 250px; cursor: pointer;"  onclick="location.href = '/barang/${barang.pk}'">
+              temp += `<div class="card card-container m-3 bg-dark-green" style="cursor: pointer;"  onclick="location.href = '/barang/${barang.pk}'">
                 <div class="image-container">
                 
                     <img src="{{ cloudinary_url }}${barang.fields.foto}" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; max-height:250px; filter:${barang.fields.available == true? "grayscale(100%)": "none"} ">
 
                    ${barang.fields.available == true ? 
-                    '<p class="text-danger text-center bg-white rounded opacity-75 p-2 position-absolute z-10" style="top:30%; left:28%;  opacity:80;">Unavailable</p>': ''}
+                    '<p class="text-danger text-center bg-white rounded p-2 position-absolute z-10" style="top:0%; right:0%;  opacity:80;">Unavailable</p>': ''}
                     
                 </div>
-                <div class="product-detail-container p-2">
+                <div class="product-detail-container p-2 text-white">
                     <h5 class="product-name text-center">${barang.fields.judul}</h5>
                     <p class="product-description text-center text-truncate">${barang.fields.deskripsi}</p>
                     <div class="d-flex flex-row justify-content-center">
                         <p class=""><i class="fa fa-map-marker px-1" style="color:red"></i>${barang.fields.lokasi}</p>
-                        <p class="badge bg-secondary mx-2">${barang.fields.kategori}</p>
+                        <p class="badge bg-gold mx-2">${barang.fields.kategori}</p>
                         {% comment %} <a class="px-2" style="cursor: pointer"><i class="fa fa-solid fa-comments" style="font-size:20px"></i></a> {% endcomment %}
                     </div>
                 </div>

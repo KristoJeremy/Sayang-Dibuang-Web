@@ -6,6 +6,9 @@ class CreateBarangForm(forms.ModelForm):
     class Meta:
         model = Barang
         fields = ('judul', 'deskripsi', 'foto','lokasi', 'kategori', 'available')
+        widgets = {
+          'deskripsi': forms.Textarea(attrs={'rows':4, 'cols':25}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
