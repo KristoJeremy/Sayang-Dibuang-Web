@@ -15,7 +15,7 @@ class ProfileForm(forms.ModelForm):
         if (re.match(regex_for_phone_number, data)):
             return data 
 
-        raise forms.ValidationError("Phone number is not valid!")
+        raise forms.ValidationError("Nomor telepon tidak valid!")
 
     def clean_whatsapp(self):
         data = self.cleaned_data["whatsapp"]
@@ -25,7 +25,7 @@ class ProfileForm(forms.ModelForm):
         if (re.match(regex_for_phone_number, data) or not data):
             return data 
 
-        raise forms.ValidationError("Whatsapp is not valid!")
+        raise forms.ValidationError("Nomor Whatsapp tidak valid!")
 
     class Meta:
         model = Profile
@@ -44,7 +44,7 @@ class UserForm(UserCreationForm):
         """
         email = self.cleaned_data['email']
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Email already exist')
+            raise forms.ValidationError('Email sudah terdaftar')
         return email
 
     class Meta:
