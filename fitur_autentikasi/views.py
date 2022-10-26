@@ -1,23 +1,30 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
+from fitur_autentikasi.forms import ProfileForm, UserForm
+
 # Create your views here.
 def register(request):
-    form = UserCreationForm()
+    form = UserForm()
+    profile_form = ProfileForm()
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+
+        if form.is_valid() and profile_form.is_valid() :
+            new_user = form.save()
+            profile_form = ProfileForm(request.POST, instance=new_user.profile)
+            profile_form.save()
+
             messages.success(request, 'Akun telah berhasil dibuat!')
             return redirect('fitur_autentikasi:login')
     
-    context = {'form':form}
+    context = {'form':form, 'profile_form': profile_form}
     return render(request, 'register.html', context)
 
 def login_user(request):
