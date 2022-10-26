@@ -15,20 +15,22 @@
                     <div class="col-md-6">
                         <div class="images p-3">
                             <div id="image-container" class="text-center p-4 position-relative"> 
-                                <img class="img-fluid" id="main-image" src='{{cloudinary_url}}{{ barang.foto }}' /> 
+                                <img class="img-fluid"  id="main-image" src='{{cloudinary_url}}{{ barang.foto }}' /> 
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
-                        <div class="product p-4">       
+                        <div class="product p-5 container-fluid">       
                            
                                 <a href={% url 'barang_bekas:show_barang' %} class="py-3 pr-5 text-dark text-decoration-none" style="cursor: pointer;"> 
                                     <i class="fa fa-long-arrow-left"></i><span class="mx-2">Back</span> 
                                 </a>
 
                             <div class="mt-4 mb-2"> 
+                              
                                 <small class="text-uppercase text-muted brand">{{barang.uploaded_at}}</small>
                                 <h5 class="text-uppercase pt-2">{{ barang.judul }}</h5>
+                                <p class="about px-3">{{ barang.deskripsi }}</p>
                                 <div class="price d-flex flex-row align-items-left">
                                     <p class="badge bg-secondary">{{ barang.kategori }}</p> 
                                 </div>
@@ -37,13 +39,26 @@
                                 </p>
 
                             </div>
-                            <p class="about px-3">{{ barang.deskripsi }}</p>
+                    
                             <div class="cart my-4 align-items-center d-flex justify-content-between"> 
-                                <button class="btn btn-dark text-uppercase mr-2 px-4">Contact Person</button> 
-                                <div>
+                                <div class="d-flex flex-column">
+                                    {% comment %} <button class="btn btn-dark text-uppercase mr-2 px-4">Contact Person</button> {% endcomment %}
+                                    <h6 class="text-secondary"><i class="fa fas fa-user-circle" style="font-size:24px;"></i><span class="px-2">{{barang.user.username}}</span></h6>
+                                    <ul class="list-group"> 
+                                        <li class="list-group-item">Telephone: {{ barang.profile.telephone }}</li>
+                                        {% if barang.profile.whatsapp %}
+                                            <li class="list-group-item">Whatsapp: {{ barang.profile.whatsapp }}</li>
+                                        {% endif %}
+                                        {% if barang.profile.line  %}
+                                            <li class="list-group-item">Line: {{ barang.profile.line }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                {% comment %} <div>
                                     <i class="fa fa-heart text-muted px-2"></i> 
                                     <i class="fa fa-share-alt text-muted"></i> 
-                                </div>
+                                </div> {% endcomment %}
+
                             </div>
                             {% if user == barang.user %}
                             <div class="d-flex flex-row justify-content-between align-items-center">
@@ -74,7 +89,7 @@
 
         if ('{{barang.available}}' == 'True'){
             let text = `<h1 class="text-danger text-center bg-white rounded opacity-75 p-2 position-absolute z-10" style="top:45%; left:28%;  opacity:80;">Unavailable</h1>`
-            $('#image-container').append(text)
+            $('#image-container').append(text) // ini blm responsive
         }
     }
 

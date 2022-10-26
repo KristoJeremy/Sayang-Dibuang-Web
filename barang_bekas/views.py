@@ -1,4 +1,5 @@
 
+import json
 from mimetypes import init
 from django.forms import model_to_dict
 from django.http import HttpResponseRedirect
@@ -10,6 +11,7 @@ from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 import cloudinary
 from barang_bekas.models import Barang, Kategori, Lokasi
+from fitur_autentikasi.models import Profile
 from django.urls import reverse
 
 # Create your views here.
@@ -25,6 +27,7 @@ def create_barang(request):
         if form.is_valid():
             new_barang = form.save(commit=False)
             new_barang.user = request.user
+            new_barang.profile = Profile.objects.get(user=request.user)
             new_barang.save() 
             # return JsonResponse({
             #     "Message": "Item Berhasil Dibuat", 
@@ -49,8 +52,8 @@ def show_barang_detail(request, id):
      # protect page
     if not request.user.is_authenticated:
         return redirect("/login/") 
-    barang = Barang.objects.get(id=id)
-    user = request.user
+    barang = Barang.objects.select_related('profile').select_related('user').get(id=id)
+    user = request.user 
 
     context = {
         'barang':barang,
@@ -59,8 +62,19 @@ def show_barang_detail(request, id):
     return render(request, 'barang-details.html', context)
 
 def get_all_barang_json(request):
-    list_barang = Barang.objects.all().order_by('-uploaded_at')
-    return HttpResponse(serializers.serialize("json", list_barang), content_type="application/json")
+    list_barang = Barang.objects.all().select_related('user').order_by('-uploaded_at')
+    # return HttpResponse(serializers.serialize("json", list_barang), content_type="application/json")
+    # list_barang.app
+    listAll= []
+    print([x.profile for x in list_barang])
+    for row in list_barang:
+        # listAll.append(row)
+        listAll.append({'user':row.user, 'profile': row.profile, 'barang':row})
+    print(listAll)
+    # barang_list_json = json.dumps(listAll)
+    # return json.dumps(listAll)
+    return HttpResponse(serializers.serialize('json', list_barang)) 
+    # return HttpResponse(serializers.serialize('json', [x.user for x in list_barang])) # error
 
 def get_one_barang_json(request, id):
     barang = Barang.objects.get(pk=id)

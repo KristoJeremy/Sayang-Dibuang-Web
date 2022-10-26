@@ -24,6 +24,7 @@
           success: function(data){
             console.log('{{ username }}')
             for (let barang of data){
+                console.log(barang)
 
               temp += `<div class="card m-3" style="width: 250px; cursor: pointer;"  onclick="location.href = '/barang/${barang.pk}'">
                 <div class="image-container">
@@ -40,7 +41,7 @@
                     <div class="d-flex flex-row justify-content-center">
                         <p class=""><i class="fa fa-map-marker px-1" style="color:red"></i>${barang.fields.lokasi}</p>
                         <p class="badge bg-secondary mx-2">${barang.fields.kategori}</p>
-                        <a class="px-2" style="cursor: pointer"><i class="fa fa-solid fa-comments" style="font-size:20px"></i></a>
+                        {% comment %} <a class="px-2" style="cursor: pointer"><i class="fa fa-solid fa-comments" style="font-size:20px"></i></a> {% endcomment %}
                     </div>
                 </div>
             </div>`
