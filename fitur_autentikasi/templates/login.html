@@ -34,9 +34,16 @@
                 </div>
 
                 {% if messages %}
-                    <ul>
+                    <script>
+                        var usernameInput = document.getElementById("username")
+                        var passwordInput = document.getElementById("password")
+
+                        usernameInput.classList.add("is-invalid")
+                        passwordInput.classList.add("is-invalid")
+                    </script>
+                    <ul class="message">
                         {% for message in messages %}
-                            <li>{{ message }}</li>
+                            <li style="color: #de3950;">{{ message }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
