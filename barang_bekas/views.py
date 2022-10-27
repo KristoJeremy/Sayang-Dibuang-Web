@@ -62,9 +62,13 @@ def show_barang_detail(request, id):
     return render(request, 'barang-details.html', context)
 
 def get_all_barang_json(request):
-    list_barang = Barang.objects.all().select_related('user').order_by('-uploaded_at')
+    list_barang = Barang.objects.all().order_by('-uploaded_at')
+    query = request.GET.get('search')
+    if query != '':
+        list_barang = Barang.objects.filter(judul__icontains=query).order_by('-uploaded_at')
+
     return HttpResponse(serializers.serialize('json', list_barang)) 
-    # return HttpResponse(serializers.serialize('json', [x.user for x in list_barang])) # error
+
 
 def get_one_barang_json(request, id):
     barang = Barang.objects.get(pk=id)
