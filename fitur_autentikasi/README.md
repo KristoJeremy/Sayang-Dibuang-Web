@@ -6,8 +6,9 @@ Fitur autentikasi bertujuan agar halaman atau fitur tertentu hanya dapat diakses
 ## Dokumentasi
 1. URL Mapping<br>
     - `https://sayang-dibuang.herokuapp.com/login` untuk mengakses halaman login
-    - `http://sayang-dibuang.herokuapp.com/register/` untuk mengakses halaman register
+    - `http://sayang-dibuang.herokuapp.com/register` untuk mengakses halaman register
     - `https://sayang-dibuang.herokuapp.com/logout` untuk mengakses halaman logout
+    - `https://sayang-dibuang.herokuapp.com/profile/<username>` untuk mengakses profil user
 
 2. Restriksi akses halaman web tertentu<br>
 Tambahkan potongan kode berikut pada fungsi views untuk merestriksi akses ke halaman web tertentu. Hal ini bertujuan agar pengguna yang ingin mengakses halaman tersebut harus mempunyai akun terlebih dahulu dan login ke situs web.
