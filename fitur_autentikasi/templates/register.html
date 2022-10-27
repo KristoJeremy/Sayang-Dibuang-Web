@@ -1,34 +1,78 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
 <title>Registrasi Akun</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'fitur_autentikasi/style.css' %}">
 {% endblock meta %}
 
 {% block content %}  
-
-<div class = "login">
-    
-    <h1>Formulir Registrasi</h1>  
-
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                {{ profile_form.as_table }}
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
-
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
+<div class = "register">
+    <div class="d-flex flex-column justify-content-center align-items-center m-3">
+        <div class="card mw-100" style="width: 40rem;">
+            <div class="card-body">
+                <h2 class="card-title mb-4 text-center">Registrasi</h2>
+                <div class="container-fluid">
+                        <form method="POST" class="row g-3">  
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label for="{{ form.username.id_for_label }}" class="form-label">Username<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ form.username }}
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.password1.id_for_label }}" class="form-label">Password<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ form.password1 }}
+                                {{ form.password1.errors }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.password2.id_for_label }}" class="form-label">Konfirmasi password<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ form.password2 }}
+                                {{ form.password2.errors }}
+                            </div>
+                            <div class="col-6">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">Nama depan<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-6">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">Nama belakang</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.email.id_for_label }}" class="form-label">Email<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ form.email }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ profile_form.telephone.id_for_label }}" class="form-label">Nomor telepon<span class="red">*</span><span class="hide"> (required)</span></label>
+                                {{ profile_form.telephone }}
+                                {{ profile_form.telephone.errors }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ profile_form.whatsapp.id_for_label }}" class="form-label">Nomor whatsapp</label>
+                                {{ profile_form.whatsapp }}
+                                {{ profile_form.whatsapp.errors }}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ profile_form.line.id_for_label }}" class="form-label">ID Line</label>
+                                {{ profile_form.line }}
+                            </div>
+                            <div class="col-12 text-center">
+                                <input class="btn login_btn btn-gold text-sand mw-100" style="width: 25rem;" type="submit" name="submit" value="Daftar"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+        
+            {% if messages %}  
+                <ul>   
+                    {% for message in messages %}  
+                        <li>{{ message }}</li>  
+                    {% endfor %}  
+                </ul>   
+            {% endif %}
+        </div>
+    </div>
 
 </div>  
 

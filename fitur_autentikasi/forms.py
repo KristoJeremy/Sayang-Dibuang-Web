@@ -15,7 +15,7 @@ class ProfileForm(forms.ModelForm):
         if (re.match(regex_for_phone_number, data)):
             return data 
 
-        raise forms.ValidationError("Phone number is not valid!")
+        raise forms.ValidationError("Nomor telepon tidak valid!")
 
     def clean_whatsapp(self):
         data = self.cleaned_data["whatsapp"]
@@ -25,15 +25,15 @@ class ProfileForm(forms.ModelForm):
         if (re.match(regex_for_phone_number, data) or not data):
             return data 
 
-        raise forms.ValidationError("Whatsapp is not valid!")
+        raise forms.ValidationError("Nomor Whatsapp tidak valid!")
 
     class Meta:
         model = Profile
         fields = ('telephone', 'whatsapp', 'line')
     
-    telephone = forms.CharField(label="telephone", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Start with 0/+XX/XX"}))
-    whatsapp = forms.CharField(label="whatsapp", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Start with 0/+XX/XX"}), required=False)
-    line = forms.CharField(label="line", widget=forms.TextInput(attrs={"class": "form-control"}), required=False)
+    telephone = forms.CharField(label="Nomor telepon", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "+62/62/08xxx"}))
+    whatsapp = forms.CharField(label="Nomor Whatsapp", widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "+62/62/08xxx"}), required=False)
+    line = forms.CharField(label="ID Line", widget=forms.TextInput(attrs={"class": "form-control"}), required=False)
 
 class UserForm(UserCreationForm):
 
@@ -44,16 +44,24 @@ class UserForm(UserCreationForm):
         """
         email = self.cleaned_data['email']
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Email already exist')
+            raise forms.ValidationError('Email sudah terdaftar')
         return email
 
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email',)
 
-    username = forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-    password1=forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', "autocomplete":"new-password"}))
-    password2=forms.CharField(label="Password confirmation", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again', "autocomplete":"new-password"}))
-    first_name = forms.CharField(label="First name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}), max_length=32)
-    last_name=forms.CharField(label="Last name", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}), max_length=32)
-    email=forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), max_length=64)
+    username = forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control', "autocomplete":"new-password"}))
+    password2 = forms.CharField(label="Konfirmasi password", widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Kembali', "autocomplete":"new-password"}))
+    first_name = forms.CharField(label="Nama depan", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Depan'}), max_length=50)
+    last_name = forms.CharField(label="Nama belakang", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Belakang'}), max_length=50, required=False)
+    email = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Ex: sayangdibuang@gmail.com'}), max_length=64)
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('first_name', 'last_name')
+    
+    first_name = forms.CharField(label="Nama depan", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Depan'}), max_length=50)
+    last_name = forms.CharField(label="Nama belakang", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Belakang'}), max_length=50, required=False)
