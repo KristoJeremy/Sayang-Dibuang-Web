@@ -13,12 +13,15 @@
 </script>
 <script src="{% static 'crowdfunding/home.js' %}"></script>
 
-<section id="crowdfunds-container" class="container d-grid gap-4 w-50">
+<section id="crowdfunds-container" class="container d-grid gap-4 my-5" style="width: 60%;">
   {% comment %} Header {% endcomment %}
 
   {% comment %} Nav tabs {% endcomment %}
   <ul class="nav nav-pills gap-2">
-    <button id="all-crowdfunds-btn" class="nav-link bg-brown text-white" aria-current="page">
+    <button id="all-crowdfunds-btn" class="nav-link bg-brown text-white" aria-current="page" onclick="
+    removeCrowdfunds();
+      getCrowdfunds(false, ${{user.pk}});
+    ">
       Semua Crowdfund
     </button>
     <button id="my-campaign-btn" class="nav-link text-brown" onclick="
@@ -29,6 +32,9 @@
 
   {% comment %} Cards {% endcomment %}
   <div id="crowdfunds">
+    <div class="d-flex justify-content-end">
+      <a id="add-btn" class="d-none btn btn-dark-green" href="/crowdfundings/create">Tambah Kampanye Baru</a>
+    </div>
   </div>
 </section>
 
