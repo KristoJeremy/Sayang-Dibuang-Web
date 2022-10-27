@@ -21,5 +21,5 @@ urlpatterns = [
     path("", include("test_app.urls")),
     path("", include("fitur_autentikasi.urls")),
     path("barang/", include("barang_bekas.urls")),
-    path("", include("leaderboard.urls")),
+    path("leaderboard/", include("leaderboard.urls")),
 ]
