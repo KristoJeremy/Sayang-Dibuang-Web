@@ -34,6 +34,12 @@
                             Email
                             <input type="text" class="form-control" disabled="disabled" id="email">
                         </div>
+                        
+                        <div class="poin">
+                            Poin
+                            <input type="text" class="form-control" disabled="disabled" id="poin">
+                        </div>
+                
                         <div class="first-last-name">
                             {{ user_update_form.first_name.label }}
                             dan
@@ -44,34 +50,34 @@
                                 <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-name">Change</button>
                             </div>
                         </div>
-                
-                            <div class="telephone">
-                                {{ profile_form.telephone.label }}
-                
-                                <div class="input-group w-100">
-                                    {{ profile_form.telephone }}
-                                    <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-telephone">Change</button>
-                                    {{ profile_form.telephone.errors }}
-                                </div>
+
+                        <div class="telephone">
+                            {{ profile_form.telephone.label }}
+            
+                            <div class="input-group w-100">
+                                {{ profile_form.telephone }}
+                                <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-telephone">Change</button>
+                                {{ profile_form.telephone.errors }}
                             </div>
-                        
-                            <div class="whatsapp">
-                                {{ profile_form.whatsapp.label }}
-                                <div class="input-group  w-100">
-                                    {{ profile_form.whatsapp }}
-                                    <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-whatsapp">Change</button>
-                                    {{ profile_form.whatsapp.errors }}
-                                </div>
+                        </div>
+                    
+                        <div class="whatsapp">
+                            {{ profile_form.whatsapp.label }}
+                            <div class="input-group  w-100">
+                                {{ profile_form.whatsapp }}
+                                <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-whatsapp">Change</button>
+                                {{ profile_form.whatsapp.errors }}
                             </div>
-                
-                            <div class="line mb-3">
-                                {{ profile_form.line.label }}
-                                <div class="input-group  w-100">
-                                    {{ profile_form.line }}
-                                    <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-line">Change</button>
-                                    {{ profile_form.line.errors }}
-                                </div>
+                        </div>
+            
+                        <div class="line mb-3">
+                            {{ profile_form.line.label }}
+                            <div class="input-group  w-100">
+                                {{ profile_form.line }}
+                                <button class="btn btn-outline-secondary bg-dark-green text-sand profile" type="button" id="change-line">Change</button>
+                                {{ profile_form.line.errors }}
                             </div>
+                        </div>
                     </form>
                 </div> 
             </div>
