@@ -20,6 +20,9 @@ $(document).ready(function() {
             // Set ID line
             $("#id_line").attr("disabled", "disabled")
             $("#id_line").val(data.line !== "" ? data.line : "-")
+
+            // Set poin
+            $("#poin").val(data.poin)
         }
     })
     // Set username dan email
@@ -36,7 +39,7 @@ $(document).ready(function() {
 
     // Menambahkan dan menghapus tombol update
     var change = false
-    var jumlah_element_input = 7
+    var jumlah_element_input = 8
 
     $("button.profile").click(function(){
         $("div.alert-success").remove()
