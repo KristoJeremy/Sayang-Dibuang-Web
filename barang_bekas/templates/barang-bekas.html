@@ -35,15 +35,22 @@
   
             <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-center justify-content-center py-5 px-lg-5">
               <h3><i>"One man's trash is another man's treasure."</i></h3>
-              <p>Live sustainably by reducing our waste. Don't throw unused things. Post it here!</p>
-                <button class="btn btn-sand " onclick="location.href = '/barang/upload/'">Upload Item</button>
-          
+              <p>Live sustainably by reducing your waste. Don't throw away unused things. Post it here!</p>
+              <button class="btn btn-sand mb-4" onclick="location.href = '/barang/upload/'">Upload Item</button>
+
+              <p>or search for item you need!</p>
+              {% comment %} search bar {% endcomment %}
+              <div id="search-form" class="form-inline my-2 d-flex flex-row " >
+                  <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search" name="search">
+                  <button class="btn btn-success m-2 my-sm-0" onclick="searchBarang()">Search</button>
+              </div> 
+            
           </div>
         </div>
 
       </section><!-- End About Section -->
       <div class="px-2 py-5 p-md-5">
-        <h1 class="text-center text-dark-green">Beranda Barang Bekas</h1>
+        <h1 class="text-center text-dark-green" style="font-family: Verona">Beranda Barang Bekas</h1>
         <div id="container-cards" class="d-flex flex-wrap justify-content-center justify-content-md-start p-md-4"></div>
       </div>
 </div>
@@ -55,21 +62,28 @@
         getBarangBekas();
     })
 
+    function searchBarang(){
+      getBarangBekas();
+      window.scrollTo(0, $("#container-cards").offset().top)
+    }
+
+  
     function getBarangBekas(){
         let temp= "";
         $.ajax({
-          url: "{% url 'barang_bekas:get_all_barang_json' %}",
+          url: `/barang/all/?search=${$("#search").val()}`,
           type: "GET",
           dataType: "json",
           success: function(data){
-            console.log('{{ username }}')
-            for (let barang of data){
-                console.log(barang)
+            if (data.length!=0){
+
+              for (let barang of data){
+
 
               temp += `<div class="card card-container m-3 bg-dark-green" style="cursor: pointer;"  onclick="location.href = '/barang/${barang.pk}'">
                 <div class="image-container">
                 
-                    <img src="{{ cloudinary_url }}${barang.fields.foto}" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; max-height:250px; filter:${barang.fields.available == true? "grayscale(100%)": "none"} ">
+                    <img src="{{ cloudinary_url }}${barang.fields.foto}" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; height:250px; filter:${barang.fields.available == true? "grayscale(100%)": "none"} ">
 
                    ${barang.fields.available == true ? 
                     '<p class="text-danger text-center bg-white rounded p-2 position-absolute z-10" style="top:0%; right:0%;  opacity:80;">Unavailable</p>': ''}
@@ -84,12 +98,18 @@
                         {% comment %} <a class="px-2" style="cursor: pointer"><i class="fa fa-solid fa-comments" style="font-size:20px"></i></a> {% endcomment %}
                     </div>
                 </div>
-            </div>`
+            </div>` 
                     
   
-            }
+            } 
+           }
+            else{
+              temp = `<div class="my-2 text-gold mx-auto shadow-lg p-3 rounded"><h3 class="text-center" style="letter-spacing: 2px;" ><strong>Barang tidak ditemukan</strong></h3></div>`
+            }                    
             $('#container-cards').html(temp);
-          } ,
+          } 
+        
+          ,
           error: function(data){
               console.log('Error Detected');
           }
@@ -98,3 +118,4 @@
 </script>
 
 {% endblock content %}
+ style="width:300px;"
