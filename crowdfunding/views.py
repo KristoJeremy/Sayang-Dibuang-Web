@@ -26,7 +26,7 @@ def create_crowdfund(request):
             new_crowdfund = form.save(commit=False)
             new_crowdfund.user = Profile.objects.get(user=request.user)
             new_crowdfund.save()
-            return redirect("/crowdfundings")
+            return redirect("crowdfundings:show_crowdfundings")
 
     context = {"form": form}
     return render(request, "create_crowdfund.html", context)
