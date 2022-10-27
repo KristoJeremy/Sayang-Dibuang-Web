@@ -7,7 +7,6 @@ window.onload = () => {
     .then((res) => res.json())
     .then((data) => {
       const crowdfund = data[0];
-      console.log(crowdfund);
 
       // getting user that posted the crowdfund
       fetch(`/crowdfundings/get-user-by-id/${crowdfund.fields.user}`)
@@ -30,7 +29,7 @@ window.onload = () => {
                 <div style="width:40%;" class="sticky">
                     <div class="border border-2 border-black p-4 rounded mb-4">
                       <div class="mb-3">
-                        <h4 class="mb-2 fw-bold">Dave Matthew</h4>
+                        <h4 class="mb-2 fw-bold">${user.full_name}</h4>
                         
                         <div class="d-flex gap-3 align-items-center">
                           <div class="flex-shrink-0">
@@ -39,7 +38,7 @@ window.onload = () => {
                             </svg>
                           </div>
                           <div>
-                            0811111111
+                            ${user.telephone}
                           </div>
                         </div>
                       </div>
@@ -51,7 +50,7 @@ window.onload = () => {
                           </svg>
                         </div>
                         <div>
-                          Email Dave
+                          Email ${user.first_name}
                         </div>
                       </a>
 
@@ -62,7 +61,7 @@ window.onload = () => {
                           </svg>
                         </div>
                         <div>
-                          WhatsApp Dave
+                          WhatsApp ${user.first_name}
                         </div>
                       </a>
                       
@@ -73,7 +72,7 @@ window.onload = () => {
                           </svg>
                         </div>
                         <div>
-                          LINE Dave
+                          LINE ${user.first_name}
                         </div>
                       </a>
                     </div>
@@ -81,12 +80,20 @@ window.onload = () => {
                     <div class="border border-2 border-black p-4 rounded">
                         <h4 class="mb-2 fw-bold mb-4">Progress</h4>
                         
-                        <h5>10 dari 20  benda diperoleh.<br/> Ayo, bantu Dave mencapai targetnya!</h5>
+                        <h5>
+                          ${crowdfund.fields.received} dari
+                          ${crowdfund.fields.target} benda diperoleh.<br/>
+                          Ayo, bantu ${user.first_name} mencapai targetnya!
+                        </h5>
                         <div class="progress mb-3">
                           <div
                               class="progress-bar bg-dark-green progress-bar-striped progress-bar-animated"
                               role="progressbar"
-                              style="width: ${(10 / 20) * 100}%"
+                              style="width: ${
+                                (crowdfund.fields.received /
+                                  crowdfund.fields.target) *
+                                100
+                              }%"
                           >
                           </div>
                       </div>    

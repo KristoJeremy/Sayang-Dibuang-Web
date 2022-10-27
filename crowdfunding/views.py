@@ -81,6 +81,7 @@ def get_user_by_id(request, id):
     profile = Profile.objects.get(user=id)
     user_obj = {
         "username": profile.user.username,
+        "first_name": profile.user.first_name,
         "full_name": profile.user.get_full_name(),
         "email": profile.user.email,
         "telephone": profile.telephone,
