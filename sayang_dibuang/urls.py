@@ -18,8 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("tinymce/", include("tinymce.urls")),
     path("", include("test_app.urls")),
-    path("", include("fitur_autentikasi.urls")),
-    path("barang/", include("barang_bekas.urls")),
     path("", include("leaderboard.urls")),
+    path("", include("fitur_autentikasi.urls")),
+    path("crowdfundings/", include("crowdfunding.urls")),
+    path("barang/", include("barang_bekas.urls")),
 ]
