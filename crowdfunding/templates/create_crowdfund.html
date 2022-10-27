@@ -1,7 +1,0 @@
-{% extends 'base.html' %} {% load static %} {% block meta %} {{form.media}}
-{%endblock meta %} {% block content %}
-<form class="p-4 m-4" action="" method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <input class="btn btn-outline-dark-green" type="submit" value="Simpan" />
-</form>
-{% endblock content %}

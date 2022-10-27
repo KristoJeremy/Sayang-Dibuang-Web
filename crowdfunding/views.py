@@ -19,17 +19,18 @@ def show_crowdfunding_by_id(request, id):
 
 @login_required(login_url="/todolist/login/")
 def create_crowdfund(request):
-    form = CrowdfundForm(request.POST)
+    form = CrowdfundForm()
 
     if request.method == "POST":
+        form = CrowdfundForm(request.POST)
         if form.is_valid():
             new_crowdfund = form.save(commit=False)
             new_crowdfund.user = Profile.objects.get(user=request.user)
             new_crowdfund.save()
-            return redirect("crowdfundings:show_crowdfundings")
+            return redirect("crowdfunding:show_crowdfundings")
 
     context = {"form": form}
-    return render(request, "create_crowdfund.html", context)
+    return render(request, "crowdfund_form.html", context)
 
 
 @login_required(login_url="/todolist/login/")
@@ -47,7 +48,7 @@ def edit_crowdfund(request, id):
             return redirect("crowdfunding:show_crowdfundings")
 
     context = {"form": form}
-    return render(request, "create_crowdfund.html", context)
+    return render(request, "crowdfund_form.html", context)
 
 
 @login_required(login_url="/todolist/login/")

@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% load static %} {% block meta %} {{form.media}}
+{% endblock meta %} {% block content %}
+
+<script>
+  window.onload = () => {
+    const command = window.location.pathname.split("/")[2]
+    const formSection = document.querySelector("#crowdfund-form")
+
+    if (command === "edit") {
+      formSection.insertAdjacentHTML("afterbegin", "<h2>Ubah Crowdfund</h2>")
+    } else {
+      formSection.insertAdjacentHTML("afterbegin", "<h2>Buat Crowdfund Baru</h2>")
+    }
+  }
+</script>
+
+<section id="crowdfund-form" class="container-fluid my-4 w-50">
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <label class="mt-4 mb-2 h5 fw-bold">{{ field.label }}</label>
+      {{ field }}
+      
+      {% if field.errors %}
+        <div class="alert alert-danger">{{field.errors}}</div>
+      {% endif %}
+    {% endfor %}
+  
+    <input class="btn btn-outline-dark-green" type="submit" value="Simpan" />
+  </form>
+</section>
+{% endblock content %}
