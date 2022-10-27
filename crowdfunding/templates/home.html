@@ -10,24 +10,33 @@
 <script>
   {% comment %} Get CSRF Token {% endcomment %}
   window.csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  const loggedInId = "{{user.pk}}"
 </script>
 <script src="{% static 'crowdfunding/home.js' %}"></script>
+<script>
+  getCrowdfunds({userId: loggedInId})
+</script>
 
 <section id="crowdfunds-container" class="container d-grid gap-4 my-5" style="width: 60%;">
   {% comment %} Header {% endcomment %}
 
   {% comment %} Nav tabs {% endcomment %}
   <ul class="nav nav-pills gap-2">
-    <button id="all-crowdfunds-btn" class="nav-link bg-brown text-white" aria-current="page" onclick="
-    removeCrowdfunds();
-      getCrowdfunds(false, ${{user.pk}});
-    ">
+    <button
+      id="all-crowdfunds-btn"
+      class="nav-link bg-brown text-white"
+      aria-current="page"
+      onclick="removeCrowdfunds();getCrowdfunds({userId: {{user.pk}}});"
+    >
       Semua Crowdfund
     </button>
-    <button id="my-campaign-btn" class="nav-link text-brown" onclick="
-      removeCrowdfunds();
-      getUserCrowdfunds({{user.pk}});
-    ">Kampanyeku</button>
+    <button
+      id="my-campaign-btn"
+      class="nav-link text-brown"
+      onclick="removeCrowdfunds();getCrowdfunds({userOnly: true, userId: {{user.pk}}});"
+    >
+      Kampanyeku
+    </button>
   </ul>
 
   {% comment %} Cards {% endcomment %}

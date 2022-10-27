@@ -3,7 +3,7 @@ const showCrowdfundingById = (pk) => {
   window.location = `${pk}`;
 };
 
-const getCrowdfunds = (userOnly = false, userId = null) => {
+const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
   fetch("/crowdfundings/json")
     .then((res) => res.json())
     .then((crowdfunds) => {
@@ -16,6 +16,7 @@ const getCrowdfunds = (userOnly = false, userId = null) => {
         fetch(`/crowdfundings/get-user-by-id/${crowdfund.fields.user}`)
           .then((res) => res.json())
           .then((data) => {
+            // getting user data
             const user = data;
 
             // formatting date of crowdfund
@@ -24,12 +25,14 @@ const getCrowdfunds = (userOnly = false, userId = null) => {
               dateStyle: "long",
               timeStyle: "short",
             }).format(date);
+
+            // inserting cards
             crowdfundSection.insertAdjacentHTML(
               "afterbegin",
               `<div id="crowdfund-${crowdfund.pk}" class="crowdfund card mb-5">
                   <div class="card-header d-flex justify-items-center align-items-center gap-2">
                       <img
-                      onclick="showCrowdfundingById(${crowdfund.pk})"
+                        onclick="showCrowdfundingById(${crowdfund.pk})"
                         class="rounded-circle"
                         style="width: 50px"
                         src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
@@ -66,7 +69,7 @@ const getCrowdfunds = (userOnly = false, userId = null) => {
               
                       <div class="d-flex justify-content-end">
                       ${
-                        !userOnly
+                        crowdfund.fields.user != userId
                           ? `<button
                               type="button"
                               class="btn btn-sand border"
@@ -186,10 +189,6 @@ const getCrowdfunds = (userOnly = false, userId = null) => {
     .catch((err) => console.log(err));
 };
 
-const getUserCrowdfunds = (pk) => {
-  getCrowdfunds(true, pk);
-};
-
 const removeCrowdfunds = () => {
   const crowdfund = document.querySelectorAll(".crowdfund");
   crowdfund.forEach((c) => c.remove());
@@ -222,9 +221,6 @@ window.onload = () => {
     }
   };
 
-  // getting all crowdfunds
-  getCrowdfunds();
-
   // handling nav toggles
   let allSelected = true;
   const allCrowdfundsBtn = document.querySelector("#all-crowdfunds-btn");
@@ -243,8 +239,6 @@ window.onload = () => {
       myCampaignBtn.classList.add("text-brown");
 
       // change the cards being displayed
-      removeCrowdfunds();
-      getCrowdfunds();
 
       // hide add button
       addBtn.classList.add("d-none");
