@@ -5,11 +5,6 @@
 <title>Registrasi Akun</title>
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="{% static 'fitur_autentikasi/style.css' %}">
-<style>
-    * {
-        border: 1px solid red;
-    }
-</style>
 {% endblock meta %}
 
 {% block content %}  
@@ -23,36 +18,41 @@
                         <form method="POST" class="row g-3">  
                             {% csrf_token %}
                             <div class="col-12">
-                                <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                                <label for="{{ form.username.id_for_label }}" class="form-label">Username<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ form.username }}
+                                {{ form.username.errors }}
                             </div>
                             <div class="col-12">
-                                <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                                <label for="{{ form.password1.id_for_label }}" class="form-label">Password<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ form.password1 }}
+                                {{ form.password1.errors }}
                             </div>
                             <div class="col-12">
-                                <label for="{{ form.password2.id_for_label }}" class="form-label">Konfirmasi password</label>
+                                <label for="{{ form.password2.id_for_label }}" class="form-label">Konfirmasi password<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ form.password2 }}
+                                {{ form.password2.errors }}
                             </div>
                             <div class="col-6">
-                                <label for="{{ form.first_name.id_for_label }}" class="form-label">Nama depan</label>
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">Nama depan<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ form.first_name }}
                             </div>
                             <div class="col-6">
                                 <label for="{{ form.first_name.id_for_label }}" class="form-label">Nama belakang</label>
-                                {{ form.first_name }}
+                                {{ form.last_name }}
                             </div>
                             <div class="col-12">
-                                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                                <label for="{{ form.email.id_for_label }}" class="form-label">Email<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ form.email }}
                             </div>
                             <div class="col-12">
-                                <label for="{{ profile_form.telephone.id_for_label }}" class="form-label">Nomor telepon</label>
+                                <label for="{{ profile_form.telephone.id_for_label }}" class="form-label">Nomor telepon<span class="red">*</span><span class="hide"> (required)</span></label>
                                 {{ profile_form.telephone }}
+                                {{ profile_form.telephone.errors }}
                             </div>
                             <div class="col-12">
                                 <label for="{{ profile_form.whatsapp.id_for_label }}" class="form-label">Nomor whatsapp</label>
-                                {{ profile_form.telephone }}
+                                {{ profile_form.whatsapp }}
+                                {{ profile_form.whatsapp.errors }}
                             </div>
                             <div class="col-12">
                                 <label for="{{ profile_form.line.id_for_label }}" class="form-label">ID Line</label>

@@ -27,26 +27,39 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" placeholder="Password" class="form-control" id="password">
                         </div>
+                        {% if messages %}
+                        <div class="col-12">
+                            <div class="alert mw-100 m-0" style="width: 25rem;" role="alert" id="alert">
+                            </div>
+                        </div>
+                        {% for message in messages %}
+                            <script>
+                                var usernameInput = document.getElementById("username")
+                                var passwordInput = document.getElementById("password")
+                                var alertBox = document.getElementById("alert")
+
+                                if ("{{ message }}" === "Username atau Password salah!") {                                    
+                                    usernameInput.classList.add("is-invalid")
+                                    passwordInput.classList.add("is-invalid")
+                                    alertBox.classList.add("alert-danger")
+                                    alertBox.innerHTML = "{{ message }}"
+
+                                } else {
+                                    usernameInput.classList.add("is-valid")
+                                    passwordInput.classList.add("is-valid")
+                                    alertBox.classList.add("alert-success")
+                                    alertBox.innerHTML = "{{ message }}"
+                                }
+                                
+                            </script>
+                            {% endfor %}
+                        {% endif %}
                         <div class="col-12 text-center">
                             <input class="btn login_btn btn-gold text-sand mw-100" style="width: 25rem;" type="submit" value="Login">
                         </div>
                     </form>
                 </div>
 
-                {% if messages %}
-                    <script>
-                        var usernameInput = document.getElementById("username")
-                        var passwordInput = document.getElementById("password")
-
-                        usernameInput.classList.add("is-invalid")
-                        passwordInput.classList.add("is-invalid")
-                    </script>
-                    <ul class="message">
-                        {% for message in messages %}
-                            <li style="color: #de3950;">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
                 <div class="containter m-3">
                     <p class="text-center"><a href="{% url 'fitur_autentikasi:register' %}">Buat akun baru</a></p>     
                 </div>

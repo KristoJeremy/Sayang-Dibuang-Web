@@ -5,3 +5,16 @@ a {
 body {
     background-color: #F6F2E9;
 }
+
+span.red {
+    color: #de3950;
+}
+
+.hide {
+    display: none;
+}
+
+span.red:hover + .hide{
+    display: inline;
+    color: #de3950;
+}
