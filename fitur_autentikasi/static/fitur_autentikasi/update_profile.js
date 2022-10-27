@@ -22,6 +22,9 @@ $(document).ready(function() {
             $("#id_line").val(data.line !== "" ? data.line : "-")
         }
     })
+    // Set username dan email
+    $("#username").val(window.username)
+    $("#email").val(window.email)
 
     // Set nama depan dan nama belakang
     $("#id_first_name").attr("disabled", "disabled")
@@ -29,10 +32,11 @@ $(document).ready(function() {
 
     $("#id_last_name").attr("disabled", "disabled")
     $("#id_last_name").val(window.lastName)
+    
 
     // Menambahkan dan menghapus tombol update
     var change = false
-    var jumlah_element_input = 5
+    var jumlah_element_input = 7
 
     $("button").click(function(){
         if ($(this).siblings().attr("disabled") === "disabled") {
@@ -41,8 +45,8 @@ $(document).ready(function() {
 
             if (change === false) {                
                 $("form").append(`
-                <div class="d-grid gap-2 col-6 mx-auto update">
-                    <input class="btn btn-primary center m-3" type="submit" name="submit" value="Update" class="update">
+                <div class="d-grid gap-2 col-12 mx-auto update">
+                    <input class="btn btn-gold text-sand center m-3" type="submit" name="submit" value="Update" class="update">
                 </div>
                 `)
                 change = true

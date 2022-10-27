@@ -9,62 +9,74 @@
     window.postUrl = "{% url 'fitur_autentikasi:update_user_data' username=user.username %}"
     window.firstName = "{{ user.first_name|default:"-" }}"
     window.lastName = "{{ user.last_name|default:"-" }}"
+    window.username = "{{ user.username }}"
+    window.email = "{{ user.email }}"
 </script>
 <script src="{% static 'fitur_autentikasi/update_profile.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'fitur_autentikasi/style.css' %}">
 {% endblock meta %}
 
 {% block content %}
 <div class = "update">
-    <h1>Profile User</h1> 
-    <form action="POST" id="update-profile">
-        {% csrf_token %}
-        <div class="user-profile">
-            <p>Username: {{ user.username }}</p>
-            <p>Email: {{ user.email }}</p>
-    
-            {{ user_update_form.first_name.label }}
-            dan
-            {{ user_update_form.last_name.label }}
-            <div class="input-group w-75">
-                {{ user_update_form.first_name }}
-                {{ user_update_form.last_name }}
-                <button class="btn btn-outline-secondary " type="button" id="change-name">Change</button>
+    <div class="d-flex flex-column justify-content-center align-items-center m-3">
+        <div class="card mw-100" style="width: 40rem;">
+            <div class="card-body">
+                <h2 class="card-title mb-2 text-center">Profile User</h2>
+                <div class="container">
+                    <form action="POST" class="row g-3" id="update-profile">
+                        {% csrf_token %}
+                        <div class="username col-12">
+                            Username
+                            <input type="text" class="form-control m-0" disabled="disabled" id="username">
+                        </div>
+                        <div class="email">
+                            Email
+                            <input type="text" class="form-control" disabled="disabled" id="email">
+                        </div>
+                        <div class="first-last-name">
+                            {{ user_update_form.first_name.label }}
+                            dan
+                            {{ user_update_form.last_name.label }}
+                            <div class="input-group  w-100">
+                                {{ user_update_form.first_name }}
+                                {{ user_update_form.last_name }}
+                                <button class="btn btn-outline-secondary bg-dark-green text-sand" type="button" id="change-name">Change</button>
+                            </div>
+                        </div>
+                
+                            <div class="telephone">
+                                {{ profile_form.telephone.label }}
+                
+                                <div class="input-group w-100">
+                                    {{ profile_form.telephone }}
+                                    <button class="btn btn-outline-secondary bg-dark-green text-sand" type="button" id="change-telephone">Change</button>
+                                    {{ profile_form.telephone.errors }}
+                                </div>
+                            </div>
+                        
+                            <div class="whatsapp">
+                                {{ profile_form.whatsapp.label }}
+                                <div class="input-group  w-100">
+                                    {{ profile_form.whatsapp }}
+                                    <button class="btn btn-outline-secondary bg-dark-green text-sand" type="button" id="change-whatsapp">Change</button>
+                                    {{ profile_form.whatsapp.errors }}
+                                </div>
+                            </div>
+                
+                            <div class="line mb-3">
+                                {{ profile_form.line.label }}
+                                <div class="input-group  w-100">
+                                    {{ profile_form.line }}
+                                    <button class="btn btn-outline-secondary bg-dark-green text-sand" type="button" id="change-line">Change</button>
+                                    {{ profile_form.line.errors }}
+                                </div>
+                            </div>
+                    </form>
+                </div> 
             </div>
         </div>
-    
-        <div class="update-profile">
-                <div class="telephone">
-                    {{ profile_form.telephone.label }}
-    
-                    <div class="input-group w-75">
-                        {{ profile_form.telephone }}
-                        <button class="btn btn-outline-secondary " type="button" id="change-telephone">Change</button>
-                        <!-- <button class="btn btn-outline-secondary" type="button">Button</button> -->
-                        {{ profile_form.telephone.errors }}
-                    </div>
-                </div>
-          
-                <div class="whatsapp">
-                    {{ profile_form.whatsapp.label }}
-                    <div class="input-group w-75">
-                        {{ profile_form.whatsapp }}
-                        <button class="btn btn-outline-secondary" type="button" id="change-whatsapp">Change</button>
-                        <!-- <button class="btn btn-outline-secondary" type="button">Button</button> -->
-                        {{ profile_form.whatsapp.errors }}
-                    </div>
-                </div>
-    
-                <div class="line">
-                    {{ profile_form.line.label }}
-                    <div class="input-group w-75">
-                        {{ profile_form.line }}
-                        <button class="btn btn-outline-secondary" type="button" id="change-line">Change</button>
-                        <!-- <button class="btn btn-outline-secondary" type="button">Button</button> -->
-                        {{ profile_form.line.errors }}
-                    </div>
-                </div>
-        </div>
-    </form>
+    </div>
 </div> 
 
 {% endblock content %}
