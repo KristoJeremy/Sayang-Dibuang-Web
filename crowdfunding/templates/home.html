@@ -6,31 +6,29 @@
 {% endblock meta %}
 
 {% block content %}
+{% csrf_token %}
+<script>
+  {% comment %} Get CSRF Token {% endcomment %}
+  window.csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+</script>
 <script src="{% static 'crowdfunding/home.js' %}"></script>
-<style>
-  section[id^='crowdfund']:hover {
-    cursor: pointer;
-  }
-</style>
 
-<section class="container d-grid gap-4 w-50">
+<section id="crowdfunds-container" class="container d-grid gap-4 w-50">
   {% comment %} Header {% endcomment %}
-  <h1 class="text-brown text-center mt-4">{{user.profile.get_fullname}}</h1>
 
   {% comment %} Nav tabs {% endcomment %}
-  <ul class="nav nav-pills">
-    <button id="all-crowdfunds-btn" class="nav-link active" aria-current="page">
-      All Crowdfunds
+  <ul class="nav nav-pills gap-2">
+    <button id="all-crowdfunds-btn" class="nav-link bg-brown text-white" aria-current="page">
+      Semua Crowdfund
     </button>
-    <button id="my-campaign-btn" class="nav-link active" onclick="
+    <button id="my-campaign-btn" class="nav-link text-brown" onclick="
       removeCrowdfunds();
       getUserCrowdfunds({{user.pk}});
-    ">My Campaign</button>
+    ">Kampanyeku</button>
   </ul>
 
   {% comment %} Cards {% endcomment %}
   <div id="crowdfunds">
-    
   </div>
 </section>
 

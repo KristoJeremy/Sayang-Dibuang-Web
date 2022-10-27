@@ -1,3 +1,21 @@
+@font-face {
+    font-family: PlusJakarta;
+    src: url("/static/fonts/PlusJakartaSans-Regular.otf");
+  }
+
+@font-face {
+    font-family: Verona;
+    src: url("/static/fonts/Verona-Serial-Regular.ttf");
+  }
+
+@font-face {
+    font-family: Moana;
+    src: url("/static/fonts/MoanaRainyDemoRegular.ttf");
+  }
+
+body {
+    font-family: PlusJakarta;
+}
 
 /*------------------------------------
 - COLOR sand

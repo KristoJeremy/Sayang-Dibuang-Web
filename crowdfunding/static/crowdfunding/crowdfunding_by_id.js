@@ -19,7 +19,7 @@ window.onload = () => {
           crowdfundSection.insertAdjacentHTML(
             "beforeend",
             `<div>
-                <h1>${crowdfund.fields.title}</h1>
+                <h1 style="font-family:Verona;">${crowdfund.fields.title}</h1>
                 <div>${crowdfund.fields.description}</div>
             </div>`
           );
