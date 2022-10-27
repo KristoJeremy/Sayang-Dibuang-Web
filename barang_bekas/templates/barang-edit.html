@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="container-fluid flex-column d-flex justify-content-center p-md-5 align-items-center">
+
+  
+    <h4 class="py-4 text-dark-green">Edit Barang</h4>
+    <form method="POST" enctype="multipart/form-data" class="container-fluid bg-sand rounded border px-3 py-4 p-md-5" style=" max-width:800px;"> 
+        <a href={% url 'barang_bekas:show_barang' %} class=" py-3 pr-5 text-dark text-decoration-none" style="cursor: pointer;"> 
+            <i class="fa fa-long-arrow-left"></i><span class="mx-2">Back</span> 
+        </a>
+        {% csrf_token %}
+        <div class="mt-5 d-flex flex-md-row justify-content-md-between flex-column">
+            <div class="d-flex flex-column px-3">
+                <div class="d-flex flex-column">
+                    <p >Nama Barang: </p>
+                    <p id="judul" class="">{{ form.judul }}</p>
+                </div>
+                <div class="d-flex flex-column">
+                    <p>Deskripsi: </p>
+                    <p id="deskripsi" class="">{{ form.deskripsi }}</p>
+                </div>
+            </div> 
+            <div class="d-flex flex-column px-3">   
+                <div class="d-flex flex-column">
+                    <p>Foto: </p>
+                    <p id="deskripsi" class="">{{ form.foto }}</p>
+                </div>
+                <div class="d-flex flex-row align-items-end">
+                    <div class="d-flex flex-row">
+                        <p>Lokasi: </p>
+                        <p id="lokasi" class="px-2">{{ form.lokasi }}</p>
+                    </div>
+                    {% comment %} buat modal untuk tambah lokasi {% endcomment %}
+                    <button type="button" id="kategoriButton" onclick="showModalLokasi()" data-toggle="tooltip" data-placement="top" title="Tambah lokasi baru" class="btn btn-sm btn-secondary mb-3 " style="width:26px; height:26px; font-size:11px">
+                        +
+                    </button>
+                </div>
+                <div class="d-flex flex-row align-items-end">
+                    <div class="d-flex flex-row">
+                        <p>Kategori: </p>
+                        <p id="kategori" class="px-2">{{ form.kategori }}</p>
+                    </div>
+                    {% comment %} buat modal untuk tambah kategori {% endcomment %}
+                    <button type="button" id="kategoriButton" onclick="showModalKategori()" data-toggle="tooltip" data-placement="top" title="Tambah kategori baru" class="btn btn-sm btn-secondary mb-3 " style="width:26px; height:26px; font-size:11px">
+                        +
+                    </button>
+                </div>
+                <div class="d-flex flex-row">
+                    <p>Not Available: </p>
+                    <p id="kategori" class="mx-3">{{ form.available }}</p>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark-green pull-right my-2" style="width:120px;">Save</button>
+    </form>
+
+
+</div>
+
+{% endblock content %}

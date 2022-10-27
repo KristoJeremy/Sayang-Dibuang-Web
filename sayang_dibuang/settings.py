@@ -11,6 +11,20 @@ import os
 import dj_database_url
 from pathlib import Path
 
+import cloudinary
+
+
+cloudinary.config(
+    # dont forget to run : source .env
+    cloud_name=os.getenv("CLOUD_NAME"),
+    api_key=os.getenv("CLOUD_API_KEY"),
+    api_secret=os.getenv("CLOUD_API_SECRET"),
+    secure=True,
+)
+
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +54,9 @@ INSTALLED_APPS = [
     "crowdfunding",
     "tinymce",
     "test_app",
+    "barang_bekas",
+    "cloudinary",
+    "leaderboard",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +83,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "sayang_dibuang.context_processors.get_user",
+                "sayang_dibuang.context_processors.get_cloudinary_url",
             ],
         },
     },
@@ -122,6 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
+MEDIA_URL = "/media/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 

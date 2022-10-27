@@ -20,6 +20,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("tinymce/", include("tinymce.urls")),
     path("", include("test_app.urls")),
+    path("", include("leaderboard.urls")),
     path("", include("fitur_autentikasi.urls")),
     path("crowdfundings/", include("crowdfunding.urls")),
+    path("barang/", include("barang_bekas.urls")),
 ]

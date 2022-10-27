@@ -21,36 +21,64 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
-    <nav class="navbar navbar-expand-lg sticky-top bg-white px-4" style="transition: 0.2s;">
+    <nav
+      class="navbar navbar-expand-lg sticky-top bg-white px-4"
+      style="transition: 0.2s"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand" style="font-family:Moana;" href="/"><h3>Sayang Dibuang</h3></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" style="font-family: Moana" href="/"
+          ><h3>Sayang Dibuang</h3></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto gap-4">
             <div class="dropdown">
-              <p class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Menu</p>
+              <p
+                class="dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Menu
+              </p>
               <ul class="dropdown-menu dropdown-menu-end">
-              <a class="nav-link" aria-current="page" href="#">Beranda</a>
-              <a class="nav-link" href="#">Request</a>
-              <a class="nav-link active" href="/crowdfundings">Crowdfunding</a>
-              <a class="nav-link" href="#">Leaderboard</a>
-            </ul>
+                <a class="nav-link" aria-current="page" href="#">Beranda</a>
+                <a class="nav-link" href="#">Request</a>
+                <a class="nav-link active" href="/crowdfundings"
+                  >Crowdfunding</a
+                >
+                <a class="nav-link" href="#">Leaderboard</a>
+              </ul>
             </div>
             {% if user.is_active %}
             <div class="dropdown">
               <img
                 class="rounded-circle dropdown-toggle"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                style="width: 2rem;"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="width: 2rem"
                 src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
                 alt=""
-                />
+              />
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item disabled" href="#">Halo, {{user.profile.get_fullname}}</a></li>
+                <li>
+                  <a class="dropdown-item disabled" href="#"
+                    >Halo, {{user.profile.get_fullname}}</a
+                  >
+                </li>
                 <li><a class="dropdown-item" href="#">Lihat Profil</a></li>
-                <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+                <li>
+                  <a class="dropdown-item text-danger" href="/logout">Logout</a>
+                </li>
               </ul>
             </div>
             {% else %}
