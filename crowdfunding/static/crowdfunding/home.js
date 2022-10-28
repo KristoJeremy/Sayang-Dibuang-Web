@@ -47,7 +47,6 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
               `<div id="crowdfund-${crowdfund.pk}" class="crowdfund card mb-5">
                   <div class="card-header d-flex justify-items-center align-items-center gap-2">
                       <img
-                        onclick="showCrowdfundingById(${crowdfund.pk})"
                         class="rounded-circle"
                         style="width: 50px"
                         src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
@@ -59,14 +58,18 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                       </div>
                   </div>
                   <div class="card-body">
-                      <h2 class="card-title" style="font-family:Verona; ">${
-                        crowdfund.fields.title
-                      }</h2>
-
-                      <p class="card-text">
-                        ${trimmedDescription}
-                      </p>
-
+                      <div id="card-view-all-btn" class="mb-3" onclick="showCrowdfundingById(${
+                        crowdfund.pk
+                      })">
+                          <h2 class="card-title" style="font-family:Verona; ">${
+                            crowdfund.fields.title
+                          }</h2>
+                          
+                          <p class="card-text">
+                          ${trimmedDescription}
+                          </p>
+                      
+                      </div>
                       <div class="progress mb-3">
                         <div
                             class="progress-bar bg-success progress-bar-striped progress-bar-animated"
@@ -266,6 +269,13 @@ const deleteCrowdfund = (id) => {
 };
 
 window.onload = () => {
+  // initialize tooltip
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  );
   // changing style of navbar on scroll
   // reference: https://stackoverflow.com/questions/23706003/changing-nav-bar-color-after-scrolling
   const navbar = document.querySelector(".navbar");
