@@ -1,45 +1,71 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
 <title>Login</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'fitur_autentikasi/style.css' %}">
 {% endblock meta %}
 
 {% block content %}
 
 <div class = "login">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <div class="card mw-100" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title mb-2 text-center">Login</h2>
+                <h6 class="card-subtitle mb-4 text-muted text-center">Masuk ke akun Anda</h6>
 
-    <h1>Login</h1>
+                <div class="container">
+                    <form method="POST" class="row g-4">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" placeholder="Username" class="form-control" id="username">
+                        </div>
+                        <div class="col-12">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" placeholder="Password" class="form-control" id="password">
+                        </div>
+                        {% if messages %}
+                        <div class="col-12">
+                            <div class="alert mw-100 m-0" style="width: 25rem;" role="alert" id="alert">
+                            </div>
+                        </div>
+                        {% for message in messages %}
+                            <script>
+                                var usernameInput = document.getElementById("username")
+                                var passwordInput = document.getElementById("password")
+                                var alertBox = document.getElementById("alert")
 
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+                                if ("{{ message }}" === "Username atau Password salah!") {                                    
+                                    usernameInput.classList.add("is-invalid")
+                                    passwordInput.classList.add("is-invalid")
+                                    alertBox.classList.add("alert-danger")
+                                    alertBox.innerHTML = "{{ message }}"
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+                                } else {
+                                    usernameInput.classList.add("is-valid")
+                                    passwordInput.classList.add("is-valid")
+                                    alertBox.classList.add("alert-success")
+                                    alertBox.innerHTML = "{{ message }}"
+                                }
+                                
+                            </script>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="col-12 text-center">
+                            <input class="btn login_btn btn-gold text-sand mw-100" style="width: 25rem;" type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Belum mempunyai akun? <a href="{% url 'fitur_autentikasi:register' %}">Buat Akun</a>
-
+                <div class="containter m-3">
+                    <p class="text-center"><a href="{% url 'fitur_autentikasi:register' %}">Buat akun baru</a></p>     
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
