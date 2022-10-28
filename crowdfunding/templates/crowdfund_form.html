@@ -25,8 +25,8 @@
     {% csrf_token %}
     {% for field in form %}
       <div class="card bg-sand my-4 border-brown">
-        <label class="h5 fw-bold card-header border-brown">{{ field.label }}</label>
-        <div class="card-body bg-white">
+        <label class="h5 card-header border-brown">{{ field.label }}</label>
+        <div class="card-body bg-white px-2">
           {{ field }}
         </div> 
       </div>
