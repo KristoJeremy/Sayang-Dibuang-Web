@@ -5,7 +5,11 @@
 <div class="container">
     <div class="mx-auto p-3">
         <div class="title mb-4">
-            <h1 class="text-center">Leaderboard</h1>
+            <h1 class="text-center mb-2">Leaderboard</h1>
+            <h5 class="text-center mb-3">Here is our top 10 gainers</h5>
+        </div>
+        <div class="title mt-3">
+            <div class="row" id="content-data"></div>
         </div>
     </div>
 </div>
@@ -14,6 +18,34 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+$(document).ready(function(){
+    refreshContent();
+});
+
+async function getData(){
+    return fetch("{% url 'leaderboard:show_json' %}").then((res) => res.json())
+}
+
+async function refreshContent(){
+    document.getElementById("content-data").innerHTML = ""
+    const data_leaderboard = await getData()
+    let htmlString = ``
+    data_leaderboard.forEach(element => {
+        htmlString += ` <div class="card mx-auto" style="width: 24rem;">
+            <div class="card-body">
+                <table>
+                    <tr>
+                        <td>${element.fields.user.username}</td>
+                        <td>${element.fields.poin} points</td>
+                    </tr>
+                </table>
+            </div>
+        </div>`
+    });
+    document.getElementById("content-data").innerHTML = htmlString
+
+}
 
 </script>
 
