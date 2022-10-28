@@ -4,8 +4,6 @@ const showCrowdfundingById = (pk) => {
 };
 
 const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
-  console.log(userOnly);
-  console.log(userId);
   fetch("/crowdfundings/json")
     .then((res) => res.json())
     .then((crowdfunds) => {
@@ -30,9 +28,11 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
 
         // getting the first 50 words of the description
         // source: https://stackoverflow.com/questions/29126888/what-is-the-best-way-to-get-the-first-x-number-of-words-from-a-string-javascript
-        trimmedDescription =
-          trimmedDescription.split(/\s+/).slice(0, 50).join(" ") + "...";
-        if (trimmedDescription > crowdfund.description) {
+        trimmedDescription = trimmedDescription
+          .split(/\s+/)
+          .slice(0, 50)
+          .join(" ");
+        if (crowdfund.description > trimmedDescription) {
           trimmedDescription += "...";
         }
 
