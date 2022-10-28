@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Information</title>
+{% endblock meta %}
+
+{% block content %}
+<main>
+    <div>
+        {% include 'information/top.html' %}
+        <h1></h1>
+    </div>
+</main>
+
+<body class="bg-sand">
+
+    {% if user %}
+
+    <!-- khusus member -->
+    <div class="container py-5">
+        <h2 class="d-flex justify-content-center"><b>Review</b></h2>
+        <div class="container-cards py-4">
+            <div class="card">
+                <div class="card-header">Content Header</div>
+                <div class="card-body">Content</div> 
+                <div class="card-footer">Content Footer</div>
+            </div>
+        </div>
+        <a  class="d-flex justify-content-center" href="#">Lihat Semua</a>
+    </div>
+    
+    {% endif %}
+
+    <div>
+        <a class="btn bg-brown text-white" href="{% url 'barang_bekas:show_barang' %}">BERANDA</a>
+        <a class="btn bg-brown text-white" href="{% url 'crowdfunding:show_crowdfundings' %}">CROWDFUNDINGS</a>
+    </div>
+    <div>
+        <h3>About Us</h3>
+        <div>
+            <img src="{% static 'img\recycle-barang.png' %}">
+            <p>
+                Platform SayangDibuang merupakan platform khusus distribusi barang bekas tanpa bayar!
+            </p>
+            <img src="{% static 'img\recycle-makanan.png' %}">
+            <p>
+                Platform kami juga menyediakan tempat bagi yang ingin menyumbangkan makanan berlebih kepada yang lebih membutuhkan!
+            </p>
+        </div>
+    </div>
+    <div>
+        <h3>FAQ</h3>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
+                        Mengapa menjual barang bekas?
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                    <div class="card-body">
+                        Dengan menjual barang bekas, akan membantu mengurangi tumpukan sampah serta membantu bumi menjadi lebih baik.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
+                        blablablablablabla
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                    <div class="card-body">
+                        sdkjasbdkc hsdkahd hdh khjdh kh kh kh skd
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
+                    asdbdk dshkh dkhdkjhd kj?
+                    </a>
+                </div>
+                <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+                    <div class="card-body">
+                        uasdkahdkadhnu u usah h lh sl ASHDU 
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</body>
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% load static %}
+
+<style>
+    @media only screen and (max-width: 600px) {
+        .image-asset {
+            max-width:200px;
+        }
+    }
+    @media only screen and (min-width: 601px) {
+        .image-asset {
+            max-width:500px;
+        }
+    }
+</style>
+
+<div id="top" class="top bg-dark-green text-sand px-2 py-5 p-md-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="img-fluid col-lg-6 d-flex justify-content-center ">
+                <img src="{% static 'img\top-header-foto.png' %}" class="image-asset" alt="logo-information"  style="object-fit:contain;"/>
+            </div>
+            <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center py-5 px-lg-5">
+                <h3><b><i>BARANG BEKAS? ATAU INGIN BERBAGI MAKANAN?</i></b></h3>
+                <p>SayangDibuang merupakan platform yang siap menyediakan segalanya untuk anda!</p>
+                <div class="py-5">
+                    <img src="{% static 'img\store-logo.png' %}"  class="btn" style="max-width: 350px;" alt="store"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div>
+        <button type="button">HOME</button>
+        <button type="button">LEADERBOARD</button>
+    </div>
+    <div>
+        <h3>About Us</h3>
+        <div>
+            <img src="{% static 'img\recycle-barang.png' %}">
+            <p>
+                Platform SayangDibuang merupakan platform khusus distribusi barang bekas tanpa bayar!
+            </p>
+            <img src="{% static 'img\recycle-makanan.png' %}">
+            <p>
+                Platform kami juga menyediakan tempat bagi yang ingin menyumbangkan makanan berlebih kepada yang lebih membutuhkan!
+            </p>
+        </div>
+    </div> -->
+</div>
