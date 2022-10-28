@@ -174,7 +174,9 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                       </div>
                                     </a>
             
-                                    <a
+                                    ${
+                                      crowdfund.profile.whatsapp != ""
+                                        ? `<a
                                       class="d-flex gap-3 align-items-center btn btn-dark-green mb-2"
                                       href="https://wa.me/+62${
                                         crowdfund.profile.whatsapp.startsWith(0)
@@ -196,13 +198,15 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                           crowdfund.profile.user.first_name
                                         }
                                       </div>
-                                    </a>
-                                  
-                                    <a
+                                    </a>`
+                                        : ""
+                                    }
+                                    
+                                    ${
+                                      crowdfund.profile.line != ""
+                                        ? `<a
                                       class="d-flex gap-3 align-items-center btn btn-brown mb-2"
-                                      href="https://line.me/R/ti/p/~${
-                                        crowdfund.profile.line
-                                      }"
+                                      href="https://line.me/R/ti/p/~${crowdfund.profile.line}"
                                       target="_blank"
                                     >
                                       <div class="flex-shrink-0">
@@ -211,11 +215,11 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                         </svg>
                                       </div>
                                       <div>
-                                        LINE ${
-                                          crowdfund.profile.user.first_name
-                                        }
+                                        LINE ${crowdfund.profile.user.first_name}
                                       </div>
-                                    </a>
+                                    </a>`
+                                        : ""
+                                    }
                                 </div>
                             
                               </div>
