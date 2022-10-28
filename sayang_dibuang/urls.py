@@ -26,6 +26,5 @@ urlpatterns = [
     path("barang/", include("barang_bekas.urls")),
 ]
 
-
-# 404
-handler404='helpers.views.handle_not_found'
+handler404 = 'sayang_dibuang.views.handler404'    
+handler500 = 'sayang_dibuang.views.handler500'    
