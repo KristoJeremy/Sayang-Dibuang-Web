@@ -140,12 +140,12 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                   >
                       <div class="modal-dialog">
                           <div class="modal-content">
-                              <div class="modal-header">
-                                  <h4 class="mb-2 fw-bold">${
+                              <div class="modal-header bg-sand border-brown">
+                                  <p class="m-0 h4 fw-bold" style="font-family:Verona;">${
                                     crowdfund.profile.user.first_name +
                                     " " +
                                     crowdfund.profile.user.last_name
-                                  }</h4>
+                                  }</p>
                                   <button
                                         type="button"
                                         class="btn-close"
@@ -167,7 +167,7 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                     </div>
             
                                     <a
-                                      class="d-flex gap-3 align-items-center btn btn-sand mb-2"
+                                      class="d-flex gap-3 align-items-center btn btn-sand border border-brown mb-2"
                                       href="mailto:${
                                         crowdfund.profile.user.email
                                       }"
@@ -245,10 +245,10 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                   >
                       <div class="modal-dialog">
                           <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">
+                              <div class="modal-header bg-sand border-brown">
+                                  <p class="h4 modal-title fw-bold" style="font-family:Verona;" id="exampleModalLabel">
                                     Menghapus Crowdfund
-                                  </h5>
+                                  </p>
                                   <button
                                     type="button"
                                     class="btn-close"
