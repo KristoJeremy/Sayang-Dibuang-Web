@@ -28,12 +28,14 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
 
         // getting the first 50 words of the description
         // source: https://stackoverflow.com/questions/29126888/what-is-the-best-way-to-get-the-first-x-number-of-words-from-a-string-javascript
-        trimmedDescription = trimmedDescription
+        fiftyWordsDescription = trimmedDescription
           .split(/\s+/)
           .slice(0, 50)
           .join(" ");
-        if (crowdfund.description > trimmedDescription) {
-          trimmedDescription += "...";
+
+        // adding three dots if the description is too long
+        if (trimmedDescription.length > fiftyWordsDescription.length) {
+          fiftyWordsDescription += "...";
         }
 
         // inserting cards
@@ -61,7 +63,7 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                       }</h2>
                       
                       <p class="card-text">
-                      ${trimmedDescription}
+                      ${fiftyWordsDescription}
                       </p>
                   
                   </div>
@@ -81,14 +83,25 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                   <div class="d-flex justify-content-end">
                   ${
                     crowdfund.user_id != userId
-                      ? `<button
-                          type="button"
+                      ? `<div>
+                      <a
                           class="btn btn-sand border"
                           data-bs-toggle="modal"
                           data-bs-target="#contact-modal-${crowdfund.user_id}"
                         >
                           Bantu ${crowdfund.profile.user.first_name}
-                        </button>`
+                        </a>
+                        ${
+                          crowdfund.description > trimmedDescription
+                            ? `<a
+                            class="btn btn-outline-dark-green ml-4"
+                            onclick="showCrowdfundingById(${crowdfund.id})"
+                          >
+                            Baca Lebih Lanjut
+                          </a>`
+                            : ""
+                        }
+                        </div>`
                       : `<div>
                           <a
                             type="button"
@@ -155,7 +168,9 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                         </svg>
                                       </div>
                                       <div>
-                                        Email ${crowdfund.profile.user.email}
+                                        Email ${
+                                          crowdfund.profile.user.first_name
+                                        }
                                       </div>
                                     </a>
             
@@ -196,7 +211,9 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                                         </svg>
                                       </div>
                                       <div>
-                                        LINE ${crowdfund.profile.line}
+                                        LINE ${
+                                          crowdfund.profile.user.first_name
+                                        }
                                       </div>
                                     </a>
                                 </div>
