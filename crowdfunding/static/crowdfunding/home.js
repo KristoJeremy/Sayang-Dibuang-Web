@@ -26,6 +26,21 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
               timeStyle: "short",
             }).format(date);
 
+            // trimming the description into only the text
+            // source: https://stackoverflow.com/questions/822452/strip-html-from-text-javascript
+            let trimmedDescription = crowdfund.fields.description.replace(
+              /<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g,
+              ""
+            );
+
+            // getting the first 50 words of the description
+            // source: https://stackoverflow.com/questions/29126888/what-is-the-best-way-to-get-the-first-x-number-of-words-from-a-string-javascript
+            trimmedDescription =
+              trimmedDescription.split(/\s+/).slice(0, 50).join(" ") + "...";
+            if (trimmedDescription > crowdfund.fields.description) {
+              trimmedDescription += "...";
+            }
+
             // inserting cards
             crowdfundSection.insertAdjacentHTML(
               "afterbegin",
@@ -49,7 +64,7 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                       }</h2>
 
                       <p class="card-text">
-                        ${crowdfund.fields.description}
+                        ${trimmedDescription}
                       </p>
 
                       <div class="progress mb-3">
