@@ -25,3 +25,7 @@ urlpatterns = [
     path("crowdfundings/", include("crowdfunding.urls")),
     path("barang/", include("barang_bekas.urls")),
 ]
+
+
+# 404
+handler404='helpers.views.handle_not_found'

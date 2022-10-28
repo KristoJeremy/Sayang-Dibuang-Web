@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>Wrong address</title>
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="static/css/styles.css" />
+<body>
+    {% comment %} <div class="img-fluid"> error 404 somehow
+       <img src="static/asset/notvector.png" alt="404" />
+    </div>  {% endcomment %}
+    <div class="d-flex flex-row justify-content-center align-items-center" style="height:100vh;" >
+        <h1 class="px-3" style="font-size:120px;border-right: 6px solid #0c2e22;">404</h1>
+        <div class="px-3">
+        <h2>Ooops!</h2>
+        <h4>You've found a page that doesn't exist.</h4>
+
+        <button class="btn btn-dark-green my-3" onclick="location.href = '/'">Return to homepage</button>
+        </div>
+    </div>
+</body>
+</html>

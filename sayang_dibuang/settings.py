@@ -37,7 +37,7 @@ PRODUCTION = os.getenv("DATABASE_URL") is not None
 SECRET_KEY = "django-insecure-3@5wx%(^*zl68l(o$^m-3%cvjv0g&mom1ra=oj5f048_al57s7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
