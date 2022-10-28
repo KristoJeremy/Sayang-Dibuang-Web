@@ -11,6 +11,7 @@
   {% comment %} Get CSRF Token {% endcomment %}
   window.csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   const loggedInId = "{{user.pk}}"
+  let allSelected = true;
 </script>
 <script src="{% static 'crowdfunding/home.js' %}"></script>
 <script>
@@ -31,14 +32,14 @@
       id="all-crowdfunds-btn"
       class="nav-link bg-brown text-white"
       aria-current="page"
-      onclick="removeCrowdfunds();getCrowdfunds({userId: {{user.pk}}});"
+      onclick="allCrowdfundsSelected();"
     >
       Semua Crowdfund
     </button>
     <button
       id="my-campaign-btn"
       class="nav-link text-brown"
-      onclick="removeCrowdfunds();getCrowdfunds({userOnly: true, userId: {{user.pk}}});"
+      onclick="myCampaignsSelected();"
     >
       Kampanyeku
     </button>
