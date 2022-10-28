@@ -40,7 +40,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('test_app:hello_world')
+            return redirect('information:index_information')
         else:
             messages.info(request, 'Username atau Password salah!')
     context = {}
@@ -48,7 +48,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('fitur_autentikasi:login')
+    return redirect('information:index_information')
 
 @login_required(login_url='/login/')
 def show_profile(request, username):
