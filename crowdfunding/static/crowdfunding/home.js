@@ -52,7 +52,10 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                     alt=""
                   />
                   <div>
-                    <strong>${crowdfund.profile.user.username}</strong>
+                    <strong>
+                      ${crowdfund.profile.user.username}
+                        (${crowdfund.profile.poin})
+                    </strong>
                     <p class="m-0">Ditayangkan ${formattedDate}</p>
                   </div>
               </div>
@@ -60,12 +63,12 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                   <div id="card-view-all-btn" class="mb-3" onclick="showCrowdfundingById(${
                     crowdfund.id
                   })">
-                      <h2 class="card-title" style="font-family:Verona; ">${
-                        crowdfund.title
-                      }</h2>
+                      <h2 class="card-title" style="font-family:Verona; ">
+                          ${crowdfund.title}
+                      </h2>
                       
                       <p class="card-text">
-                      ${fiftyWordsDescription}
+                          ${fiftyWordsDescription}
                       </p>
                   
                   </div>

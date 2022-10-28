@@ -19,6 +19,7 @@ def show_crowdfunding_by_id(request, id):
 
 @login_required(login_url="/login/")
 def create_crowdfund(request):
+    CREATE_POINT = 10
     form = CrowdfundForm()
 
     if request.method == "POST":
@@ -26,8 +27,9 @@ def create_crowdfund(request):
         if form.is_valid():
             new_crowdfund = form.save(commit=False)
             new_crowdfund.user = Profile.objects.get(user=request.user)
+            new_crowdfund.user.add_poin(CREATE_POINT)
             new_crowdfund.save()
-            return redirect("/crowdfundings")
+            return redirect("crowdfunding:show_crowdfundings")
 
     context = {"form": form}
     return render(request, "crowdfund_form.html", context)
@@ -43,7 +45,7 @@ def edit_crowdfund(request, id):
         form = CrowdfundForm(request.POST, instance=crowdfund)
         if form.is_valid():
             form.save()
-            return redirect("/crowdfundings")
+            return redirect("crowdfunding:show_crowdfundings")
 
     context = {"form": form}
     return render(request, "crowdfund_form.html", context)
@@ -53,7 +55,7 @@ def edit_crowdfund(request, id):
 def delete_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
     crowdfund.delete()
-    return redirect("/crowdfundings")
+    return redirect("crowdfunding:show_crowdfundings")
 
 
 @login_required(login_url="/login/")
