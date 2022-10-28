@@ -7,19 +7,29 @@
     const formSection = document.querySelector("#crowdfund-form")
 
     if (command === "edit") {
-      formSection.insertAdjacentHTML("afterbegin", "<h2>Ubah Crowdfund</h2>")
+      formSection.insertAdjacentHTML("afterbegin", "<h2 class='fw-bold' style='font-family:Verona;'>Ubah Crowdfund</h2>")
     } else {
-      formSection.insertAdjacentHTML("afterbegin", "<h2>Buat Crowdfund Baru</h2>")
+      formSection.insertAdjacentHTML("afterbegin", "<h2 class='fw-bold' style='font-family:Verona;'>Buat Crowdfund Baru</h2>")
     }
   }
 </script>
+
+<style>
+  body {
+    background-color: #F6F2E9;
+  }
+</style>
 
 <section id="crowdfund-form" class="container-fluid my-4 w-50">
   <form action="" method="POST">
     {% csrf_token %}
     {% for field in form %}
-      <label class="mt-4 mb-2 h5 fw-bold">{{ field.label }}</label>
-      {{ field }}
+      <div class="card bg-sand my-4 border-brown">
+        <label class="h5 fw-bold card-header border-brown">{{ field.label }}</label>
+        <div class="card-body bg-white">
+          {{ field }}
+        </div> 
+      </div>
       
       {% if field.errors %}
         <div class="alert alert-danger">{{field.errors}}</div>
