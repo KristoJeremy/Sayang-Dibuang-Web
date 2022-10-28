@@ -12,12 +12,12 @@ def show_crowdfundings(request):
     return render(request, "home.html")
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def show_crowdfunding_by_id(request, id):
     return render(request, "crowdfunding_by_id.html")
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def create_crowdfund(request):
     form = CrowdfundForm()
 
@@ -33,7 +33,7 @@ def create_crowdfund(request):
     return render(request, "crowdfund_form.html", context)
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def edit_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
     if crowdfund.user.pk != request.user.pk:
@@ -51,7 +51,7 @@ def edit_crowdfund(request, id):
     return render(request, "crowdfund_form.html", context)
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def delete_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
     if crowdfund.user.pk != request.user.pk:
@@ -60,7 +60,7 @@ def delete_crowdfund(request, id):
     return redirect("crowdfunding:show_crowdfundings")
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def show_crowdfundings_json(request):
     crowdfunds = Crowdfund.objects.all().order_by("-created")
     return HttpResponse(
@@ -68,7 +68,7 @@ def show_crowdfundings_json(request):
     )
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def show_crowdfundings_by_id_json(request, id):
     # reference: https://stackoverflow.com/questions/757022/how-do-you-serialize-a-model-instance-in-django
     crowdfund = Crowdfund.objects.get(pk=id)
@@ -81,7 +81,7 @@ def show_crowdfundings_by_id_json(request, id):
     return HttpResponse(data, content_type="application/json")
 
 
-@login_required(login_url="/todolist/login/")
+@login_required(login_url="/login/")
 def get_user_by_id(request, id):
     profile = Profile.objects.get(user=id)
     user_obj = {
