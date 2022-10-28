@@ -41,17 +41,19 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
         // inserting cards
         crowdfundSection.insertAdjacentHTML(
           "beforebegin",
-          `<div id="crowdfund-${crowdfund.id}" class="crowdfund card mb-5">
-              <div class="card-header d-flex justify-items-center align-items-center gap-2">
+          `<div id="crowdfund-${
+            crowdfund.id
+          }" class="crowdfund card mb-5 border-brown">
+              <div class="card-header d-flex bg-sand border-brown align-items-center gap-2">
                   <img
-                    class="rounded-circle"
+                    class="rounded-circle m-0"
                     style="width: 50px"
                     src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
                     alt=""
                   />
                   <div>
                     <strong>${crowdfund.profile.user.username}</strong>
-                    <p>Ditayangkan ${formattedDate}</p>
+                    <p class="m-0">Ditayangkan ${formattedDate}</p>
                   </div>
               </div>
               <div class="card-body">
@@ -67,25 +69,33 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                       </p>
                   
                   </div>
-                  <div class="progress mb-3">
-                    <div
-                        class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                        role="progressbar"
-                        style="width: ${
-                          (crowdfund.received / crowdfund.target) * 100
-                        }%"
-                      >
-                        ${crowdfund.received} dari
-                        ${crowdfund.target} benda diperoleh
-                    </div>
+                  
+                  <div>
+                      <p class="text-center text-secondary">${
+                        crowdfund.received
+                      } dari
+                            ${crowdfund.target} benda diperoleh. Ayo, bantu ${
+            crowdfund.profile.user.first_name
+          } mencapai targetnya!</p>
+                      <div class="progress mb-3 border border-secondary">
+                        <div
+                            class="progress-bar bg-dark-green progress-bar-striped progress-bar-animated"
+                            role="progressbar"
+                            style="width: ${
+                              (crowdfund.received / crowdfund.target) * 100
+                            }%;"
+                          >
+                        </div>
+                      </div>
                   </div>
+
           
                   <div class="d-flex justify-content-end">
                   ${
                     crowdfund.user_id != userId
                       ? `<div>
                       <a
-                          class="btn btn-sand border"
+                          class="btn btn-sand border border-brown"
                           data-bs-toggle="modal"
                           data-bs-target="#contact-modal-${crowdfund.user_id}"
                         >
@@ -310,9 +320,9 @@ window.onload = () => {
   const navbar = document.querySelector(".navbar");
   window.onscroll = () => {
     if (window.scrollY > 100) {
-      navbar.classList.add("bg-sand");
+      navbar.classList.add("bg-gold");
     } else {
-      navbar.classList.remove("bg-sand");
+      navbar.classList.remove("bg-gold");
     }
   };
 

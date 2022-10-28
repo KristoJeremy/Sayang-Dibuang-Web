@@ -24,6 +24,7 @@ window.onload = () => {
                   <div class="mb-3">
                     <h4 class="mb-2 fw-bold">${
                       crowdfund.profile.user.first_name +
+                      " " +
                       crowdfund.profile.user.last_name
                     }</h4>
                     
