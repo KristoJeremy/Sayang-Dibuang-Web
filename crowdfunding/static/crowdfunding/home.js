@@ -74,12 +74,16 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                   </div>
                   
                   <div>
-                      <p class="text-center text-secondary">${
-                        crowdfund.received
-                      } dari
-                            ${crowdfund.target} benda diperoleh. Ayo, bantu ${
-            crowdfund.profile.user.first_name
-          } mencapai targetnya!</p>
+                      <p class="text-center text-secondary">
+                      ${crowdfund.received} dari
+                      ${crowdfund.target} benda diperoleh.
+               
+                      ${
+                        !crowdfund.is_accomplished
+                          ? `Ayo, bantu ${crowdfund.profile.user.first_name} mencapai targetnya!`
+                          : `Terima kasih telah membantu ${crowdfund.profile.user.first_name} mencapai targetnya!`
+                      }
+                      </p>
                       <div class="progress mb-3 border border-secondary">
                         <div
                             class="progress-bar bg-dark-green progress-bar-striped progress-bar-animated"
@@ -95,7 +99,7 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
           
                   <div class="d-flex justify-content-end">
                   ${
-                    crowdfund.user_id != userId
+                    crowdfund.user_id != userId && !crowdfund.is_accomplished
                       ? `<div>
                       <a
                           class="btn btn-sand border border-brown"
@@ -115,7 +119,8 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                             : ""
                         }
                         </div>`
-                      : `<div>
+                      : crowdfund.user_id == userId
+                      ? `<div>
                           <a
                             type="button"
                             class="btn btn-outline-dark-green"
@@ -131,7 +136,9 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                             >
                             Hapus
                           </button>
-                    </div>`
+                    </div>
+                    `
+                      : ""
                   }
               
                   <div
