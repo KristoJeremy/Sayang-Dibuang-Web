@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Leaderboard</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<style>
+    body {
+        background-color: #185641;
+    }
+    h1{
+        font-family: Verona;
+        font-size: 50px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="container">
+    <div class="mx-auto p-3">
+        <div class="title mb-4">
+            <h1 class="text-center text-sand mt-3 mb-2">Leaderboard</h1>
+            <div class="text-center mb-2" id="message-content">
+            </div>
+            <h5 class="text-center text-sand mb-3">Here is our top gainers</h5>
+        </div>
+        <div class="title mt-3">
+            <div class="row" id="content-data"></div>
+        </div>
+        <div>
+            <form id="form">
+                {% csrf_token %}
+                <div class="mb-3 col">
+                    <label for="recipient-name" class="col-form-label text-sand mt-3" >
+                        <i>Let's send a message to the other users!</i>
+                    </label>
+                    <input type="text" class="form-control mt-2" id="field_message" name="random_message" placeholder="Send your message" onfocus=this.value='' >
+                    <button type="button" class="btn btn-gold mt-3" id="submit-button">Sumbit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% block scripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+    refreshContent();
+});
+
+async function getData(){
+    return fetch("{% url 'leaderboard:show_json' %}").then((res) => res.json())
+}
+
+async function getDataMessage(){
+    return fetch("{% url 'leaderboard:show_message_json' %}").then((res) => res.json())
+}
+
+async function refreshContent(){
+    document.getElementById("content-data").innerHTML = ""
+    const data_leaderboard = await getData()
+    let htmlString = ``
+    data_leaderboard.forEach(element => {
+        htmlString += ` <div class="row justify-content-around mb-3">
+            <div class="card mx-auto border-0 shadow-lg" style="width: 26rem; height: 4.5rem;">
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr class="row">
+                            <td class="col-4 text-center">
+                                <b>${element.username}</b>
+                            </td>
+                            <td class="col-4 text-center">
+                                <p>${element.poin} points</p>
+                            </td>
+                            <td class="col-4 text-center">
+                                <p>${element.status}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>`
+    });
+    document.getElementById("content-data").innerHTML = htmlString
+
+    document.getElementById("message-content").innerHTML = ""
+    const data_message = await getDataMessage()
+    let htmlString1 = ``
+    data_message.forEach(element => {
+        htmlString1 += `<div>
+            <i class="text-sand">"${element.message}"</i>
+        </div>`
+    });
+    document.getElementById("message-content").innerHTML = htmlString1
+}
+
+function addMessage() {
+    fetch("{% url 'leaderboard:add_message' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#form'))
+    }).then(refreshContent)
+    return false
+}
+
+document.getElementById("submit-button").onclick = addMessage
+refreshContent()
+
+</script>
+
+{% endblock scripts %}
+
+{% endblock content %}
