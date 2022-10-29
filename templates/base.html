@@ -65,18 +65,15 @@
                 aria-expanded="false"
               >
                 Menu
-              </a>
-              <ul
-                class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end"
-              >
-                <li><a class="dropdown-item" href="/barang/">Beranda</a></li>
-                <li><a class="dropdown-item" href="#">Request</a></li>
-                <li>
-                  <a class="dropdown-item" href="/crowdfundings/"
-                    >Crowdfunding</a
-                  >
-                </li>
-                <li><a class="dropdown-item" href="#">Leaderboard</a></li>
+              </p>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <a class="nav-link" aria-current="page" href="/barang/">Beranda</a>
+                <a class="nav-link" href="#">Request</a>
+                <a class="nav-link active" href="/crowdfundings"
+                  >Crowdfunding</a
+                >
+                <a class="nav-link" href="/leaderboard/">Leaderboard</a>
+                <a class="nav-link" aria-current="page" href="/">Information</a>
               </ul>
             </li>
             {% if user.is_active %}
