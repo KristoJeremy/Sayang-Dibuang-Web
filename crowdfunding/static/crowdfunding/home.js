@@ -328,11 +328,17 @@ window.onload = () => {
   // changing style of navbar on scroll
   // reference: https://stackoverflow.com/questions/23706003/changing-nav-bar-color-after-scrolling
   const navbar = document.querySelector(".navbar");
+  const logo = document.querySelector(".navbar-brand");
+  const menuLabel = document.querySelector("#dropdown-menu-label");
   window.onscroll = () => {
     if (window.scrollY > 100) {
-      navbar.classList.add("bg-gold");
+      navbar.classList.add("bg-dark-green");
+      logo.classList.add("text-sand");
+      menuLabel.classList.add("text-sand");
     } else {
-      navbar.classList.remove("bg-gold");
+      navbar.classList.remove("bg-dark-green");
+      logo.classList.remove("text-sand");
+      menuLabel.classList.remove("text-sand");
     }
   };
 
