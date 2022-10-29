@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from tinymce.models import HTMLField
 from fitur_autentikasi.models import Profile
