@@ -116,11 +116,11 @@ def show_crowdfundings_by_id_json(request, id):
 def add_point_when_contacting(request, id):
     CONTACT_POINT = 5
     crowdfund = Crowdfund.objects.get(pk=id)
+    if crowdfund.user.pk == request.user.pk:
+        return JsonResponse({"message": "Anda tidak bisa menghubungi diri sendiri."})
     if Crowdfund.objects.filter(pk=id, helpers__user=request.user):
         return JsonResponse(
-            {
-                "message": "Anda sudah menghubungi user ini terkait crowdfund ini, sehingga poin Anda tidak ditambahkan."
-            },
+            {"message": "Terima kasih telah bersedia membantu."},
         )
 
     user_profile = Profile.objects.get(user=request.user)
