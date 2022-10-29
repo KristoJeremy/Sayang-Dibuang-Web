@@ -27,16 +27,16 @@ def show_json(request):
 
     for item in temp:
         if counter == 1:
-            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 'Gold'})
+            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 1})
             counter += 1
         elif counter == 2:
-            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 'Silver'})
+            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 2})
             counter += 1
         elif counter == 3:
-            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 'Bronze'})
+            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 3})
             counter += 1
         else:
-            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 'Standard'})
+            data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 4})
             counter += 1
 
     return JsonResponse(data, safe=False)
