@@ -7,28 +7,70 @@
 
 {% block content %}
 {% csrf_token %}
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script>
   {% comment %} Get CSRF Token {% endcomment %}
   window.csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  const loggedInId = "{{user.pk}}"
+  let allSelected = true;
 </script>
 <script src="{% static 'crowdfunding/home.js' %}"></script>
+<script>
+  getCrowdfunds({userId: loggedInId})
+</script>
 
-<section id="crowdfunds-container" class="container d-grid gap-4 w-50">
+<style>
+  body {
+    background-color: #F6F2E9;
+  }
+  #card-view-all-btn:hover {
+    cursor: pointer;
+    background-color: rgb(226 232 240);
+    transition: 0.1s;
+  }
+</style>
+
+<section id="crowdfunds-container" class="container d-grid gap-4 my-5" style="width: 60%;">
   {% comment %} Header {% endcomment %}
+  <p class="h1 fw-bold" style="font-family:Verona;">Crowdfunding</p>
+  {% comment %} Hero {% endcomment %}
+  <div class="d-flex align-items-center gap-4">
+    <p class="h3 w-50" >Di sini, kamu bisa membantu dan dibantu. Mari sama-sama menyalurkan barang satu dengan yang lain.</p>
+    <lottie-player class="w-50" src="https://lottie.host/8bbaf88e-16e1-4dcf-a5d1-5d9555bc6d6f/Nx2jkkjdLv.json" background="transparent" speed="1" loop autoplay></lottie-player>
+  </div>
+
+  {% comment %} Quote {% endcomment %}
+  <div class="rounded bg-dark-green p-4 text-white text-center">
+    
+    <p class="m-0 h3" style="font-family:Verona;">“When we give cheerfully and accept gratefully, everyone is blessed.”</p>
+    <p class="m-0 mt-2 fst-italic"> - Maya Angelou</p>
+    
+  </div>
 
   {% comment %} Nav tabs {% endcomment %}
   <ul class="nav nav-pills gap-2">
-    <button id="all-crowdfunds-btn" class="nav-link bg-brown text-white" aria-current="page">
+    <button
+      id="all-crowdfunds-btn"
+      class="nav-link bg-brown text-white"
+      aria-current="page"
+      onclick="allCrowdfundsSelected();"
+    >
       Semua Crowdfund
     </button>
-    <button id="my-campaign-btn" class="nav-link text-brown" onclick="
-      removeCrowdfunds();
-      getUserCrowdfunds({{user.pk}});
-    ">Kampanyeku</button>
+    <button
+      id="my-campaign-btn"
+      class="nav-link text-brown"
+      onclick="myCampaignsSelected();"
+    >
+      Kampanyeku
+    </button>
   </ul>
 
   {% comment %} Cards {% endcomment %}
   <div id="crowdfunds">
+    <div class="d-flex justify-content-end">
+      <a id="add-btn" class="d-none btn btn-dark-green" href="/crowdfundings/create">Tambah Kampanye Baru</a>
+    </div>
   </div>
 </section>
 
