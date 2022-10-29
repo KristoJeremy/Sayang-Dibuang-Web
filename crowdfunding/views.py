@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -106,3 +107,22 @@ def show_crowdfundings_by_id_json(request, id):
     c["profile"]["user"].pop("date_joined")
 
     return JsonResponse(c, safe=False)
+
+
+@login_required(login_url="/login/")
+def add_point_when_contacting(request, id):
+    CONTACT_POINT = 5
+    crowdfund = Crowdfund.objects.get(pk=id)
+    if Crowdfund.objects.filter(pk=id, helpers__user=request.user):
+        return JsonResponse(
+            {
+                "message": "Anda sudah menghubungi user ini terkait crowdfund ini, sehingga poin Anda tidak ditambahkan."
+            },
+        )
+
+    user_profile = Profile.objects.get(user=request.user)
+    crowdfund.helpers.add(user_profile)
+    user_profile.add_poin(CONTACT_POINT)
+    return JsonResponse(
+        {"message": "Menghubungi user berhasil. Poin telah ditambahkan."},
+    )

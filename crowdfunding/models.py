@@ -14,3 +14,4 @@ class Crowdfund(models.Model):
     received = models.IntegerField(default=0)  # number of items received by the user
     target = models.IntegerField()  # number of items needed by the user
     is_accomplished = models.BooleanField(default=False)
+    helpers = models.ManyToManyField(Profile, related_name="profiles")

@@ -15,4 +15,9 @@ urlpatterns = [
         views.show_crowdfundings_by_id_json,
         name="show_crowdfundings_by_json",
     ),
+    path(
+        "add-point-when-contacting/<int:id>",
+        views.add_point_when_contacting,
+        name="add_point_when_contacting",
+    ),
 ]
