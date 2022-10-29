@@ -11,7 +11,7 @@ window.onload = () => {
       crowdfundSection.insertAdjacentHTML(
         "beforeend",
         `
-        <div class="bg-sand rounded p-5">
+        <div class="bg-sand border border-dark rounded p-5">
             <h1 style="font-family:Verona;">${crowdfund.title}</h1>
         </div>
         <div class="d-flex mt-3 p-4 gap-5">
@@ -19,8 +19,8 @@ window.onload = () => {
                 ${crowdfund.description}
             </div>
 
-            <div style="width:40%;" class="sticky">
-                <div class="border border-2 border-black p-4 rounded mb-4">
+            <div style="width:40%;">
+                <div class="border border-dark p-4 rounded mb-4">
                   <div class="mb-3">
                     <h4 class="mb-2 fw-bold">${
                       crowdfund.profile.user.first_name +
@@ -96,7 +96,7 @@ window.onload = () => {
                   }
                 </div>
 
-                <div class="border border-2 border-black p-4 rounded">
+                <div class="border border-dark p-4 rounded">
                     <h4 class="mb-2 fw-bold mb-4">Progress</h4>
                     
                     <h5>
@@ -106,7 +106,7 @@ window.onload = () => {
                         crowdfund.profile.user.first_name
                       } mencapai targetnya!
                     </h5>
-                    <div class="progress mb-3">
+                    <div class="progress mb-3 border border-dark">
                       <div
                           class="progress-bar bg-dark-green progress-bar-striped progress-bar-animated"
                           role="progressbar"

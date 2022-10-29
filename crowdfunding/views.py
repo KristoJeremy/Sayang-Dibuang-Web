@@ -1,5 +1,5 @@
-from http import HTTPStatus
-from django.http import JsonResponse
+from django.core import serializers
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -68,11 +68,14 @@ def edit_crowdfund(request, id):
 @login_required(login_url="/login/")
 def delete_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
-    if crowdfund.user.pk != request.user.pk:
-        return redirect("crowdfunding:show_crowdfundings")
+    if crowdfund.user.pk == request.user.pk:
+        crowdfund.delete()
+        crowdfunds = Crowdfund.objects.all()
+        return HttpResponse(
+            serializers.serialize("json", crowdfunds), content_type="application/json"
+        )
 
-    crowdfund.delete()
-    return redirect("crowdfunding:show_crowdfundings")
+    return HttpResponseBadRequest("Gagal menghapus crowdfund.")
 
 
 @login_required(login_url="/login/")
