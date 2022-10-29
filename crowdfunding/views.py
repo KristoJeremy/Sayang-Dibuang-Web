@@ -83,7 +83,7 @@ def show_crowdfundings_json(request):
     crowdfunds = Crowdfund.objects.all().order_by("-created").values()
     obj = []
     for c in crowdfunds:
-        c["profile"] = list(Profile.objects.filter(pk=c["user_id"]).values())[0]
+        c["profile"] = list(Profile.objects.filter(user__id=c["user_id"]).values())[0]
         c["profile"].pop("user_id")
         c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
         c["profile"]["user"].pop("password")
@@ -98,7 +98,7 @@ def show_crowdfundings_json(request):
 
 @login_required(login_url="/login/")
 def show_crowdfundings_by_id_json(request, id):
-    c = Crowdfund.objects.filter(pk=id).values()[0]
+    c = Crowdfund.objects.filter(user__id=id).values()[0]
     c["profile"] = list(Profile.objects.filter(pk=c["user_id"]).values())[0]
     c["profile"].pop("user_id")
     c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
