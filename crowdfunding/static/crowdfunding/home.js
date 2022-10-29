@@ -360,7 +360,8 @@ const deleteCrowdfund = (id) => {
           `<p class="h5 crowdfund text-center rounded my-3 py-4 bg-dark text-white">Belum ada crowdfund yang aktif.</p>`
         );
       }
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 const allCrowdfundsSelected = () => {
