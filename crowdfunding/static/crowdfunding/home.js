@@ -66,7 +66,7 @@ const getCrowdfunds = ({ userOnly = false, userId = null } = {}) => {
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="card-view-all-btn" class="mb-3" onclick="showCrowdfundingById(${
+                    <div id="card-view-all-btn" class="mb-3 px-2 py-4 rounded" onclick="showCrowdfundingById(${
                       crowdfund.id
                     })">
                         <h2 class="card-title" style="font-family:Verona; ">
