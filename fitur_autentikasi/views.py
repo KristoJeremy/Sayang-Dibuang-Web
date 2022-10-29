@@ -89,12 +89,6 @@ def update_user_data(request, username):
 
         profile_form = ProfileForm(UPOST(request.POST,user.profile), instance=user.profile)
 
-        # print("user_update_form " + str(user_update_form.is_valid()))
-        # print("profile_form " + str(profile_form.is_valid()))
-        # print("request.POST " + str(request.POST))
-        # print(UPOST(request.POST,user.profile))
-
-
         if profile_form.is_valid():
             profile_form.save()
         else:
