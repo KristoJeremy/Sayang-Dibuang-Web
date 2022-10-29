@@ -40,9 +40,9 @@
 
                             </div>
                     
+                            {% if user.username != '' %}
                             <div class="cart my-4 align-items-center d-flex justify-content-between"> 
                                 <div class="d-flex flex-column">
-                                    {% comment %} <button class="btn btn-dark text-uppercase mr-2 px-4">Contact Person</button> {% endcomment %}
                                     <h6 class="text-black"><i class="fa fas fa-user-circle" style="font-size:24px;"></i><span class="px-2">{{barang.user.username}}</span></h6>
                                     <ul class="list-group"> 
                                         <li class="list-group-item bg-dark-green text-white opacity-75">Telephone: {{ barang.profile.telephone }}</li>
@@ -54,8 +54,23 @@
                                         {% endif %}
                                     </ul>
                                 </div>
-                             
                             </div>
+                            {% else %}
+                            <div class="cart my-4 align-items-center d-flex justify-content-between"> 
+                                <div class="d-flex flex-column">
+                                    <h6 class="text-black opacity-50"><i class="fa fas fa-user-circle" style="font-size:24px;"></i><span class="px-2">Login to see owner's information</span></h6>
+                                    <ul class="list-group opacity-50"> 
+                                        <li class="list-group-item bg-dark-green text-white opacity-75">Telephone: 08XXXXXXXX</li>
+                                        {% if barang.profile.whatsapp %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Whatsapp: 08XXXXXXXX</li>
+                                        {% endif %}
+                                        {% if barang.profile.line  %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Line: XXXX</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
                             {% if user == barang.user %}
                             <div class="d-flex flex-row justify-content-between align-items-center">
                                 <a href="edit/" class="py-3 pl-5 cursor-pointer text-dark text-decoration-none d-flex align-items-center">
