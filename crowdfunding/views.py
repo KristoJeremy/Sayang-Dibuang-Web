@@ -106,17 +106,3 @@ def show_crowdfundings_by_id_json(request, id):
     c["profile"]["user"].pop("date_joined")
 
     return JsonResponse(c, safe=False)
-
-
-@login_required(login_url="/login/")
-def get_user_by_id(request, id):
-    profile = Profile.objects.get(user=id)
-    user_obj = {
-        "username": profile.user.username,
-        "full_name": profile.user.get_full_name(),
-        "email": profile.user.email,
-        "telephone": profile.telephone,
-        "whatsapp": profile.whatsapp,
-        "line": profile.line,
-    }
-    return JsonResponse(user_obj)
