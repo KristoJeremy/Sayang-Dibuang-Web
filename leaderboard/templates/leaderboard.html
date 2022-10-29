@@ -13,6 +13,12 @@
         font-family: Verona;
         font-size: 50px;
     }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
 </style>
 {% endblock meta %}
 
@@ -36,7 +42,7 @@
                         <i>Let's send a message to the other users!</i>
                     </label>
                     <input type="text" class="form-control mt-2" id="field_message" name="random_message" placeholder="Send your message" onfocus=this.value='' >
-                    <button type="button" class="btn btn-gold mt-3" id="submit-button">Sumbit</button>
+                    <button type="button" class="btn btn-gold mt-3" id="submit-button">submit</button>
                 </div>
             </form>
         </div>
@@ -66,20 +72,43 @@ async function refreshContent(){
     const data_leaderboard = await getData()
     let htmlString = ``
     data_leaderboard.forEach(element => {
+        let tempBadges = ``
+        if (element.status == 1){
+            tempBadges += `<img src="{% static 'images/Gold.png'  %}">`
+        }
+        else if (element.status == 2){
+            tempBadges += `<img src="{% static 'images/Silver.png' %}">`
+        }
+        else if (element.status == 3){
+            tempBadges += `<img src="{% static 'images/Bronze.png' %}">`
+        }
+        else {
+            tempBadges += `<img src="{% static 'images/Standard.png' %}">`
+        }
+            
         htmlString += ` <div class="row justify-content-around mb-3">
-            <div class="card mx-auto border-0 shadow-lg" style="width: 26rem; height: 4.5rem;">
+            <div class="card mx-auto border-gold shadow-lg bg-sand" style="width: 32rem; height: 4.5rem;">
                 <div class="card-body">
                     <table class="table table-borderless">
                         <tr class="row">
-                            <td class="col-4 text-center">
+                            <td class="col-2">
+                                <img
+                                class="rounded-circle"
+                                style="width: 30px"
+                                src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
+                                alt=""
+                                />  
+                            </td>
+                            <td class="col-4 text-left">
                                 <b>${element.username}</b>
                             </td>
-                            <td class="col-4 text-center">
+                            <td class="col-3 text-left">
                                 <p>${element.poin} points</p>
                             </td>
-                            <td class="col-4 text-center">
-                                <p>${element.status}</p>
+                            <td class="col-3 mx-auto">
+                                ${tempBadges}
                             </td>
+                          
                         </tr>
                     </table>
                 </div>
