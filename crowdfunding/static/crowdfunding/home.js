@@ -1,4 +1,3 @@
-// handling the nav tabs
 const showCrowdfundingById = (pk) => {
   window.location = `${pk}`;
 };
