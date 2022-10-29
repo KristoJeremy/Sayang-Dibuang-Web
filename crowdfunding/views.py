@@ -127,5 +127,8 @@ def add_point_when_contacting(request, id):
     crowdfund.helpers.add(user_profile)
     user_profile.add_poin(CONTACT_POINT)
     return JsonResponse(
-        {"message": "Menghubungi user berhasil. Poin telah ditambahkan."},
+        {
+            "message": "Terima kasih telah bersedia membantu. Kamu mendapatkan 5 poin!",
+            "poin": user_profile.poin,
+        },
     )

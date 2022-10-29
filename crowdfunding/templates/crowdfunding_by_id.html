@@ -2,6 +2,10 @@
 
 {% load static %}
 {% block content %}
+{% csrf_token %}
+<script>
+    window.csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+</script>
 <script src="{% static 'crowdfunding/crowdfunding_by_id.js' %}"></script>
 
 <section id="crowdfund" class="m-5">
