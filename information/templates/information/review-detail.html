@@ -2,9 +2,48 @@
 {% load static %}
 
 {% block meta %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   <link rel="stylesheet" href="{% static 'css/barang.css' %}" />
 <title>Detail Review</title>
 {% endblock meta %}
 
 {% block content %}
-<p>Test</p>
+<body class="bg-white">
+    <div class="container-fluid d-flex justify-content-center p-lg-5">
+        <div class="card container-cards bg-sand border-brown col-lg-8 px-5 py-4">
+            <a href={% url 'information:all_review' %} class="py-3 pr-5 text-dark text-decoration-none" style="cursor: pointer;"> 
+                <i class="fa fa-long-arrow-left"></i><span class="mx-2">Back</span> 
+            </a>
+            
+            <div class="card-header bg-transparent">
+                <div class="row py-2">
+                    <div class="col-1">
+                        <img
+                        class="rounded-circle"
+                        style="width: 40px; height: 40px"
+                        src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
+                        alt=""
+                        />
+                    </div>
+                    <div class="col-5 d-flex justify-content-start align-items-center">
+                        <h4>{{review.user.user.username}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body bg-white rounded" style="height: 300px;">
+                <h3 class="text-center py-3"><b>{{ review.judul }}</b></h3>
+                <p class="py-2">{{ review.deskripsi }}</p>
+            </div>
+            <div class="card-footer row bg-transparent">
+                <div class="col">
+                    <small class="text-uppercase text-muted brand"> Dibuat pada tanggal : {{review.created}}</small>
+                </div>
+                <div class= "col-1 d-flex justify-content-end">
+                    <a href="delete" class="cursor-pointer text-dark text-decoration-none d-flex align-items-center">
+                        <i class="fa fa-trash" style="font-size:20px; color:red;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock content %}
