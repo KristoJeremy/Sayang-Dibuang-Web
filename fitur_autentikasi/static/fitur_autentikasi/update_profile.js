@@ -56,6 +56,8 @@ $(document).ready(function() {
                 `)
                 change = true
             }
+            
+            document.getElementsByClassName("update")[0].scrollIntoView({ behavior: 'smooth', block: 'end'})
         } else {
             $(this).siblings().attr("disabled", "disabled")
             $(this).text("Change")
