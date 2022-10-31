@@ -23,20 +23,43 @@
   body {
     background-color: #F6F2E9;
   }
+
   #card-view-all-btn:hover {
     cursor: pointer;
     background-color: rgb(226 232 240);
     transition: 0.1s;
   }
+
+  #hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    #crowdfunds-container {
+      width: 65%;
+    }
+
+    #hero {
+      flex-direction: row-reverse;
+    }
+
+    #hero-description {
+      width: 50%;
+      text-align: left;
+    }
+  }
 </style>
 
-<section id="crowdfunds-container" class="container d-grid gap-4 my-5" style="width: 60%;">
+<section id="crowdfunds-container" class="container d-grid gap-4 my-5 mw-100">
   {% comment %} Header {% endcomment %}
-  <p class="h1 fw-bold" style="font-family:Verona;">Crowdfunding</p>
+  <p id="header" class="display-4 m-0 fw-bold text-center" style="font-family:Verona;">Crowdfunding</p>
   {% comment %} Hero {% endcomment %}
-  <div class="d-flex align-items-center gap-4">
-    <p class="h3 w-50" >Di sini, kamu bisa membantu dan dibantu. Mari sama-sama menyalurkan barang satu dengan yang lain.</p>
-    <lottie-player class="w-50" src="https://lottie.host/8bbaf88e-16e1-4dcf-a5d1-5d9555bc6d6f/Nx2jkkjdLv.json" background="transparent" speed="1" loop autoplay></lottie-player>
+  <div id="hero" class="w-100">
+    <lottie-player class="w-50 h-75" src="https://lottie.host/8bbaf88e-16e1-4dcf-a5d1-5d9555bc6d6f/Nx2jkkjdLv.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    <p id="hero-description" class="h3 px-4" style="text-align:center;" >Di sini, kamu bisa membantu dan dibantu. Mari sama-sama menyalurkan barang satu dengan yang lain.</p>
   </div>
 
   {% comment %} Quote {% endcomment %}
