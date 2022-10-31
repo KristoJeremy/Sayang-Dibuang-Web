@@ -10,7 +10,7 @@ class ProfileForm(forms.ModelForm):
     def clean_telephone(self):
         data = self.cleaned_data["telephone"]
 
-        regex_for_phone_number = r"(0|\+{0,3}[0-9]{2})[0-9]{9,11}"
+        regex_for_phone_number = r"(0|\+{0,1}[0-9]{1,3})[0-9]{9,11}"
 
         if (re.match(regex_for_phone_number, data)):
             return data 
@@ -20,7 +20,7 @@ class ProfileForm(forms.ModelForm):
     def clean_whatsapp(self):
         data = self.cleaned_data["whatsapp"]
 
-        regex_for_phone_number = r"(0|\+{0,3}[0-9]{2})[0-9]{9,11}"
+        regex_for_phone_number = r"(0|\+{0,1}[0-9]{1,3})[0-9]{9,11}"
 
         if (re.match(regex_for_phone_number, data) or not data):
             return data 

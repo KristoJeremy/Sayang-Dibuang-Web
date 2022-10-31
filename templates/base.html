@@ -87,7 +87,7 @@
                     >Halo, {{user.profile.get_fullname}}</a
                   >
                 </li>
-                <li><a class="dropdown-item" href="#">Lihat Profil</a></li>
+                <li><a class="dropdown-item" href="{% url 'fitur_autentikasi:show_profile' username=user.username %}">Lihat Profil</a></li>
                 <li>
                   <a class="dropdown-item text-danger" href="/logout">Logout</a>
                 </li>
