@@ -3,6 +3,7 @@
 {% load static %}
 {% block meta %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="{% static 'crowdfunding/css/home.css' %}">
 {% endblock meta %}
 
 {% block content %}
@@ -14,44 +15,10 @@
   const loggedInId = "{{user.pk}}"
   let allSelected = true;
 </script>
-<script src="{% static 'crowdfunding/home.js' %}"></script>
+<script src="{% static 'crowdfunding/js/home.js' %}"></script>
 <script>
   getCrowdfunds({userId: loggedInId})
 </script>
-
-<style>
-  body {
-    background-color: #F6F2E9;
-  }
-
-  #card-view-all-btn:hover {
-    cursor: pointer;
-    background-color: rgb(226 232 240);
-    transition: 0.1s;
-  }
-
-  #hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  @media screen and (min-width: 768px) {
-    #crowdfunds-container {
-      width: 65%;
-    }
-
-    #hero {
-      flex-direction: row-reverse;
-    }
-
-    #hero-description {
-      width: 50%;
-      text-align: left;
-    }
-  }
-</style>
 
 <section id="crowdfunds-container" class="container d-grid gap-4 my-5 mw-100">
   {% comment %} Header {% endcomment %}
