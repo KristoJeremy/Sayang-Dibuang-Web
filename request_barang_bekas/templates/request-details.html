@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="p-5 bg-sand" style="min-height:100vh; width:100%;">
+    <div class="row d-flex justify-content-center ">
+        <div class="col-md-10 ">
+            <div class="card ">
+                <div class="row ">
+                    <div class="col-md-6 d-flex align-items-center bg-sand">
+                        <div class="product p-5 container-fluid">       
+                            
+                            <a href={% url 'request_barang_bekas:show_requests' %} class="py-3 pr-5 text-dark text-decoration-none" style="cursor: pointer;"> 
+                                <i class="fa fa-long-arrow-left"></i><span class="mx-2">Back</span> 
+                            </a>
+
+                            <div class="mt-4 mb-2"> 
+                                
+                                <small class="text-uppercase text-muted brand">{{curRequest.uploaded_at}}</small>
+                                <h5 class="text-uppercase pt-2">{{ curRequest.nama_barang }}</h5>
+                                <p class="about px-3">{{ curRequest.deskripsi }}</p>
+                                <div class="price d-flex flex-row align-items-left">
+                                    <p class="badge bg-gold" style="font-size:14px">{{ curRequest.kategori }}</p> 
+                                </div>
+                                <div class="price d-flex flex-row align-items-left">
+                                    {% if curRequest.available %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Status:
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="badge" style="font-size:14px; background-color: green;">Fullfilled</p> 
+                                            </div>
+                                        </div>
+                                        
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Status:
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="badge" style="font-size:14px; background-color: red;">Pending</p>  
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                    
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center bg-sand">
+                        {% if user.username != '' %}
+                            <div class="cart my-4 align-items-center d-flex justify-content-between"> 
+                                <div class="d-flex flex-column">
+                                    <h6 class="text-black"><i class="fa fas fa-user-circle" style="font-size:24px;"></i><span class="px-2">{{curRequest.user.username}}</span></h6>
+                                    <ul class="list-group"> 
+                                        <li class="list-group-item bg-dark-green text-white opacity-75">Telephone: {{ curRequest.profile.telephone }}</li>
+                                        {% if curRequest.profile.whatsapp %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Whatsapp: {{ curRequest.profile.whatsapp }}</li>
+                                        {% endif %}
+                                        {% if curRequest.profile.line  %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Line: {{ curRequest.profile.line }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="cart my-4 align-items-center d-flex justify-content-between"> 
+                                <div class="d-flex flex-column">
+                                    <h6 class="text-black opacity-50"><i class="fa fas fa-user-circle" style="font-size:24px;"></i><span class="px-2">Login to see owner's information</span></h6>
+                                    <ul class="list-group opacity-50"> 
+                                        <li class="list-group-item bg-dark-green text-white opacity-75">Telephone: 08XXXXXXXX</li>
+                                        {% if curRequest.profile.whatsapp %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Whatsapp: 08XXXXXXXX</li>
+                                        {% endif %}
+                                        {% if curRequest.profile.line  %}
+                                            <li class="list-group-item bg-dark-green text-white opacity-75">Line: XXXX</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if user == curRequest.user %}
+                    <div class="row ">
+                        <div class="col-md-12 align-items-center bg-sand">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <a href="edit/" class="py-3 pl-5 cursor-pointer text-dark text-decoration-none d-flex align-items-center">
+                                    <i class="fa fa-pencil-square-o" style="font-size:20px"></i><span class="mx-1">Edit</span>
+                                </a>
+                                <a href="delete/" class="py-3 pl-5 cursor-pointer text-dark text-decoration-none d-flex align-items-center">
+                                    <i class="fa fa-trash" style="font-size:20px; color:red;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        setGreyscale();
+    })
+    function setGreyscale(){
+        let style = '{{curRequest.available}}' == 'True'? "grayscale(100%)" : "none"
+        $('#main-image').css("filter",  style);
+
+        if ('{{curRequest.available}}' == 'True'){
+            let text = `<h3 class="text-unavailable text-danger text-center rounded border border-danger p-2 z-10" >Unavailable</h3>`
+            $('#image-container').append(text) // ini blm responsive
+        }
+    }
+
+</script>
+
+{% endblock content %}

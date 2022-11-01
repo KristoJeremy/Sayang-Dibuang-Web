@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "leaderboard",
     "information",
+    "request_barang_bekas",
 ]
 
 MIDDLEWARE = [

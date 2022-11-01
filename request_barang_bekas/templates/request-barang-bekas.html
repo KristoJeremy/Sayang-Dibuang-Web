@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block meta %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock meta %}
+
+{% block content %}
+<style>
+    @media only screen and (max-width: 600px) {
+        .image-asset {
+            max-width:200px;
+        }
+        .card-container{
+            width:100%;
+        }
+    }
+    @media only screen and (min-width: 601px) {
+        .image-asset {
+            max-width:500px;
+        }
+        .card-container{
+            width:280px;
+        }
+    }
+
+
+</style>
+
+<div class="bg-sand " style="min-height:100vh;">
+    <section id="about" class="about bg-dark-green text-sand px-2 py-5 p-md-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-center justify-content-center py-5 px-lg-5">
+                    <h3><i>"One man's trash is another man's treasure."</i></h3>
+                    <p>Live sustainably by reducing your waste. Don't throw away unused things. Post it here!</p>
+                    <button class="btn btn-sand mb-4" onclick="location.href = '/request/upload/'">Upload Request</button>
+
+                    <p>or search for the requests you want to donate!</p>
+                    {% comment %} search bar {% endcomment %}
+                    <div id="search-form" class="form-inline my-2 d-flex flex-row " >
+                        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search" name="search">
+                        <button class="btn btn-success m-2 my-sm-0" onclick="searchRequest()">Search</button>
+                    </div> 
+                </div>
+
+                <div class="img-fluid col-xl-5 col-lg-6 d-flex justify-content-center ">
+                    <img src="/static/asset/sustain.png" class="rounded image-asset" alt="sustainability"  style="object-fit:contain;"/>
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End About Section -->
+    <div class="px-2 py-5 p-md-5">
+        <h1 class="text-center text-dark-green" style="font-family: Verona">Beranda Request Barang Bekas</h1>
+        <div class="title mt-3">
+            <div class="row">
+                <div class="row justify-content-around mb-3">
+                    <div class="card mx-auto shadow-lg bg-dark-green" style="width: 128rem;">
+                        <div class="card-body" id="request-cards"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        getRequest();
+    })
+
+    function searchRequest(){
+        getRequest();
+        window.scrollTo(0, $("#container-cards").offset().top);
+    }
+
+  
+    function getRequest(){
+        let temp= "";
+        $.ajax({
+            url: `/request/all/?search=${$("#search").val()}`,
+            type: "GET",
+            dataType: "json",
+            success: function(data){
+            if (data.length!=0){
+
+                for (let curRequest of data){
+
+                    temp += `<table class="table table-hover" style="cursor: pointer;"  onclick="location.href = '/request/${curRequest.pk}'">
+                        <tr class="row">
+                            <td class="col-2">
+                                <h5 class="product-name text-white">${curRequest.fields.nama_barang}</h5>
+                            </td>
+                            <td class="col-7">
+                                <p class="product-description text-truncate text-white">${curRequest.fields.deskripsi}</p>
+                            </td>
+                            <td class="col-2" style="text-align: right;">
+                                <p class="badge bg-gold mx-2">${curRequest.fields.kategori}</p>
+                            </td>
+                            <td class="col-1" style="text-align: center;">
+                                <p class="badge mx-2" style="background-color: ${curRequest.fields.available == true ? "green" : "red"};">
+                                    ${curRequest.fields.available == true ? "Fullfilled" : "Pending"}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>`
+                        
+    
+                } 
+            }
+            else{
+                temp = `<div class="my-2 text-gold mx-auto shadow-lg p-3 rounded"><h3 class="text-center" style="letter-spacing: 2px;" ><strong>Request tidak ditemukan</strong></h3></div>`
+            }                    
+            $('#request-cards').html(temp);
+        },
+        error: function(data){
+            console.log('Error Detected');
+        }})
+    }
+
+</script>
+
+{% endblock content %}
+ style="width:300px;"
