@@ -326,8 +326,10 @@ const addPointWhenContacting = (crowdfundId, userId) => {
       const userPointText = document.querySelectorAll(
         `.user-point-${loggedInId}`
       );
-      for (i = 0; i < userPointText.length; i++) {
-        userPointText[i].innerHTML = `(${data.poin})`;
+      if (data.poin) {
+        for (i = 0; i < userPointText.length; i++) {
+          userPointText[i].innerHTML = `(${data.poin})`;
+        }
       }
     })
     .catch((err) => console.log(err));
