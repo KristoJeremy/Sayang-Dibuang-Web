@@ -16,7 +16,7 @@
             
             <div class="card-header bg-transparent">
                 <div class="row py-2">
-                    <div class="col-1">
+                    <div class="col-1 d-flex justify-content-center">
                         <img
                         class="rounded-circle"
                         style="width: 40px; height: 40px"
@@ -33,14 +33,20 @@
                 <h3 class="text-center py-3"><b>{{ review.judul }}</b></h3>
                 <p class="py-2">{{ review.deskripsi }}</p>
             </div>
-            <div class="card-footer row bg-transparent">
-                <div class="col">
-                    <small class="text-uppercase text-muted brand"> Dibuat pada tanggal : {{review.created}}</small>
-                </div>
-                <div class= "col-1 d-flex justify-content-end">
-                    <a href="delete" class="cursor-pointer text-dark text-decoration-none d-flex align-items-center">
-                        <i class="fa fa-trash" style="font-size:20px; color:red;"></i>
-                    </a>
+            <div class="card-footer bg-transparent">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <small class="text-uppercase text-muted brand"> Dibuat pada tanggal : {{review.created}}</small>
+                    </div>
+    
+                    {% if user %}
+                    <div class= "col-lg-5 d-flex justify-content-end">
+                        <a href="delete" class="btn btn-gold">
+                            Delete
+                            <!-- <i class="fa fa-trash" style="font-size:20px; color:red;"></i> -->
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
