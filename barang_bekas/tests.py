@@ -63,39 +63,45 @@ class BarangTest(TestCase):
         self.assertEqual(Kategori.objects.get(jenis = kategori.jenis), kategori)
         self.assertTrue(isinstance(kategori, Kategori))
 
-    # def test_model_barang(self):
-    #     user = User.objects.create(
-    #         username = "Test11111",
-    #         password = "pass1234",
-    #     )
+    def test_model_barang(self):
+        user = User.objects.create(
+            username = "Test11111",
+            password = "pass1234",
+        )
 
-    #     profile = Profile.objects.create(
-    #         user = user,
-    #         telephone = '081234567789',
-    #         whatsapp = '081234567789',
-    #         line = 'line.peserta',
-    #     )
+        Profile.objects.filter(
+            user = user,
+        ).update(
+            user = user,
+            telephone = '081234567789',
+            whatsapp = '081234567789',
+            line = 'line.peserta',
+            poin=0
+        )
 
-    #     lokasi = Lokasi.objects.create(
-    #         nama="jakarta"
-    #     )
+        user.save()
+        user.profile.save()
 
-    #     kategori = Kategori.objects.create(
-    #         jenis="plastik"
-    #     )
+        lokasi = Lokasi.objects.create(
+            nama="jakarta"
+        )
 
-    #     barang = Barang.objects.create(
-    #         user = user,
-    #         profile = profile,
-    #         foto = '',
-    #         judul = 'Judul test',
-    #         deskripsi = 'Deskripsi Barang',
-    #         uploaded_at = '2022-10-01 00:00:00',
-    #         lokasi = lokasi,
-    #         kategori = kategori,
-    #         available = False,
-    #     )
+        kategori = Kategori.objects.create(
+            jenis="plastik"
+        )
+
+        barang = Barang.objects.create(
+            user = user,
+            profile = user.profile,
+            foto = '',
+            judul = 'Judul test',
+            deskripsi = 'Deskripsi Barang',
+            uploaded_at = '2022-10-01 00:00:00',
+            lokasi = lokasi,
+            kategori = kategori,
+            available = False,
+        )
       
 
-    #     self.assertEqual(Barang.objects.get(judul = barang.judul), barang)
-    #     self.assertEqual(isinstance(barang, Barang))
+        self.assertEqual(Barang.objects.get(judul = barang.judul), barang)
+        self.assertTrue(isinstance(barang, Barang))
