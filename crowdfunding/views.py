@@ -5,17 +5,54 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from fitur_autentikasi.models import Profile
 from .models import Crowdfund
+from django.forms.models import model_to_dict
 from .forms import CrowdfundForm
 
 
 @login_required(login_url="/login/")
 def show_crowdfundings(request):
-    return render(request, "home.html")
+    form = CrowdfundForm()
+    context = {"form": form}
+    return render(request, "home.html", context)
 
 
 @login_required(login_url="/login/")
 def show_crowdfunding_by_id(request, id):
     return render(request, "crowdfunding_by_id.html")
+
+
+@login_required(login_url="/login/")
+def show_crowdfundings_json(request):
+    crowdfunds = Crowdfund.objects.all().order_by("created").values()
+    obj = []
+    for c in crowdfunds:
+        c["profile"] = list(Profile.objects.filter(user__id=c["user_id"]).values())[0]
+        c["profile"].pop("user_id")
+        c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
+        c["profile"]["user"].pop("password")
+        c["profile"]["user"].pop("last_login")
+        c["profile"]["user"].pop("is_superuser")
+        c["profile"]["user"].pop("is_staff")
+        c["profile"]["user"].pop("is_active")
+        c["profile"]["user"].pop("date_joined")
+        obj.append(c)
+    return JsonResponse(obj, safe=False)
+
+
+@login_required(login_url="/login/")
+def show_crowdfundings_by_id_json(request, id):
+    c = Crowdfund.objects.filter(pk=id).values()[0]
+    c["profile"] = list(Profile.objects.filter(user__id=c["user_id"]).values())[0]
+    c["profile"].pop("user_id")
+    c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
+    c["profile"]["user"].pop("password")
+    c["profile"]["user"].pop("last_login")
+    c["profile"]["user"].pop("is_superuser")
+    c["profile"]["user"].pop("is_staff")
+    c["profile"]["user"].pop("is_active")
+    c["profile"]["user"].pop("date_joined")
+
+    return JsonResponse(c, safe=False)
 
 
 @login_required(login_url="/login/")
@@ -34,7 +71,7 @@ def create_crowdfund(request):
             if received == target:
                 new_crowdfund.is_accomplished = True
             new_crowdfund.save()
-            return redirect("crowdfunding:show_crowdfundings")
+            return show_crowdfundings_by_id_json(request, new_crowdfund.id)
 
     context = {"form": form}
     return render(request, "crowdfund_form.html", context)
@@ -76,40 +113,6 @@ def delete_crowdfund(request, id):
         )
 
     return HttpResponseBadRequest("Gagal menghapus crowdfund.")
-
-
-@login_required(login_url="/login/")
-def show_crowdfundings_json(request):
-    crowdfunds = Crowdfund.objects.all().order_by("-created").values()
-    obj = []
-    for c in crowdfunds:
-        c["profile"] = list(Profile.objects.filter(user__id=c["user_id"]).values())[0]
-        c["profile"].pop("user_id")
-        c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
-        c["profile"]["user"].pop("password")
-        c["profile"]["user"].pop("last_login")
-        c["profile"]["user"].pop("is_superuser")
-        c["profile"]["user"].pop("is_staff")
-        c["profile"]["user"].pop("is_active")
-        c["profile"]["user"].pop("date_joined")
-        obj.append(c)
-    return JsonResponse(obj, safe=False)
-
-
-@login_required(login_url="/login/")
-def show_crowdfundings_by_id_json(request, id):
-    c = Crowdfund.objects.filter(pk=id).values()[0]
-    c["profile"] = list(Profile.objects.filter(user__id=c["user_id"]).values())[0]
-    c["profile"].pop("user_id")
-    c["profile"]["user"] = list(User.objects.filter(pk=c["user_id"]).values())[0]
-    c["profile"]["user"].pop("password")
-    c["profile"]["user"].pop("last_login")
-    c["profile"]["user"].pop("is_superuser")
-    c["profile"]["user"].pop("is_staff")
-    c["profile"]["user"].pop("is_active")
-    c["profile"]["user"].pop("date_joined")
-
-    return JsonResponse(c, safe=False)
 
 
 @login_required(login_url="/login/")
