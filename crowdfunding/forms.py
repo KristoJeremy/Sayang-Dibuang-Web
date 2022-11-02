@@ -24,6 +24,8 @@ class CrowdfundForm(forms.ModelForm):
     def clean_target(self):
         received = self.cleaned_data["received"]
         target = self.cleaned_data["target"]
+        if target == 0:
+            raise ValidationError("Jumlah yang diinginkan harus lebih dari 0!")
         if target < received:
             raise ValidationError(
                 "Jumlah yang dibutuhkan harus lebih kecil atau sama dengan jumlah yang sudah diterima!"
@@ -32,6 +34,4 @@ class CrowdfundForm(forms.ModelForm):
             raise ValidationError(
                 "Jumlah yang sudah diterima tidak boleh bernilai negatif!"
             )
-        if target <= 0:
-            raise ValidationError("Jumlah yang diinginkan harus lebih dari 0!")
         return target
