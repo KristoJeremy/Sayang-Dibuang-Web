@@ -24,9 +24,4 @@ urlpatterns = [
     path("crowdfundings/", include("crowdfunding.urls")),
     path("barang/", include("barang_bekas.urls")),
     path("request/", include("request_barang_bekas.urls")),
-
 ]
-
-handler404 = 'sayang_dibuang.views.handler404'    
-handler500 = 'sayang_dibuang.views.handler500'    
-
