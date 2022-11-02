@@ -1,4 +1,5 @@
 # Kelompok PBP D10: Sayang-Dibuang
+[![Deploy](https://github.com/D10-PBP/Proyek-Tengah-Semester/actions/workflows/dpl.yml/badge.svg)](https://github.com/D10-PBP/Proyek-Tengah-Semester/actions/workflows/dpl.yml)
 
 ## 📌 Nama Anggota 📌
 1. Lyzander Marciano Andrylie - 2106750755
