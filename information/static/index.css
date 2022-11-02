@@ -1,0 +1,75 @@
+@media only screen and (min-width: 400px) {
+    .image-asset {
+        width: 300px;
+    }
+}
+@media only screen and (min-width: 800px) {
+    .image-asset {
+        max-width: 450px;
+    }
+}
+.button {
+    width: 300px;
+    margin-bottom: 200px;
+}
+.faq {
+    margin-inline: center; 
+    margin-bottom: 60px;
+    margin-top: 50px;
+}
+#accordionFAQ {
+    margin-top: 15px; 
+}
+.about {
+    margin-top: 100px;
+}
+.pulse {
+    /* margin-top: 150px; */
+    display: block;
+    cursor: pointer;
+}
+.pulse:hover {
+    animation: pulse 2s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(.95);
+    }
+    70% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }    
+}
+
+/* .pattern {
+    height: 50px;
+} */
+
+svg text {
+    font-family: Verona;
+    letter-spacing: 10px;
+    stroke: #856A4F;
+    font-size: 100px;
+    font-weight: 600;
+    stroke-width: 1;
+    
+    animation: textAnimate 5s infinite alternate;
+    
+}
+
+@keyframes textAnimate {
+    0% {
+        stroke-dasharray: 0 30%;
+        stroke-dashoffset:  20%;
+        fill: #185641
+    }
+
+    100% {
+        stroke-dasharray: 30% 0;
+        stroke-dashoffstet: -20%;
+        fill: #F6F2E9
+    }
+}

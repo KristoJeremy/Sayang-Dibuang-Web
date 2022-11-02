@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from fitur_autentikasi.models import Profile, User
 from leaderboard.models import Message
+from leaderboard.forms import UploadMessage
 from django.shortcuts import render
 from django.db.models import Sum
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 from random import choice
 
-
+# Menampilakn leaderboard
+@login_required(login_url="/login/")
 def leaderboard(request):
     return render(request, 'leaderboard.html')
 
+# Memberikan data user dalam leaderboard dalam bentuk json
 def show_json(request):
     num_of_user = Profile.objects.count()
     data = []
@@ -38,19 +42,22 @@ def show_json(request):
         else:
             data.append({'username' : item.user.username, 'poin' : item.poin, 'status' : 4})
             counter += 1
-
     return JsonResponse(data, safe=False)
 
+# Menambahkan pesan dari user
 def add_message (request):
+    form = UploadMessage(request.POST)
     if request.method == 'POST':
-        random_message = request.POST.get("random_message")
-
-        new_message = Message(random_message=random_message)
-        new_message.save()
-
-        return HttpResponse(b"CREATED", status=201)
+        if form.is_valid():
+            random_message = request.POST.get("random_message")
+            new_message = Message(random_message=random_message)
+            new_message.save()
+            return HttpResponse(b"CREATED", status=201)
+        else :
+            form = UploadMessage
     return HttpResponse(b"CREATED", status=201)
 
+# Menampilkan salah satu pesan dari user secara acak
 def show_message_json (request):
         pks = Message.objects.values_list('pk', flat=True)
         random_pk = choice(pks)
