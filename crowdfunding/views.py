@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from fitur_autentikasi.models import Profile
 from .models import Crowdfund
-from django.forms.models import model_to_dict
 from .forms import CrowdfundForm
 
 
