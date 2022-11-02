@@ -1,14 +1,53 @@
 <!-- Button trigger modal -->
  
-<div class="modal fade" id="modalTeam" tabindex="-1" aria-labelledby="modalTeamLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-sand">
-            <div class="modal-header" style="font-family: Verona;">
+<style>
+    .image-asset {
+        object-fit:contain; 
+        width: 75%;
+        height: auto;
+        margin: 20px;
+        border-radius: 50%;
+    }
+</style>
+
+<div class="modal fade" id="modalTeam" tabindex="-1" tabindex="-1" role="dialog" aria-labelledby="modalTeamLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-brown text-white">
+            <div class="modal-header bg-sand text-black" style="font-family: Verona;">
                 <h3 class="modal-title" id="modalTeamLabel">Our Team</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="/static/asset/information/review-img.jpg" class="modal-content">
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/static/asset/information/team/Lyzander.png" class="modal-content image-asset shadow" alt="lyzander">
+                    </div>
+                    <h2 class="col d-flex align-items-center" style="font-family: Verona;">Lyzander Marciano Andrylie</h2>
+                </div>
+                <div class="row">
+                    <h2 class="col d-flex align-items-center justify-content-end" style="font-family: Verona;">Gibrano Fabien Derenz</h2>
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/static/asset/information/team/Gibrano.png" class="modal-content image-asset shadow" alt="gibrano">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/static/asset/information/team/Cath.png" class="modal-content image-asset shadow" alt="cath">
+                    </div>
+                    <h2 class="col d-flex align-items-center" style="font-family: Verona;">Catherine Angel Robin</h2>
+                </div>
+                <div class="row">
+                    <h2 class="col d-flex align-items-center justify-content-end" style="font-family: Verona;">Khansa Jovita</h2>
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/static/asset/information/team/Khansa.png" class="modal-content image-asset shadow" alt="khansa">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/static/asset/information/team/Pikatan.png" class="modal-content image-asset shadow" alt="pikatan">
+                    </div>
+                    <h2 class="col d-flex align-items-center" style="font-family: Verona;">Pikatan Arya Bramajati</h2>
+                </div>
             </div>
         </div>
     </div>

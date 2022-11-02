@@ -22,11 +22,13 @@ def create_review(request):
     if request.method == "POST":
         form = CreateReview(request.POST)
         if form.is_valid():
-            new_review = form.save(commit=False)
-            new_review.user = Profile.objects.get(user=request.user)
-            new_review.save()
-            return redirect('information:all_review')
-
+            x = Profile.objects.get(user=request.user)
+            if (x != None):
+                new_review = form.save(commit=False)
+                new_review.user = x
+                new_review.save()
+                return redirect('information:all_review')
+            
     form = CreateReview()
     context = {"form": form}
     return render(request, "information/createreview.html", context)
