@@ -1,29 +1,11 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 400px) {
     .image-asset {
-        max-width:200px;
-    }
-    .index{
-        width:100%;
-    }
-    .patterns {
-        max-width: 100%;
-    }
-    .card-container{
-        width:100%;
+        width: 300px;
     }
 }
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 800px) {
     .image-asset {
-        max-width:500px;
-    }
-    .index{
-        width:280px;
-    }
-    .patterns {
-        width: 200px;
-    }
-    .card-container{
-        width:280px;
+        max-width: 450px;
     }
 }
 .button {
