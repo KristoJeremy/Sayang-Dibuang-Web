@@ -14,7 +14,7 @@
 
 <body class="bg-sand">
 
-    <div class="container">
+    <div id="index" class="index container">
         <div class="row justify-content-center px-lg-5 py-5" style="margin-top: 50px;">
             <div class="col-sm-6 d-flex justify-content-center d-grid gap-5 mx-auto">
                 <a class="btn button bg-brown btn-lg text-white shadow-lg" href="{% url 'barang_bekas:show_barang' %}">BERANDA</a>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- About Us -->
-    <div class="patterns">
+    <div id="patterns" class="patterns">
         <svg width="100%">
             <text x="50%" y="70%" text-anchor="middle"  >
                 About Us
@@ -76,9 +76,10 @@
 
             <!-- Bagian Review -->
             <div class="col-sm-5 px-5 py-4">
-                <div class="card pulse bg-dark-green text-white shadow rounded" >
-                    <img src="/static/asset/information/review-img.jpg" class="card-img-top">
-                    <div class="card-body m-2" style="height: 110px;">
+                <div class="card card-container pulse bg-dark-green text-white shadow rounded" style="cursor: pointer;">
+                    
+                    <img src="/static/asset/information/review-img.jpg" class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; height:250px;">
+                    <div class="card-detail-container px-5 py-3" style="height: 110px;">
                         <h1 class="card-title text-center d-flex justify-content-center mx-auto" style="font-family: Verona">
                             See Our Review!
                         </h1>
@@ -92,9 +93,9 @@
 
             <!-- Bagian Team -->
             <div class="col-sm-5 px-5 py-4">
-                <div class="card pulse bg-dark-green text-white shadow rounded">
-                    <img src="/static/asset/information/our-team.jpg" class="card-img-top">
-                    <div class="card-body m-2" style="height: 110px;">
+                <div class="card card-container pulse bg-dark-green text-white shadow rounded" style="cursor: pointer;">
+                    <img src="/static/asset/information/our-team.jpg"  class="img-fluid rounded thumbnail-image" style="object-fit: cover; object-position:center; width: 100%; height:250px;">
+                    <div class="card-detail-container px-5 py-3" style="height: 110px;">
                         <h1 class="card-title text-center d-flex justify-content-center mx-auto" style="font-family: Verona">
                             Meet Our Team!
                         </h1>

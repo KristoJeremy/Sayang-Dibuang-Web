@@ -56,20 +56,42 @@
 </script>
 
 <style>
-    .image-asset {
-        object-fit:contain; 
-        width: 350px;
-        margin: 20px;
+    @media only screen and (max-width: 600px) {
+        .image {
+            max-width:350px;
+            object-fit:contain; 
+            margin: 20px;        }
+        .card-container{
+            width:100%;
+        }
+        .quotes {
+            max-width: 100%;
+        }
+
+    }
+    @media only screen and (min-width: 601px) {
+        .image {
+            max-width:350[x];
+            object-fit:contain; 
+            margin: 20px;
+        }
+        .card-container{
+            width:100%;
+        }
+        .quotes {
+            max-width: 100%;
+        }
+
     }
 </style>
 
 
 <body class="bg-sand">
-    <div class="container-fluid row">
+    <div id="quotes "class="quuotes container-fluid row">
         <div class="col col-sm-5 bg-dark-green">
             <div class="row text-white d-flex justify-content-center">
                 <h1 class="text-center" style="font-family: Verona; margin-top: 50px;"><b>Review</b></h1>
-                <img src="/static/asset/information/nature.png" class="image-asset" alt="nature"/>
+                <img src="/static/asset/information/nature.png" class="image px-5" alt="nature"/>
                 <div class="bg-dark-green">
                     <div class="container w-75 p-3">
                         <h5><i>“There is no such thing as 'away'. When we throw anything away it must go somewhere.”</i></h5>
