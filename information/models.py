@@ -5,9 +5,7 @@ from django.contrib.auth.models import User
 import datetime
 
 class Review (models.Model):
-    user = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, blank=True, null=True, to_field="user"
-    )
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     judul = models.CharField(max_length = 255)
     deskripsi = models.TextField()
     created = models.DateTimeField(default = datetime.datetime.now())
