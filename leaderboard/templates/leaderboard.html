@@ -6,21 +6,6 @@
 <title>Leaderboard</title>
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="{% static 'leaderboard/style.css' %}">
-<!-- <style>
-    body {
-        background-color: #185641;
-    }
-    h1{
-        font-family: Verona;
-        font-size: 50px;
-    }
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-        }
-</style> -->
 {% endblock meta %}
 
 {% block content %}
@@ -118,6 +103,7 @@ async function refreshContent(){
         </div>`
     });
     document.getElementById("content-data").innerHTML = htmlString
+    window.scrollTo(0, 0);
 }
 
 async function refreshMessage(){
@@ -131,6 +117,7 @@ async function refreshMessage(){
     });
     document.getElementById("message-content").innerHTML = htmlString1
     document.getElementById("field_message").value = "";
+    window.scrollTo(0, 0);
 }
 
 function addMessage() {
