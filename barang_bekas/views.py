@@ -36,16 +36,10 @@ def create_barang(request):
 
 # 2. get barang
 def show_barang(request):
-     # protect page
-    # if not request.user.is_authenticated:
-    #     return redirect("/login/") 
     context = {}
     return render(request, 'barang-bekas.html', context)
 
 def show_barang_detail(request, id):
-     # protect page
-    # if not request.user.is_authenticated:
-    #     return redirect("/login/") 
     barang = Barang.objects.select_related('profile').select_related('user').get(id=id)
     user = request.user 
 
