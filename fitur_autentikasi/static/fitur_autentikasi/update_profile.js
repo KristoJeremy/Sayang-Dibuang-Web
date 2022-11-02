@@ -6,7 +6,6 @@ $(document).ready(function() {
         url: window.getUrl,
         type: "GET",
         success: function(response) {
-            console.log(response)
             data = response[0].fields
 
             // Set nomor telepon
@@ -39,7 +38,7 @@ $(document).ready(function() {
 
     // Menambahkan dan menghapus tombol update
     var change = false
-    var jumlah_element_input = 8
+    var jumlah_element_input = $("input.form-control").length
 
     $("button.profile").click(function(){
         $("div.alert-success").remove()
@@ -57,6 +56,8 @@ $(document).ready(function() {
                 `)
                 change = true
             }
+            
+            document.getElementsByClassName("update")[0].scrollIntoView({ behavior: 'smooth', block: 'end'})
         } else {
             $(this).siblings().attr("disabled", "disabled")
             $(this).text("Change")
@@ -97,7 +98,6 @@ $(document).ready(function() {
             url: window.postUrl,
             data: $(this).serialize(),
             success: function(response){
-                console.log("success")
 
                 // disable semua input dan mengubah semua warna
                 $("input").attr("disabled", "disabled")
@@ -137,14 +137,12 @@ $(document).ready(function() {
                 </div>
                 `)
 
-                console.log($("button.btn-close"))
                 
                 $("button.btn-close").click(function(){
                     $("div.alert-success").remove()
                 })
             },
             error: function(response) {
-                console.log("error")
 
                 var json_response = JSON.parse(response.responseJSON)
 

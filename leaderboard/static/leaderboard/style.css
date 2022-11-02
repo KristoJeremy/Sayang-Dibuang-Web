@@ -1,0 +1,13 @@
+body {
+    background-color: #185641;
+}
+h1{
+    font-family: Verona;
+    font-size: 50px;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    }

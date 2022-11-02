@@ -1,7 +1,4 @@
 
-import json
-from mimetypes import init
-from django.forms import model_to_dict
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from barang_bekas.models import Barang
@@ -13,13 +10,12 @@ import cloudinary
 from barang_bekas.models import Barang, Kategori, Lokasi
 from fitur_autentikasi.models import Profile
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # 1. add barang 
+@login_required(login_url='/login/')
 def create_barang(request):
-    # protect page
-    if not request.user.is_authenticated:
-        return redirect("/login/") 
     form = CreateBarangForm()
 
     if request.method=="POST":
@@ -29,9 +25,7 @@ def create_barang(request):
             new_barang.user = request.user
             new_barang.profile = Profile.objects.get(user=request.user)
             new_barang.save() 
-            # return JsonResponse({
-            #     "Message": "Item Berhasil Dibuat", 
-            # },status=201)
+           
             return redirect('barang_bekas:show_barang')
 
         return JsonResponse({
@@ -42,16 +36,10 @@ def create_barang(request):
 
 # 2. get barang
 def show_barang(request):
-     # protect page
-    if not request.user.is_authenticated:
-        return redirect("/login/") 
     context = {}
     return render(request, 'barang-bekas.html', context)
 
 def show_barang_detail(request, id):
-     # protect page
-    if not request.user.is_authenticated:
-        return redirect("/login/") 
     barang = Barang.objects.select_related('profile').select_related('user').get(id=id)
     user = request.user 
 
@@ -75,6 +63,7 @@ def get_one_barang_json(request, id):
     return HttpResponse(serializers.serialize("json", barang), content_type="application/json")
 
 # 3. edit barang (ref: https://www.geeksforgeeks.org/update-view-function-based-views-django/)
+@login_required(login_url='/login/')
 def edit_barang(request, id):
     # dictionary for initial data with
     # field names as keys

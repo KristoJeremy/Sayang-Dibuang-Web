@@ -1,0 +1,32 @@
+[
+    {
+        "model": "leaderboard.Message",
+        "pk": 1,
+        "fields": {
+            "random_message": "We Need Millions of Imperfect Zero Wasters."
+        }
+    },
+    {
+        "model": "leaderboard.Message",
+        "pk": 2,
+        "fields": {
+            "random_message": "You Can Change The World."
+        }  
+    },
+    {
+        "model": "leaderboard.Message",
+        "pk": 3,
+        "fields": {
+            "random_message": "Single-Use Sucks."
+        }  
+    },
+    {
+        "model": "leaderboard.Message",
+        "pk": 4,
+        "fields": {
+            "random_message": "Don't Just Think, You Have To Take Action."
+        }  
+    }
+    
+    
+]

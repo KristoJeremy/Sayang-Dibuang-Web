@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Review</title>
+{% endblock meta %}
+
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let temp= "";
+        $.ajax({
+          url: "{% url 'information:all_review_json' %}",
+          type: "GET",
+          dataType: "json",
+          success: function(data){
+            $.each(data, function(key, value) {
+                temp += 
+                `<div class="card card-container border-gold m-4 bg-white shadow p-3 mb-5 bg-body rounded" 
+                    style="cursor: pointer;"  onclick="location.href = '/review/` +data[key].pk +`'">
+                    <div class="p-2 border-brown">
+                        <div class="h5 card-header bg-transparent">
+                            <div class="row">
+                                <div class="col-1 d-flex justify-content-center">
+                                    <img
+                                    class="rounded-circle d-flex justify-content-end"
+                                    style="width: 30px; height: 30px"
+                                    src="https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png"
+                                    alt=""
+                                    />
+                                </div>
+                                <div class="col-6 d-flex d-flex justify-content-start align-items-center">` 
+                                    + data[key].username + 
+                                `</div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-gold border border-gold rounded" style="height: 200px">
+                            <div class="h5 p-2 card-title text-center"><b>` + data[key].judul + `</b></div>
+                            <div class="p card-text text-center">"` + data[key].deskripsi + `"</div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-start">
+                            <p>Dibuat pada tanggal : ` + data[key].created + `</p>
+                        </div>
+                    </div>
+                </div>` 
+            });
+            $('#container-cards').html(temp);
+        },
+        error: function(data){
+            console.log('Error Detected');
+        }
+    })
+})
+</script>
+
+<style>
+    @media only screen and (max-width: 600px) {
+        .image {
+            max-width:350px;
+            object-fit:contain; 
+            margin: 20px;        }
+        .card-container{
+            width:100%;
+        }
+        .quotes {
+            max-width: 100%;
+        }
+
+    }
+    @media only screen and (min-width: 601px) {
+        .image {
+            max-width:350[x];
+            object-fit:contain; 
+            margin: 20px;
+        }
+        .card-container{
+            width:100%;
+        }
+        .quotes {
+            max-width: 100%;
+        }
+
+    }
+</style>
+
+
+<body class="bg-sand">
+    <div id="quotes "class="quuotes container-fluid row">
+        <div class="col col-sm-5 bg-dark-green">
+            <div class="row text-white d-flex justify-content-center">
+                <h1 class="text-center" style="font-family: Verona; margin-top: 50px;"><b>Review</b></h1>
+                <img src="/static/asset/information/nature.png" class="image px-5" alt="nature"/>
+                <div class="bg-dark-green">
+                    <div class="container w-75 p-3">
+                        <h5><i>“There is no such thing as 'away'. When we throw anything away it must go somewhere.”</i></h5>
+                        <p><b>- Annie Leonard, Proponent of Sustainability</b></p>
+                    </div>
+                    <div class="text-center py-3" style="margin-bottom: 50px;">
+                        <a class="btn badge-gold text-white" onclick="location.href = '/review/create'">Tambah Review</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-7 container-cards-fluid">
+            <div class="row d-flex justify-content-center">
+                <div id="container-cards" class="col-md-10 text-center">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

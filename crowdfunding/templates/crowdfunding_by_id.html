@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% csrf_token %}
+<script>
+  window.csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+</script>
+<script src="{% static 'crowdfunding/js/crowdfunding_by_id.js' %}"></script>
 
-{% load static %}
-{% block content %}
-<script src="{% static 'crowdfunding/crowdfunding_by_id.js' %}"></script>
-
-<section id="crowdfund">
-
-</section>
+<section id="crowdfund" class="m-5"></section>
 
 {% endblock content %}

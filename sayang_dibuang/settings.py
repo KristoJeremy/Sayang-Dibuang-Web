@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "barang_bekas",
     "cloudinary",
     "leaderboard",
+    "information",
+    "request_barang_bekas",
 ]
 
 MIDDLEWARE = [
@@ -130,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Jakarta"
 
 USE_I18N = True
 
