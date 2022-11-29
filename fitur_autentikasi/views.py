@@ -14,6 +14,7 @@ from fitur_autentikasi.forms import *
 from fitur_autentikasi.models import Profile
 
 from django.views.decorators.csrf import csrf_exempt
+import json, re
 
 # Create your views here.
 def register(request):
@@ -74,10 +75,23 @@ def get_user_data(request, username):
         # Mendapatkan objek dari database
         profile_data = Profile.objects.filter(user = user)
         profile_data_json = serializers.serialize('json', profile_data)
+        profile_data_json = re.sub('"user": .*,', f'"user": {getJsonUser(user)} ,', profile_data_json)
 
         return HttpResponse(profile_data_json, content_type="application/json")
 
     return HttpResponseNotFound()
+
+def getJsonUser(user):
+    user_data = {}
+
+    user_data['id'] = user.pk
+    user_data['is_superuser'] = user.is_superuser
+    user_data['username'] = user.username
+    user_data['first_name'] = user.first_name
+    user_data['last_name'] = user.last_name
+    user_data['email'] = user.email
+
+    return json.dumps(user_data)
 
 @login_required(login_url='/login/')
 def update_user_data(request, username):
