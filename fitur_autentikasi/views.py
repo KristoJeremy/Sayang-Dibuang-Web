@@ -13,6 +13,8 @@ from django.core import serializers
 from fitur_autentikasi.forms import *
 from fitur_autentikasi.models import Profile
 
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 def register(request):
     form = UserForm()
@@ -111,3 +113,31 @@ def UPOST(post, obj):
         if k not in post: 
             post[k] = v
     return post
+
+# For pbp_django_auth
+# https://pub.dev/packages/pbp_django_auth
+@csrf_exempt
+def login_ajax(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            # Redirect to a success page.
+            return JsonResponse({
+            "status": True,
+            "message": "Successfully Logged In!"
+            # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
+        else:
+            return JsonResponse({
+            "status": False,
+            "message": "Failed to Login, Account Disabled."
+            }, status=401)
+
+    else:
+        return JsonResponse({
+        "status": False,
+        "message": "Failed to Login, check your email/password."
+        }, status=401)
