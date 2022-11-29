@@ -75,7 +75,7 @@ def get_user_data(request, username):
         # Mendapatkan objek dari database
         profile_data = Profile.objects.filter(user = user)
         profile_data_json = serializers.serialize('json', profile_data)
-        profile_data_json = re.sub('"user": .*,', f'"user": {getJsonUser(user)} ,', profile_data_json)
+        profile_data_json = re.sub('"user": [0-9]*,', f'"user": {getJsonUser(user)},', profile_data_json)
 
         return HttpResponse(profile_data_json, content_type="application/json")
 
