@@ -41,7 +41,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("APP_NAME")}.up.railway.app']
 
 # Application definition
 
