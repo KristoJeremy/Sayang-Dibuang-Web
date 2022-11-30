@@ -1,1 +1,1 @@
- web: python manage.py migrate && gunicorn sayang_dibuang.wsgi
+web: python manage.py migrate && python manage.py collectstatic --no-input && gunicorn sayang_dibuang.wsgi
