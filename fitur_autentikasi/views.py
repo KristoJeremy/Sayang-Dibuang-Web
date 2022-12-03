@@ -155,3 +155,16 @@ def login_ajax(request):
         "status": False,
         "message": "Failed to Login, check your email/password."
         }, status=401)
+
+@csrf_exempt
+def logout_ajax(request):
+    if request.method == "POST":
+        logout(request)
+        return JsonResponse({
+                "status": True,
+                "message": "Successfully Logout In!"
+                }, status=200)
+    return JsonResponse({
+            "status": False,
+            "message": "Logout Fail"
+            }, status=401)
