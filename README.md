@@ -10,8 +10,8 @@
 6. Catherine Angel Robin - 2106705392
 
 ## ✨ Tautan Aplikasi Heroku ✨
-- Nama aplikasi kami : `Sayang-Dibuang`
-- Link : https://sayang-dibuang.herokuapp.com/
+- Nama aplikasi kami: `Sayang-Dibuang`
+- Link: https://sayang-dibuang.up.railway.app/ (telah migrasi dari Heroku)
 
 ## 📜 Cerita Aplikasi dan Manfaat 📜
 ### Cerita
