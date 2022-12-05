@@ -1,4 +1,5 @@
 
+import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from barang_bekas.models import Barang
@@ -11,6 +12,7 @@ from barang_bekas.models import Barang, Kategori, Lokasi
 from fitur_autentikasi.models import Profile
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 # 1. add barang 
@@ -33,6 +35,21 @@ def create_barang(request):
         },status=500)
     context = {'form':form}
     return render(request, 'upload.html', context)
+
+def create_barang_ajax(request):
+    if request.method == "POST":
+        body = request.POST
+        username = request["username"]
+        user = User.objects.get(username=username)
+        profile = Profile.objects.get(user=user)
+        judul = body["judul"]
+        deskripsi = body["deskripsi"]
+        lokasi = body["lokasi"]
+        kategori = body["kategori"]
+        item = Barang(user=user, profile=profile, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=False)
+        item.save()
+        
+        return HttpResponse(serializers.serialize('json', item),status=200)
 
 # 2. get barang
 def show_barang(request):
@@ -91,6 +108,7 @@ def delete_barang(request, id):
     barang.delete()
     return HttpResponseRedirect(reverse("barang_bekas:show_barang"))
 
+
 # bikin modal buat add category & lokasii?? tapi gabisa edit/delete (masi mikir )
 # 5. add kategori
 def create_kategori(request):
@@ -99,11 +117,15 @@ def create_kategori(request):
         item = Kategori(jenis=jenis)
         item.save()
         response = {
-            "Message": "Kategori Berhasil Dibuat",
-            "id":item.pk,
+            "pk":item.pk,
             "jenis": item.jenis
         }
         return JsonResponse(response,status=200)
+        
+
+def get_kategori_ajax(request):
+    list_kategori = Kategori.objects.all()
+    return HttpResponse(serializers.serialize('json', list_kategori)) 
 
 
 # 6. add lokasi
@@ -113,8 +135,12 @@ def create_lokasi(request):
         item = Lokasi(nama=nama)
         item.save()
         response = {
-            "Message": "Lokasi Berhasil Dibuat",
-            "id":item.pk,
+            "pk":item.pk,
             "nama": item.nama
         }
         return JsonResponse(response,status=200)
+
+def get_lokasi_ajax(request):
+    list_lokasi = Lokasi.objects.all()
+    return HttpResponse(serializers.serialize('json', list_lokasi)) 
+    
