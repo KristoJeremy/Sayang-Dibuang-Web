@@ -106,7 +106,7 @@ def get_all_barang_mobile(request):
         
         list_json.append(res)
 
-    return HttpResponse(list_json, content_type ="application/json")
+    return HttpResponse([list_json], content_type ="application/json")
 
 
 def get_one_barang_json(request, id):
