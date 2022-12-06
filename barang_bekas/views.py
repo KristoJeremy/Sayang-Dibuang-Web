@@ -80,7 +80,7 @@ def get_all_barang_mobile(request):
     list_barang = BarangMobile.objects.all().order_by('-uploaded_at')
     query = request.GET.get('search')
     if query != '':
-        list_barang = Barang.objects.filter(judul__icontains=query).order_by('-uploaded_at')
+        list_barang = BarangMobile.objects.filter(judul__icontains=query).order_by('-uploaded_at')
 
     return HttpResponse(serializers.serialize('json', list_barang)) 
 
