@@ -99,14 +99,17 @@ def get_all_barang_mobile(request):
         res["foto"]=barang.foto
         res["judul"]=barang.judul
         res["deskripsi"]=barang.deskripsi
-        res["uploaded_at"]=barang.uploaded_at
-        res["lokasi"]=barang.lokasi
-        res["kategori"]=barang.kategori
+        res["uploaded_at"]=str(barang.uploaded_at)
+        res["lokasi"]=barang.lokasi.nama
+        res["kategori"]=barang.kategori.jenis
         res["available"]=barang.available
         
-        list_json.append(res)
 
-    return HttpResponse([list_json], content_type ="application/json")
+        list_json.append((json.dumps(res)))
+
+
+    return HttpResponse(serializers.serialize('json', list_barang)) 
+    # return HttpResponse(list_json, content_type="application/json")
 
 
 def get_one_barang_json(request, id):
