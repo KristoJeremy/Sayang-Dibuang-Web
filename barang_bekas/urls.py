@@ -11,6 +11,7 @@ urlpatterns = [
     path('json/<int:id>', get_one_barang_json, name="get_one_barang_json"),
     path('<int:id>/', show_barang_detail, name="show_barang_detail"),
     path('<int:id>/edit/', edit_barang, name="edit_barang"),
+    path('<int:id>/edit/ajax/', edit_barang_ajax, name="edit_barang_ajax"),
     path('<int:id>/delete/', delete_barang, name="delete_barang"),
     path('<int:id>/delete/mobile/', delete_barang_mobile, name="delete_barang_mobile"),
     path('upload/', create_barang, name="create_barang"),

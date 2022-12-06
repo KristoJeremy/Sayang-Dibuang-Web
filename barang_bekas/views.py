@@ -86,12 +86,27 @@ def get_all_barang_json(request):
     return HttpResponse(serializers.serialize('json', list_barang)) 
 
 def get_all_barang_mobile(request):
-    list_barang = BarangMobile.objects.all().order_by('-uploaded_at')
-    # query = request.GET.get('search')
-    # if query != '':
-    #     list_barang = BarangMobile.objects.filter(judul__icontains=query).order_by('-uploaded_at')
+    list_barang = BarangMobile.objects.select_related('profile').select_related('profile__user').all().order_by('-uploaded_at')
+    list_json = []
+    for barang in list_barang:
+        res = {}
+        res["pk"] = barang.pk
+        res["profile"] = {"telephone": barang.profile.telephone, \
+                            "wa": barang.profile.whatsapp, \
+                                "line": barang.profile.line, \
+                                    "poin": barang.profile.poin, \
+                                        "username": barang.profile.user.username}
+        res["foto"]=barang.foto
+        res["judul"]=barang.judul
+        res["deskripsi"]=barang.deskripsi
+        res["uploaded_at"]=barang.uploaded_at
+        res["lokasi"]=barang.lokasi
+        res["kategori"]=barang.kategori
+        res["available"]=barang.available
+        
+        list_json.append(res)
 
-    return HttpResponse(serializers.serialize('json', list_barang)) 
+    return HttpResponse(list_json, content_type ="application/json")
 
 
 def get_one_barang_json(request, id):
@@ -120,6 +135,37 @@ def edit_barang(request, id):
     context["form"] = form
  
     return render(request, "barang-edit.html", context)
+
+@csrf_exempt
+def edit_barang_ajax(request, id):
+    if request.method == "POST":
+        body_unicode = request.body.decode("utf-8")
+        body = json.loads(body_unicode)
+
+        barang = BarangMobile.objects.get(pk=id)
+
+        foto = body.get('foto')
+        judul = body.get('judul')
+        deskripsi = body.get('deskripsi')
+        lokasi_name = body.get('lokasi')
+        lokasi = Lokasi.objects.get(nama=lokasi_name)
+        kategori_jenis = body.get('kategori')
+        kategori = Kategori.objects.get(jenis= kategori_jenis)
+        available = body.get('available')
+
+        # update fields
+        barang.foto = foto
+        barang.judul = judul
+        barang.deskripsi = deskripsi
+        barang.lokasi = lokasi
+        barang.kategori = kategori
+        barang.available = available
+
+        barang.save()
+
+        return JsonResponse({"message":"Berhasil mengupdate barang!"})
+
+
 
 # 4. delete barang
 def delete_barang(request, id):
