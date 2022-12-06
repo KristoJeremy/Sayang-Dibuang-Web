@@ -7,6 +7,7 @@ urlpatterns = [
     # path('', view_name, name=''),
     path('', show_barang, name="show_barang"),
     path('all/', get_all_barang_json, name="get_all_barang_json"),
+    path('all/mobile/', get_all_barang_mobile, name="get_all_barang_mobile"),
     path('json/<int:id>', get_one_barang_json, name="get_one_barang_json"),
     path('<int:id>/', show_barang_detail, name="show_barang_detail"),
     path('<int:id>/edit/', edit_barang, name="edit_barang"),

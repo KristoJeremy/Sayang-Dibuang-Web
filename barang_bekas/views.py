@@ -8,7 +8,7 @@ from django.core import serializers
 from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 import cloudinary
-from barang_bekas.models import Barang, Kategori, Lokasi
+from barang_bekas.models import Barang, Kategori, Lokasi, BarangMobile
 from fitur_autentikasi.models import Profile
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -42,11 +42,13 @@ def create_barang_ajax(request):
         username = request["username"]
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user=user)
+        # foto = request.FILES["image"]
+        foto = body["foto"]
         judul = body["judul"]
         deskripsi = body["deskripsi"]
         lokasi = body["lokasi"]
         kategori = body["kategori"]
-        item = Barang(user=user, profile=profile, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=False)
+        item = BarangMobile(profile=profile, foto=foto, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=False)
         item.save()
         
         return HttpResponse(serializers.serialize('json', item),status=200)
@@ -68,6 +70,14 @@ def show_barang_detail(request, id):
 
 def get_all_barang_json(request):
     list_barang = Barang.objects.all().order_by('-uploaded_at')
+    query = request.GET.get('search')
+    if query != '':
+        list_barang = Barang.objects.filter(judul__icontains=query).order_by('-uploaded_at')
+
+    return HttpResponse(serializers.serialize('json', list_barang)) 
+
+def get_all_barang_mobile(request):
+    list_barang = BarangMobile.objects.all().order_by('-uploaded_at')
     query = request.GET.get('search')
     if query != '':
         list_barang = Barang.objects.filter(judul__icontains=query).order_by('-uploaded_at')
