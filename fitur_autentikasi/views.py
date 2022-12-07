@@ -168,3 +168,34 @@ def logout_ajax(request):
             "status": False,
             "message": "Logout Fail"
             }, status=401)
+
+@csrf_exempt
+def register_ajax(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+
+        if form.is_valid() and profile_form.is_valid() :
+            new_user = form.save()
+            profile_form = ProfileForm(request.POST, instance=new_user.profile)
+            profile_form.save()
+
+            return JsonResponse({
+                "status": True,
+                "message": "Register berhasil"
+                }, status=200)
+        else:
+            errors_form = form.errors
+            errors_profile_form = profile_form.errors
+
+            errors_form.update(errors_profile_form)
+
+            return JsonResponse({
+            "status": False,
+            "message": errors_form.as_json()
+            }, status=401)
+    
+    return JsonResponse({
+            "status": False,
+            "message": "Register Fail"
+            }, status=401)
