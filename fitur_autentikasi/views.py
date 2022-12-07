@@ -25,8 +25,6 @@ def register(request):
         form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
 
-        print(request.POST)
-
         if form.is_valid() and profile_form.is_valid() :
             new_user = form.save()
             profile_form = ProfileForm(request.POST, instance=new_user.profile)
