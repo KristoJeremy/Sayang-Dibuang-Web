@@ -34,3 +34,13 @@ class Barang (models.Model):
 
     def __str__(self):
         return self.judul
+
+class BarangMobile(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    foto = models.TextField() # link dari photo ?
+    judul = models.CharField(max_length = 255)
+    deskripsi = models.TextField()
+    uploaded_at = models.DateTimeField(auto_now_add = True)
+    lokasi = models.ForeignKey(Lokasi, on_delete=models.RESTRICT, to_field="nama")
+    kategori = models.ForeignKey(Kategori, on_delete=models.RESTRICT, to_field="jenis")
+    available = models.BooleanField(default=False) # menandakan masih available atau ga
