@@ -5,6 +5,7 @@ app_name = 'fitur_autentikasi'
 
 urlpatterns = [
     path('register/', register, name='register'),
+    path('register/ajax', register_ajax, name='register_ajax'),
     path('login/', login_user, name='login'),
     path('login/ajax', login_ajax, name='login_ajax'),
     path('logout/', logout_user, name='logout'),
