@@ -87,30 +87,34 @@ def get_all_barang_json(request):
 
 def get_all_barang_mobile(request):
     list_barang = BarangMobile.objects.select_related('profile').select_related('profile__user').all().order_by('-uploaded_at')
-    list_json = []
-    for barang in list_barang:
-        res = {}
-        res["pk"] = barang.pk
-        res["profile"] = {"telephone": barang.profile.telephone, \
-                            "wa": barang.profile.whatsapp, \
-                                "line": barang.profile.line, \
-                                    "poin": barang.profile.poin, \
-                                        "username": barang.profile.user.username}
-        res["foto"]=barang.foto
-        res["judul"]=barang.judul
-        res["deskripsi"]=barang.deskripsi
-        res["uploaded_at"]=str(barang.uploaded_at)
-        res["lokasi"]=barang.lokasi.nama
-        res["kategori"]=barang.kategori.jenis
-        res["available"]=barang.available
+    # list_json = []
+    # for barang in list_barang:
+    #     res = {}
+    #     res["pk"] = barang.pk
+    #     res["profile"] = {"telephone": barang.profile.telephone, \
+    #                         "wa": barang.profile.whatsapp, \
+    #                             "line": barang.profile.line, \
+    #                                 "poin": barang.profile.poin, \
+    #                                     "username": barang.profile.user.username}
+    #     res["foto"]=barang.foto
+    #     res["judul"]=barang.judul
+    #     res["deskripsi"]=barang.deskripsi
+    #     res["uploaded_at"]=str(barang.uploaded_at)
+    #     res["lokasi"]=barang.lokasi.nama
+    #     res["kategori"]=barang.kategori.jenis
+    #     res["available"]=barang.available
         
 
-        list_json.append((json.dumps(res)))
-
+    #     list_json.append((json.dumps(res)))
 
     return HttpResponse(serializers.serialize('json', list_barang)) 
     # return HttpResponse(list_json, content_type="application/json")
 
+def get_owner_barang(request, id):
+    owner = Profile.objects.get(pk=id)
+    print(owner)
+
+    return HttpResponse(serializers.serialize("json", [owner]), content_type="application/json")
 
 def get_one_barang_json(request, id):
     barang = Barang.objects.get(pk=id)
