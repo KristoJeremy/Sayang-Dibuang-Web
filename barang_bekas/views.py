@@ -185,14 +185,7 @@ def delete_barang(request, id):
 @csrf_exempt
 def delete_barang_mobile(request, id):
 
-    # body_unicode = request.body.decode("utf-8")
-    body = request.POST
-    # print(body)
-    username = body.get('username')
-
-    user = User.objects.get(username=username)
-    profile = Profile.objects.get(user=user)
-    barang = BarangMobile.objects.get(profile=profile, id=id)
+    barang = BarangMobile.objects.get(id=id)
     barang.delete()
     return JsonResponse({"message":"Berhasil menghapus barang!"})
 
