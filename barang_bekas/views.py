@@ -41,8 +41,9 @@ def create_barang(request):
 @csrf_exempt
 def create_barang_ajax(request):
     if request.method == "POST":
-        body_unicode = request.body.decode("utf-8")
-        body = json.loads(body_unicode)
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        body = request.POST
         # print(body)
         username = body.get('username')
 
@@ -146,8 +147,9 @@ def edit_barang(request, id):
 @csrf_exempt
 def edit_barang_ajax(request, id):
     if request.method == "POST":
-        body_unicode = request.body.decode("utf-8")
-        body = json.loads(body_unicode)
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        body = request.POST
 
         barang = BarangMobile.objects.get(pk=id)
 
@@ -183,8 +185,8 @@ def delete_barang(request, id):
 @csrf_exempt
 def delete_barang_mobile(request, id):
 
-    body_unicode = request.body.decode("utf-8")
-    body = json.loads(body_unicode)
+    # body_unicode = request.body.decode("utf-8")
+    body = request.POST
     # print(body)
     username = body.get('username')
 
@@ -200,7 +202,7 @@ def delete_barang_mobile(request, id):
 
 def create_kategori(request):
     if request.method=="POST":
-        print(request.POST)
+        # print(request.POST)
         jenis = request.POST.get('jenis').capitalize()
         # body_unicode = request.body.decode("utf-8")
         # body = json.loads(body_unicode)
@@ -216,11 +218,12 @@ def create_kategori(request):
 def create_kategori_2(request):
     if request.method=="POST":
         # print(request.POST)
-        # jenis = request.POST.get('jenis').capitalize()
-        body_unicode = request.body.decode("utf-8")
-        body = json.loads(body_unicode)
+        jenis = request.POST.get('jenis').capitalize()
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        # print(body_unicode)
 
-        item = Kategori(jenis=body.get('jenis').capitalize())
+        item = Kategori(jenis=jenis)
         item.save()
         response = {
             "pk":item.pk,
@@ -250,11 +253,11 @@ def create_lokasi(request):
 def create_lokasi_2(request):
     if request.method=="POST":
         # print(request.POST)
-        # jenis = request.POST.get('jenis').capitalize()
-        body_unicode = request.body.decode("utf-8")
-        body = json.loads(body_unicode)
+        jenis = request.POST.get('jenis').capitalize()
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
 
-        item = Lokasi(nama=body.get('nama').capitalize())
+        item = Lokasi(nama=jenis)
         item.save()
         response = {
             "pk":item.pk,
