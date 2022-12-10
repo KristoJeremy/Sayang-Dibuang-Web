@@ -8,6 +8,11 @@ urlpatterns = [
     path("<int:id>/", views.show_crowdfunding_by_id, name="show_crowdfunding_by_id"),
     path("create/", views.create_crowdfund, name="create_crowdfund"),
     path("edit/<int:id>", views.edit_crowdfund, name="edit_crowdfund"),
+    path(
+        "edit/mobile/<int:id>",
+        views.edit_crowdfund_mobile,
+        name="edit_crowdfund_mobile",
+    ),
     path("delete/<int:id>", views.delete_crowdfund, name="delete_crowdfund"),
     path("json/", views.show_crowdfundings_json, name="show_crowdfundings_json"),
     path(
