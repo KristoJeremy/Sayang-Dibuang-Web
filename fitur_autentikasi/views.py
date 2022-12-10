@@ -97,8 +97,6 @@ def getJsonUser(user):
 def update_user_data(request, username):
     user = request.user
 
-    print(request.POST)
-
     if request.method == "POST" and user.username == username:
         user_update_form = UserUpdateForm(request.POST, instance=user)
 
