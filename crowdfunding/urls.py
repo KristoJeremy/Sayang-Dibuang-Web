@@ -7,6 +7,7 @@ urlpatterns = [
     path("", views.show_crowdfundings, name="show_crowdfundings"),
     path("<int:id>/", views.show_crowdfunding_by_id, name="show_crowdfunding_by_id"),
     path("create/", views.create_crowdfund, name="create_crowdfund"),
+    path("create/mobile", views.create_crowdfund_mobile, name="create_crowdfund"),
     path("edit/<int:id>", views.edit_crowdfund, name="edit_crowdfund"),
     path(
         "edit/mobile/<int:id>",
