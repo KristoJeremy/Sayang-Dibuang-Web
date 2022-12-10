@@ -111,7 +111,10 @@ def update_user_data(request, username):
             errors = profile_form.errors.as_json()
             return JsonResponse(errors, safe=False, status=400)
         
-        return HttpResponse("OK")
+        return JsonResponse({
+                "status": True,
+                "message": "Update berhasil"
+                }, status=200)
 
     return HttpResponseNotFound()
 
