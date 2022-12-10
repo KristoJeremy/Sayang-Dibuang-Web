@@ -102,6 +102,26 @@ def edit_crowdfund(request, id):
 
 
 @login_required(login_url="/login/")
+def edit_crowdfund_mobile(request, id):
+    crowdfund = Crowdfund.objects.get(pk=id)
+    if request.method == "POST":
+        form = CrowdfundForm(request.POST, instance=crowdfund)
+        if form.is_valid():
+            received = request.POST["received"]
+            target = request.POST["target"]
+            edited_crowdfund = form.save(commit=False)
+            if received == target:
+                edited_crowdfund.is_accomplished = True
+            else:
+                edited_crowdfund.is_accomplished = False
+            edited_crowdfund.save()
+            return JsonResponse(
+                {"message": "Successfully edited crowdfund"}, status=200
+            )
+    return JsonResponse({"error": "An error occured"}, status=400)
+
+
+@login_required(login_url="/login/")
 def delete_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
     if crowdfund.user.user.id == request.user.id:
