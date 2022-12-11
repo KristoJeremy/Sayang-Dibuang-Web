@@ -8,6 +8,7 @@ from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from random import choice
+from django.views.decorators.csrf import csrf_exempt
 
 # Menampilakn leaderboard
 @login_required(login_url="/login/")
