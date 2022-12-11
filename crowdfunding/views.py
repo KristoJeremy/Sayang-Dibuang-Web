@@ -77,6 +77,27 @@ def create_crowdfund(request):
 
 
 @login_required(login_url="/login/")
+def create_crowdfund_mobile(request):
+    CREATE_POINT = 10
+
+    if request.method == "POST":
+        form = CrowdfundForm(request.POST)
+        if form.is_valid():
+            received = request.POST["received"]
+            target = request.POST["target"]
+            new_crowdfund = form.save(commit=False)
+            new_crowdfund.user = Profile.objects.get(user=request.user)
+            new_crowdfund.user.add_poin(CREATE_POINT)
+            if received == target:
+                new_crowdfund.is_accomplished = True
+            new_crowdfund.save()
+            return JsonResponse(
+                {"message": "Successfully created crowdfund"}, status=200
+            )
+    return JsonResponse({"error": "An error occured"}, status=400)
+
+
+@login_required(login_url="/login/")
 def edit_crowdfund(request, id):
     crowdfund = Crowdfund.objects.get(pk=id)
     if crowdfund.user.user.id != request.user.id:
@@ -99,6 +120,26 @@ def edit_crowdfund(request, id):
 
     context = {"form": form}
     return render(request, "crowdfund_form.html", context)
+
+
+@login_required(login_url="/login/")
+def edit_crowdfund_mobile(request, id):
+    crowdfund = Crowdfund.objects.get(pk=id)
+    if request.method == "POST":
+        form = CrowdfundForm(request.POST, instance=crowdfund)
+        if form.is_valid():
+            received = request.POST["received"]
+            target = request.POST["target"]
+            edited_crowdfund = form.save(commit=False)
+            if received == target:
+                edited_crowdfund.is_accomplished = True
+            else:
+                edited_crowdfund.is_accomplished = False
+            edited_crowdfund.save()
+            return JsonResponse(
+                {"message": "Successfully edited crowdfund"}, status=200
+            )
+    return JsonResponse({"error": "An error occured"}, status=400)
 
 
 @login_required(login_url="/login/")

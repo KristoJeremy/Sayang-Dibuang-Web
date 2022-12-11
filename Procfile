@@ -1,2 +1,1 @@
-release: sh -c 'python manage.py migrate'
-web: gunicorn sayang_dibuang.wsgi --log-file -
+web: python manage.py migrate && python manage.py collectstatic --no-input && gunicorn sayang_dibuang.wsgi

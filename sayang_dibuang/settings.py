@@ -41,6 +41,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("APP_NAME")}.up.railway.app']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
     "leaderboard",
     "information",
     "request_barang_bekas",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -70,6 +73,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "sayang_dibuang.urls"
@@ -151,7 +155,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
     directory.mkdir(exist_ok=True)
@@ -173,3 +177,12 @@ TINYMCE_DEFAULT_CONFIG = {
     "alignright alignjustify | bullist numlist outdent indent | "
     "removeformat | help",
 }
+
+# For pbp_django_auth  
+# https://pub.dev/packages/pbp_django_auth
+CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_CREDENTIALS=True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'

@@ -1,4 +1,6 @@
 
+import datetime
+import json
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from barang_bekas.models import Barang
@@ -7,10 +9,12 @@ from django.core import serializers
 from django.http.response import JsonResponse
 from barang_bekas.forms import CreateBarangForm
 import cloudinary
-from barang_bekas.models import Barang, Kategori, Lokasi
+from barang_bekas.models import Barang, Kategori, Lokasi, BarangMobile
 from fitur_autentikasi.models import Profile
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 # 1. add barang 
@@ -33,6 +37,31 @@ def create_barang(request):
         },status=500)
     context = {'form':form}
     return render(request, 'upload.html', context)
+
+@csrf_exempt
+def create_barang_ajax(request):
+    if request.method == "POST":
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        body = request.POST
+        # print(body)
+        username = body.get('username')
+
+        user = User.objects.get(username=username)
+        profile = Profile.objects.get(user=user)
+        # foto = request.FILES["image"]
+        foto = body.get('foto')
+        judul = body.get('judul')
+        deskripsi = body.get('deskripsi')
+        lokasi_name = body.get('lokasi')
+        lokasi = Lokasi.objects.get(nama=lokasi_name)
+        kategori_jenis = body.get('kategori')
+        kategori = Kategori.objects.get(jenis= kategori_jenis)
+        item = BarangMobile(profile=profile, foto=foto, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=False)
+        item.save()
+        
+        return JsonResponse({"message":"Berhasil mengupload barang!"})
+        # return HttpResponse(serializers.serialize("json", item),content_type="application/json")
 
 # 2. get barang
 def show_barang(request):
@@ -57,6 +86,36 @@ def get_all_barang_json(request):
 
     return HttpResponse(serializers.serialize('json', list_barang)) 
 
+def get_all_barang_mobile(request):
+    list_barang = BarangMobile.objects.select_related('profile').select_related('profile__user').all().order_by('-uploaded_at')
+    # list_json = []
+    # for barang in list_barang:
+    #     res = {}
+    #     res["pk"] = barang.pk
+    #     res["profile"] = {"telephone": barang.profile.telephone, \
+    #                         "wa": barang.profile.whatsapp, \
+    #                             "line": barang.profile.line, \
+    #                                 "poin": barang.profile.poin, \
+    #                                     "username": barang.profile.user.username}
+    #     res["foto"]=barang.foto
+    #     res["judul"]=barang.judul
+    #     res["deskripsi"]=barang.deskripsi
+    #     res["uploaded_at"]=str(barang.uploaded_at)
+    #     res["lokasi"]=barang.lokasi.nama
+    #     res["kategori"]=barang.kategori.jenis
+    #     res["available"]=barang.available
+        
+
+    #     list_json.append((json.dumps(res)))
+
+    return HttpResponse(serializers.serialize('json', list_barang)) 
+    # return HttpResponse(list_json, content_type="application/json")
+
+def get_owner_barang(request, id):
+    owner = Profile.objects.get(pk=id)
+    print(owner)
+
+    return HttpResponse(serializers.serialize("json", [owner]), content_type="application/json")
 
 def get_one_barang_json(request, id):
     barang = Barang.objects.get(pk=id)
@@ -85,25 +144,90 @@ def edit_barang(request, id):
  
     return render(request, "barang-edit.html", context)
 
+@csrf_exempt
+def edit_barang_ajax(request, id):
+    if request.method == "POST":
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        body = request.POST
+
+        barang = BarangMobile.objects.get(pk=id)
+
+        foto = body.get('foto')
+        judul = body.get('judul')
+        deskripsi = body.get('deskripsi')
+        lokasi_name = body.get('lokasi')
+        lokasi = Lokasi.objects.get(nama=lokasi_name)
+        kategori_jenis = body.get('kategori')
+        kategori = Kategori.objects.get(jenis= kategori_jenis)
+        available = body.get('available')
+
+        # update fields
+        barang.foto = foto
+        barang.judul = judul
+        barang.deskripsi = deskripsi
+        barang.lokasi = lokasi
+        barang.kategori = kategori
+        barang.available = available
+
+        barang.save()
+
+        return JsonResponse({"message":"Berhasil mengupdate barang!"})
+
+
+
 # 4. delete barang
 def delete_barang(request, id):
     barang = Barang.objects.get(user=request.user, id=id)
     barang.delete()
     return HttpResponseRedirect(reverse("barang_bekas:show_barang"))
 
+@csrf_exempt
+def delete_barang_mobile(request, id):
+
+    barang = BarangMobile.objects.get(id=id)
+    barang.delete()
+    return JsonResponse({"message":"Berhasil menghapus barang!"})
+
+
 # bikin modal buat add category & lokasii?? tapi gabisa edit/delete (masi mikir )
 # 5. add kategori
+
 def create_kategori(request):
     if request.method=="POST":
+        # print(request.POST)
         jenis = request.POST.get('jenis').capitalize()
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+
         item = Kategori(jenis=jenis)
         item.save()
         response = {
-            "Message": "Kategori Berhasil Dibuat",
-            "id":item.pk,
+            "pk":item.pk,
             "jenis": item.jenis
         }
         return JsonResponse(response,status=200)
+@csrf_exempt
+def create_kategori_2(request):
+    if request.method=="POST":
+        # print(request.POST)
+        jenis = request.POST.get('jenis').capitalize()
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+        # print(body_unicode)
+
+        item = Kategori(jenis=jenis)
+        item.save()
+        response = {
+            "pk":item.pk,
+            "jenis": item.jenis
+        }
+        return JsonResponse(response,status=200)
+   
+
+def get_kategori_ajax(request):
+    list_kategori = Kategori.objects.all()
+    return HttpResponse(serializers.serialize('json', list_kategori)) 
 
 
 # 6. add lokasi
@@ -113,8 +237,28 @@ def create_lokasi(request):
         item = Lokasi(nama=nama)
         item.save()
         response = {
-            "Message": "Lokasi Berhasil Dibuat",
-            "id":item.pk,
+            "pk":item.pk,
             "nama": item.nama
         }
         return JsonResponse(response,status=200)
+
+@csrf_exempt
+def create_lokasi_2(request):
+    if request.method=="POST":
+        # print(request.POST)
+        jenis = request.POST.get('jenis').capitalize()
+        # body_unicode = request.body.decode("utf-8")
+        # body = json.loads(body_unicode)
+
+        item = Lokasi(nama=jenis)
+        item.save()
+        response = {
+            "pk":item.pk,
+            "nama": item.nama
+        }
+        return JsonResponse(response,status=200)
+
+def get_lokasi_ajax(request):
+    list_lokasi = Lokasi.objects.all()
+    return HttpResponse(serializers.serialize('json', list_lokasi)) 
+    
