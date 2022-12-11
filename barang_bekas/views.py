@@ -46,6 +46,7 @@ def create_barang_ajax(request):
         body = request.POST
         # print(body)
         username = body.get('username')
+        print(username)
 
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user=user)
@@ -57,7 +58,7 @@ def create_barang_ajax(request):
         lokasi = Lokasi.objects.get(nama=lokasi_name)
         kategori_jenis = body.get('kategori')
         kategori = Kategori.objects.get(jenis= kategori_jenis)
-        item = BarangMobile(profile=profile, foto=foto, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=False)
+        item = BarangMobile(profile=profile, foto=foto, judul=judul, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), lokasi=lokasi, kategori=kategori, available=True)
         item.save()
         
         return JsonResponse({"message":"Berhasil mengupload barang!"})
@@ -157,6 +158,7 @@ def edit_barang_ajax(request, id):
         judul = body.get('judul')
         deskripsi = body.get('deskripsi')
         lokasi_name = body.get('lokasi')
+        print(lokasi_name)
         lokasi = Lokasi.objects.get(nama=lokasi_name)
         kategori_jenis = body.get('kategori')
         kategori = Kategori.objects.get(jenis= kategori_jenis)
