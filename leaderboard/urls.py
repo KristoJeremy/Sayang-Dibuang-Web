@@ -8,5 +8,5 @@ urlpatterns = [
     path('json/', show_json, name='show_json'),
     path('json-message/', show_message_json, name='show_message_json'),
     path('send-message/', add_message, name='add_message' ),
-    path('get-message-flutter', add_message_from_flutter, name='add_message_from_flutter'),
+    path('get-message-flutter/', add_message_from_flutter, name='add_message_from_flutter'),
 ]

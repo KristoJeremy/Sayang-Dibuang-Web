@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from random import choice
 
 # Menampilakn leaderboard
-
+@login_required(login_url="/login/")
 def leaderboard(request):
     return render(request, 'leaderboard.html')
 
@@ -68,6 +68,7 @@ def show_message_json (request):
         data_message = [{'message' : selected_message.random_message}]
         return JsonResponse(data_message, safe=False)
 
+@csrf_exempt
 def add_message_from_flutter (request):
     if request.method == "POST":
         random_message = request.POST.get('message')
