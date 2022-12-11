@@ -33,6 +33,24 @@ def create_review(request):
     context = {"form": form}
     return render(request, "information/createreview.html", context)
 
+@login_required(login_url='/login/')
+def create_review_mobile(request):
+
+    if request.method == "POST":
+        form = CreateReview(request.POST)
+        if form.is_valid():
+            x = Profile.objects.get(user=request.user)
+            if (x != None):
+                new_review = form.save(commit=False)
+                new_review.user = x
+                new_review.save()
+                return JsonResponse({"message": "Successfully created crowdfund"}, status=200)
+            
+    # form = CreateReview()
+    # context = {"form": form}
+    return JsonResponse({"error": "An error occured"}, status=400)
+
+
 def all_review(request):
     return render(request, 'information/lihatreview.html')
 
