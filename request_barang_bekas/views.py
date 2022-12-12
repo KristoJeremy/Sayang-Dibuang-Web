@@ -100,6 +100,7 @@ def edit_request(request, id):
  
     return render(request, "request-edit.html", context)
 
+@csrf_exempt
 def edit_request_ajax(request, id):
     if request.method == "POST":
         body = request.POST
