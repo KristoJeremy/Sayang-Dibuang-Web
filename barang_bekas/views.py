@@ -41,8 +41,6 @@ def create_barang(request):
 @csrf_exempt
 def create_barang_ajax(request):
     if request.method == "POST":
-        # body_unicode = request.body.decode("utf-8")
-        # body = json.loads(body_unicode)
         body = request.POST
         # print(body)
         username = body.get('username')
@@ -50,6 +48,7 @@ def create_barang_ajax(request):
 
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user=user)
+        profile.add_poin(15)
         # foto = request.FILES["image"]
         foto = body.get('foto')
         judul = body.get('judul')
@@ -89,25 +88,6 @@ def get_all_barang_json(request):
 
 def get_all_barang_mobile(request):
     list_barang = BarangMobile.objects.select_related('profile').select_related('profile__user').all().order_by('-uploaded_at')
-    # list_json = []
-    # for barang in list_barang:
-    #     res = {}
-    #     res["pk"] = barang.pk
-    #     res["profile"] = {"telephone": barang.profile.telephone, \
-    #                         "wa": barang.profile.whatsapp, \
-    #                             "line": barang.profile.line, \
-    #                                 "poin": barang.profile.poin, \
-    #                                     "username": barang.profile.user.username}
-    #     res["foto"]=barang.foto
-    #     res["judul"]=barang.judul
-    #     res["deskripsi"]=barang.deskripsi
-    #     res["uploaded_at"]=str(barang.uploaded_at)
-    #     res["lokasi"]=barang.lokasi.nama
-    #     res["kategori"]=barang.kategori.jenis
-    #     res["available"]=barang.available
-        
-
-    #     list_json.append((json.dumps(res)))
 
     return HttpResponse(serializers.serialize('json', list_barang)) 
     # return HttpResponse(list_json, content_type="application/json")
@@ -148,8 +128,7 @@ def edit_barang(request, id):
 @csrf_exempt
 def edit_barang_ajax(request, id):
     if request.method == "POST":
-        # body_unicode = request.body.decode("utf-8")
-        # body = json.loads(body_unicode)
+
         body = request.POST
 
         barang = BarangMobile.objects.get(pk=id)
@@ -197,11 +176,7 @@ def delete_barang_mobile(request, id):
 
 def create_kategori(request):
     if request.method=="POST":
-        # print(request.POST)
         jenis = request.POST.get('jenis').capitalize()
-        # body_unicode = request.body.decode("utf-8")
-        # body = json.loads(body_unicode)
-
         item = Kategori(jenis=jenis)
         item.save()
         response = {
@@ -212,11 +187,7 @@ def create_kategori(request):
 @csrf_exempt
 def create_kategori_2(request):
     if request.method=="POST":
-        # print(request.POST)
         jenis = request.POST.get('jenis').capitalize()
-        # body_unicode = request.body.decode("utf-8")
-        # body = json.loads(body_unicode)
-        # print(body_unicode)
 
         item = Kategori(jenis=jenis)
         item.save()
