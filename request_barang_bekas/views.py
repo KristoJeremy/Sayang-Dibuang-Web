@@ -47,7 +47,7 @@ def create_request_ajax(request):
         deskripsi = body.get('deskripsi')
         kategori_jenis = body.get('kategori')
         kategori = Kategori.objects.get(jenis= kategori_jenis)
-        item = RequestMobile(profile=profile, nama_barang=nama_barang, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), kategori=kategori, available=True)
+        item = RequestMobile(profile=profile, nama_barang=nama_barang, deskripsi=deskripsi, uploaded_at=datetime.datetime.now(), kategori=kategori, available=False)
         item.save()
         
         return JsonResponse({"message":"Berhasil mengupload request!"})
