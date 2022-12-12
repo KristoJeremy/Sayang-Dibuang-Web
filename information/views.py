@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from information.forms import *
 from information.models import *
@@ -33,7 +34,7 @@ def create_review(request):
     context = {"form": form}
     return render(request, "information/createreview.html", context)
 
-@login_required(login_url='/login/')
+@csrf_exempt
 def create_review_mobile(request):
 
     if request.method == "POST":
