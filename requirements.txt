@@ -9,12 +9,10 @@ django-cors-headers==3.13.0
 django-tinymce==3.5.0
 gunicorn==20.1.0
 idna==3.3
-psycopg2-binary==2.9.3
 pytz==2022.2.1
 requests==2.28.1
 six==1.16.0
 sqlparse==0.4.2
-typed-ast==1.5.4
 tzdata==2022.4
 urllib3==1.26.11
 whitenoise==6.2.0
